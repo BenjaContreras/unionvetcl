@@ -1,27 +1,46 @@
-# UnionvetWebclient
+<h1 align="center">Welcome to Clinica UnionVet 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="Choosealicense.com" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
+> Es un proyecto adaptado a la digitalizacion de hoy en dia para una clinica veterinaria que desea volver su entorno tecnologico mas amigable para ellos como para sus usuarios!
 
-## Development server
+## Install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```sh
+npm install
+```
 
-## Code scaffolding
+## Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```sh
+npm run start
+```
 
-## Build
+## Run tests
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```sh
+npm run test
+```
 
-## Running unit tests
+## Author
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+👤 **Benjamin Contreras Gondré, Hector Veas Cornejo**
 
-## Running end-to-end tests
+* Github: [@BenjaContreras, HectorVeas](https://github.com/BenjaContreras, HectorVeas)
+* LinkedIn: [@https:\/\/cl.linkedin.com\/in\/benjamin-andrés-contreras-gondré-0b138020b](https://linkedin.com/in/https:\/\/cl.linkedin.com\/in\/benjamin-andrés-contreras-gondré-0b138020b)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Show your support
 
-## Further help
+Give a ⭐️ if this project helped you!
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 📝 License
+
+Copyright © 2021 [Benjamin Contreras Gondré, Hector Veas Cornejo](https://github.com/BenjaContreras, HectorVeas).<br />
+This project is [MIT](Choosealicense.com) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
