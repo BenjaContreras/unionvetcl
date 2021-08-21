@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "98f40a9d-c034-4993-8de0-76aa4d4168cc"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -25,13 +28,16 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "aot": true,
             "inlineStyleLanguage": "sass",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/custom-theme.scss",
+              "src/styles.sass",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -58,8 +64,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
+              "buildOptimizer": true,
+              "optimization": true,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
