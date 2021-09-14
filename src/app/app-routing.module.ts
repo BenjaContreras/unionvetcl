@@ -1,4 +1,3 @@
-import { HomeComponent } from './visitor/screens/home/home.component';
 import { UserGuard } from './core/guards/user/user.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,8 +6,8 @@ import { AdminGuard } from '@core/guards/admin/admin.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'visitor/inicio',
-    component: HomeComponent,
+    loadChildren: () => import('./visitor/modules/home/home.module')
+      .then(hM => hM.HomeModule),
     pathMatch: 'full'
   },
   {
@@ -30,8 +29,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'visitor/inicio',
-    component: HomeComponent
+    loadChildren: () => import('./visitor/modules/home/home.module')
+      .then(hM => hM.HomeModule),
   },
 ];
 

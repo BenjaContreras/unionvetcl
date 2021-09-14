@@ -1,14 +1,14 @@
+import { HomeRoutingModule } from './home-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FindusRoutingModule } from './findus-routing.module';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    FindusRoutingModule
+    HomeRoutingModule
   ]
 })
-export class FindusModule { }
+export class HomeModule { }
