@@ -2,18 +2,19 @@ import { UserGuard } from './core/guards/user/user.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '@core/guards/admin/admin.guard';
+import { VisitorModule } from './visitor/visitor.module';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./visitor/modules/home/home.module')
-      .then(hM => hM.HomeModule),
+    redirectTo: 'visitor/home',
+    component: VisitorModule,
     pathMatch: 'full'
   },
   {
     path: 'visitor',
     loadChildren: () => import('./visitor/visitor.module')
-      .then(VisitorModule => VisitorModule.VisitorModule)
+      .then(VisitorModule => VisitorModule.VisitorModule),
   },
   {
     path: 'user',
@@ -29,8 +30,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    loadChildren: () => import('./visitor/modules/home/home.module')
-      .then(hM => hM.HomeModule),
+    redirectTo: 'visitor/home',
+    component: VisitorModule,
   },
 ];
 
