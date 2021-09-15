@@ -26,7 +26,6 @@ const routes: Routes = [
           .then(cM => cM.ContactusModule)
       },
     ],
-    pathMatch: 'full'
   },
   {
     path: '**',
