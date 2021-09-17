@@ -4,16 +4,21 @@ import { CommonModule } from '@angular/common';
 import { LandingComponent } from './screens/landing/landing.component';
 import { SharedModule } from '@shared/shared.module';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
+import { AboutusComponent } from './components/aboutus/aboutus.component';
+import { ServicesComponent } from './components/services/services.component';
+import { MaterialModule } from '@core/material.module';
 
 const components: any = [
-  LandingComponent
+  LandingComponent, CarrouselComponent,
+  AboutusComponent, ServicesComponent
 ];
 @NgModule({
-  declarations: [...components, CarrouselComponent],
+  declarations: [...components],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ],
   exports: [...components]
 })
