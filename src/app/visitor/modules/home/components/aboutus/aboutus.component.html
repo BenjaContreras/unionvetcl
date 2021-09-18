@@ -1,9 +1,30 @@
-<div class="container-fluid font-brand">
-    <div class="row text-center mt-5 py-5">
-        <div class="col pt-5" style="font-size: 48px;">Quienes somos</div>
+<div class="container-fluid font-brand w-100">
+    <div class="row py-3 text-center align-items-center justify-content-center">
+        <div class="justify-content-center align-items-center text-center bgImg h-100"
+            [ngClass]="[ getScreenSize() < 650 ? 'col-10' : 'col-5' ]"
+        >
+            <div class="text-center font-brand h-100"
+                [ngStyle]="{'font-size': getScreenSize() >= 1360 ? '40px' 
+                                        : getScreenSize() >= 1000 && getScreenSize() < 1360 ? '30px' 
+                                        : getScreenSize() >= 820 && getScreenSize() < 1000 ? '25px' 
+                                        : getScreenSize() >= 650 && getScreenSize() < 820 ? '20px' 
+                                        : getScreenSize() >= 490 && getScreenSize() < 650 ? '15px' : '12px'
+                            }"
+            >Quienes somos</div>
+        </div>
     </div>
-    <div class="row align-items-center my-5 px-5">
-        <div class="col text-center h-100" style="font-size: 23px;">
+    <div class="row align-items-center justify-content-end">
+        <div *ngIf="getScreenSize() >= 1205"
+            class="col d-none d-sm-block text-center h-100 m-0 p-0" style="background-size: cover;"
+        >
+            <img src="../../../../../../assets/visitor/png/formacion1.png">
+        </div>
+        <div class="col text-center h-100" 
+            [ngStyle]="{'font-size': getScreenSize() >= 1205 ? '23px' 
+                                : getScreenSize() >= 1000 && getScreenSize() < 1205 ? '18px' 
+                                : getScreenSize() >= 440 && getScreenSize() < 1000 ? '14px' : '12px'
+                        }"
+        >
             <p>Integer sit amet nulla maximus metus dictum eleifend. Suspendisse a mattis libero. Mauris maximus eros ac dictum fringilla. Mauris posuere velit fringilla scelerisque malesuada.</p>
             <p>Donec rutrum placerat posuere. Donec ut quam at ante ullamcorper sollicitudin tincidunt porttitor diam. Nam porttitor hendrerit sapien, volutpat fermentum diam porta vitae.</p>
             <p>Integer sit amet nulla maximus metus dictum eleifend.</p>
