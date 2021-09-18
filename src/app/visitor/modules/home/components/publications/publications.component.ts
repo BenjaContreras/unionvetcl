@@ -19,6 +19,28 @@ export class PublicationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get widthForTip(): number {
+    return this.getWidth();
+  };
+
+  get heigthForTip(): number {
+    return this.getHeigth();
+  };
+
+  private getWidth(): number {
+    if (this.getScreenSize() >= 545) return 320;
+    else if (this.getScreenSize() >= 480 && this.getScreenSize() < 545) return 280
+    else if (this.getScreenSize() >= 375 && this.getScreenSize() < 480) return 200
+    else return 160;
+  };
+
+  private getHeigth(): number {
+    if (this.getScreenSize() >= 545) return 529;
+    else if (this.getScreenSize() >= 480 && this.getScreenSize() < 545) return 489
+    else if (this.getScreenSize() >= 375 && this.getScreenSize() < 480) return 400
+    else return 320;
+  };
+
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     return window.innerWidth;

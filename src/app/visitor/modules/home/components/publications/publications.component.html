@@ -2,7 +2,13 @@
     <div class="row mb-4 align-items-center justify-content-center">
         <div class="col-3"></div>
         <div class="col-6 justify-content-center align-items-center text-center bgImg h-100">
-            <div class="text-center text-white h-100" style="z-index: 1; font-size: 40px;">Publicaciones</div>
+            <div class="text-center text-white h-100" 
+                [ngStyle]="{'font-size': getScreenSize() >= 780 ? '40px' 
+                                        : getScreenSize() >= 590 && getScreenSize() < 780 ? '30px' 
+                                        : getScreenSize() >= 475 && getScreenSize() < 590 ? '24px'
+                                        : getScreenSize() >= 360 && getScreenSize() < 475 ? '18px' : '14px'
+                            }"
+            >Publicaciones</div>
         </div>
         <div class="col-3"></div>
     </div>
@@ -16,16 +22,22 @@
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[0]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[1]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[2]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                         </div>
@@ -35,16 +47,22 @@
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[3]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[4]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[5]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                         </div>
@@ -54,29 +72,28 @@
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[6]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[7]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                             <div class="col-3 p-0">
                                 <home-publication-card-detail
                                     [url]="url[8]"
+                                    [width]="widthForTip"
+                                    [heigth]="heigthForTip"
                                 ></home-publication-card-detail>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
-                    <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
-                    <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <ng-template [ngTemplateOutlet]="indicatorButtonsForPublications"></ng-template>
             </div>
         </div>
         <ng-template #show2PerCarousel>
@@ -89,12 +106,16 @@
                                     <div class="col-3 p-0">
                                         <home-publication-card-detail
                                             [url]="url[0]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                     <div class="col-1"></div>
                                     <div class="col-3 p-0">
                                         <home-publication-card-detail
                                             [url]="url[1]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
@@ -104,12 +125,16 @@
                                     <div class="col-3 p-0">
                                         <home-publication-card-detail
                                             [url]="url[3]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                     <div class="col-1"></div>
                                     <div class="col-3 p-0">
                                         <home-publication-card-detail
                                             [url]="url[4]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
@@ -119,25 +144,22 @@
                                     <div class="col-3 p-0">
                                         <home-publication-card-detail
                                             [url]="url[6]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                     <div class="col-1"></div>
                                     <div class="col-3 p-0">
                                         <home-publication-card-detail
                                             [url]="url[7]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
-                            <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
-                            <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        <ng-template [ngTemplateOutlet]="indicatorButtonsForPublications"></ng-template>
                     </div>
                 </div>
             </ng-container>
@@ -150,6 +172,8 @@
                                     <div class="col-10 text-center p-0">
                                         <home-publication-card-detail
                                             [url]="url[0]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
@@ -159,6 +183,8 @@
                                     <div class="col-10 text-center p-0">
                                         <home-publication-card-detail
                                             [url]="url[1]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
@@ -168,6 +194,8 @@
                                     <div class="col-10 text-center p-0">
                                         <home-publication-card-detail
                                             [url]="url[2]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
@@ -177,6 +205,8 @@
                                     <div class="col-10 text-center p-0">
                                         <home-publication-card-detail
                                             [url]="url[3]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
@@ -186,19 +216,14 @@
                                     <div class="col-10 text-center p-0">
                                         <home-publication-card-detail
                                             [url]="url[4]"
+                                            [width]="widthForTip"
+                                            [heigth]="heigthForTip"
                                         ></home-publication-card-detail>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
-                            <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
-                            <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        <ng-template [ngTemplateOutlet]="indicatorButtonsForPublications"></ng-template>
                     </div>
                 </div>
             </ng-template>
@@ -206,3 +231,26 @@
         <div class="col-1"></div>
     </div>
 </div>
+
+<ng-template #indicatorButtonsForPublications>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
+        <img src="../../../../../../assets/visitor/botones/izq.svg" 
+            [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
+                        , 'width': getScreenSize() >= 575 ? '40px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '20px' : '10px'
+                        }"
+        >
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
+        <img src="../../../../../../assets/visitor/botones/der.svg" 
+            [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
+                        , 'width': getScreenSize() >= 575 ? '40px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '20px' : '10px'
+                        }"
+        >
+        <span class="visually-hidden">Next</span>
+    </button>
+</ng-template>
