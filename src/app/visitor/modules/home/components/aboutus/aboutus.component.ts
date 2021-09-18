@@ -1,11 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.sass']
+  selector: 'home-aboutus',
+  templateUrl: './aboutus.component.html',
+  styleUrls: ['./aboutus.component.sass']
 })
-export class LandingComponent implements OnInit {
+export class AboutusComponent implements OnInit {
 
   constructor() {
     this.getScreenSize();
