@@ -61,14 +61,7 @@
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
-                <span class="visually-hidden">Next</span>
-            </button>
+            <ng-template [ngTemplateOutlet]="indicatorButtonsForTips"></ng-template>
         </div>
         <ng-template #showCarouselPerOneElement>
             <div class="col-10 mb-5">
@@ -129,16 +122,32 @@
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <ng-template [ngTemplateOutlet]="indicatorButtonsForTips"></ng-template>
             </div>
         </ng-template>
         <div class="col-1"></div>
     </div>
 </div>
+
+<ng-template #indicatorButtonsForTips>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
+        <img src="../../../../../../assets/visitor/botones/izq.svg" 
+            [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
+                        , 'width': getScreenSize() >= 575 ? '40px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '20px' : '10px'
+                        }"
+        >
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
+        <img src="../../../../../../assets/visitor/botones/der.svg" 
+            [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
+                        , 'width': getScreenSize() >= 575 ? '40px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '20px' : '10px'
+                        }"
+        >
+        <span class="visually-hidden">Next</span>
+    </button>
+</ng-template>
