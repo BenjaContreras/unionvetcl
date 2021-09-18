@@ -1,11 +1,11 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="15000">
     <div class="row pt-5 mt-5 align-items-center justify-content-center">
         <div class="col-1"></div>
-        <div class="col-10">
+        <div class="col-10 mb-5" *ngIf="getScreenSize() >= 600; else showCarouselPerOneElement" >
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row justify-content-center align-items-center">
-                        <div class="col-4 tipCard p-0">
+                        <div class="col-4  tipCard p-0">
                             <tip-card-detail
                                 [url]="tip1.img"
                                 [title]="tip1.title"
@@ -70,6 +70,75 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+        <ng-template #showCarouselPerOneElement>
+            <div class="col-10 mb-5">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-10  tipCard p-0">
+                                <tip-card-detail
+                                    [url]="tip1.img"
+                                    [title]="tip1.title"
+                                    [content]="tip1.content"
+                                ></tip-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-10  tipCard p-0">
+                                <tip-card-detail
+                                    [url]="tip3.img"
+                                    [title]="tip3.title"
+                                    [content]="tip3.content"
+                                ></tip-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-10  tipCard p-0">
+                                <tip-card-detail
+                                    [url]="tip2.img"
+                                    [title]="tip2.title"
+                                    [content]="tip2.content"
+                                ></tip-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-10  tipCard p-0">
+                                <tip-card-detail
+                                    [url]="tip3.img"
+                                    [title]="tip3.title"
+                                    [content]="tip3.content"
+                                ></tip-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-10  tipCard p-0">
+                                <tip-card-detail
+                                    [url]="tip1.img"
+                                    [title]="tip1.title"
+                                    [content]="tip1.content"
+                                ></tip-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </ng-template>
         <div class="col-1"></div>
     </div>
 </div>
