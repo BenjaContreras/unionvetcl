@@ -8,15 +8,18 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 })
 export class PublicationCardDetailComponent implements OnInit {
 
+  @Input() width: number;
+  @Input() heigth: number;
   @Input() url: string;
   public safeUrl!: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) {
     this.url = '';
+    this.width = 0;
+    this.heigth = 0;
   }
 
   ngOnInit(): void {
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
-
 }
