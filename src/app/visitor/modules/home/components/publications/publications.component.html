@@ -1,0 +1,208 @@
+<div class="container-fluid h-100" style="background: rgba(217, 231, 236, 0.5);">
+    <div class="row mb-4 align-items-center justify-content-center">
+        <div class="col-3"></div>
+        <div class="col-6 justify-content-center align-items-center text-center bgImg h-100">
+            <div class="text-center text-white h-100" style="z-index: 1; font-size: 40px;">Publicaciones</div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row align-items-center justify-content-center">
+        <div class="col-1"></div>
+        <div class="col-10 mb-5 h-100" *ngIf="getScreenSize() >= 1680; else show2PerCarousel">
+            <div id="carouselExampleControl" class="carousel slide" data-bs-ride="carousel" data-bs-interval="30000">
+                <div class="carousel-inner h-100">
+                    <div class="carousel-item active h-100">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[0]"
+                                ></home-publication-card-detail>
+                            </div>
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[1]"
+                                ></home-publication-card-detail>
+                            </div>
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[2]"
+                                ></home-publication-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[3]"
+                                ></home-publication-card-detail>
+                            </div>
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[4]"
+                                ></home-publication-card-detail>
+                            </div>
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[5]"
+                                ></home-publication-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[6]"
+                                ></home-publication-card-detail>
+                            </div>
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[7]"
+                                ></home-publication-card-detail>
+                            </div>
+                            <div class="col-3 p-0">
+                                <home-publication-card-detail
+                                    [url]="url[8]"
+                                ></home-publication-card-detail>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
+                    <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
+                    <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <ng-template #show2PerCarousel>
+            <ng-container>
+                <div class="col-10 mb-5 h-100" *ngIf="getScreenSize() >= 1255; else showOnePerCarousel">
+                    <div id="carouselExampleControl" class="carousel slide" data-bs-ride="carousel" data-bs-interval="30000">
+                        <div class="carousel-inner h-100">
+                            <div class="carousel-item active h-100">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-3 p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[0]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                    <div class="col-1"></div>
+                                    <div class="col-3 p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[1]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-3 p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[3]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                    <div class="col-1"></div>
+                                    <div class="col-3 p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[4]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-3 p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[6]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                    <div class="col-1"></div>
+                                    <div class="col-3 p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[7]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
+                            <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
+                            <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #showOnePerCarousel>
+                <div class="col-10 mb-5 h-100">
+                    <div id="carouselExampleControl" class="carousel slide" data-bs-ride="carousel" data-bs-interval="30000">
+                        <div class="carousel-inner h-100">
+                            <div class="carousel-item active h-100">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-10 text-center p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[0]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item h-100">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-10 text-center p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[1]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item h-100">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-10 text-center p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[2]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item h-100">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-10 text-center p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[3]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item h-100">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-10 text-center p-0">
+                                        <home-publication-card-detail
+                                            [url]="url[4]"
+                                        ></home-publication-card-detail>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
+                            <img src="../../../../../../assets/visitor/botones/izq.svg" height="60px" width="40px">
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
+                            <img src="../../../../../../assets/visitor/botones/der.svg" height="60px" width="40px">
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+        <div class="col-1"></div>
+    </div>
+</div>
