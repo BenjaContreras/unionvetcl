@@ -8,11 +8,14 @@ import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { MaterialModule } from '@core/material.module';
 import { TipsComponent } from './components/tips/tips.component';
 import { TipCardDetailComponent } from './components/tip-card-detail/tip-card-detail.component';
+import { PublicationsComponent } from './components/publications/publications.component';
+import { PublicationCardDetailComponent } from './components/publication-card-detail/publication-card-detail.component';
 
 const components: any = [
   LandingComponent, CarrouselComponent,
   AboutusComponent, TipsComponent,
-  TipCardDetailComponent
+  TipCardDetailComponent, PublicationsComponent,
+  PublicationCardDetailComponent
 ];
 @NgModule({
   declarations: [...components],
