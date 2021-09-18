@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'home-tips',
@@ -12,9 +12,15 @@ export class TipsComponent implements OnInit {
   public tip3: any = models[2];
 
   constructor() {
+    this.getScreenSize();
   }
 
   ngOnInit(): void {
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
   }
 }
 
