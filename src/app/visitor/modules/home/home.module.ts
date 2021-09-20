@@ -10,6 +10,7 @@ import { TipsComponent } from './components/tips/tips.component';
 import { TipCardDetailComponent } from './components/tip-card-detail/tip-card-detail.component';
 import { PublicationsComponent } from './components/publications/publications.component';
 import { PublicationCardDetailComponent } from './components/publication-card-detail/publication-card-detail.component';
+import { SwiperModule } from 'swiper/angular';
 
 const components: any = [
   LandingComponent, CarrouselComponent,
@@ -23,7 +24,8 @@ const components: any = [
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    SwiperModule
   ],
   exports: [...components]
 })

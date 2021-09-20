@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import SwiperCore, { Autoplay } from 'swiper';
+SwiperCore.use([Autoplay]);
 
 @Component({
   selector: 'home-tips',
@@ -22,6 +24,10 @@ export class TipsComponent implements OnInit {
   getScreenSize(event?: any) {
     return window.innerWidth;
   }
+
+  public onSwiper(swiper: any) {
+    //
+  };
 }
 
 const models: any = [

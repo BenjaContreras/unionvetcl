@@ -1,6 +1,7 @@
 import { ServicesRoutingModule } from './services-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SwiperModule } from 'swiper/angular';
 
 
 
@@ -8,7 +9,7 @@ import { CommonModule } from '@angular/common';
   declarations: [],
   imports: [
     CommonModule,
-    ServicesRoutingModule
-  ]
+    ServicesRoutingModule,
+    SwiperModule
 })
 export class ServicesModule { }
