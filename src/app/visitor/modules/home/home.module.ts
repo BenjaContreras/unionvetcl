@@ -11,12 +11,13 @@ import { TipCardDetailComponent } from './components/tip-card-detail/tip-card-de
 import { PublicationsComponent } from './components/publications/publications.component';
 import { PublicationCardDetailComponent } from './components/publication-card-detail/publication-card-detail.component';
 import { SwiperModule } from 'swiper/angular';
+import { BrandsComponent } from './components/brands/brands.component';
 
 const components: any = [
   LandingComponent, CarrouselComponent,
   AboutusComponent, TipsComponent,
   TipCardDetailComponent, PublicationsComponent,
-  PublicationCardDetailComponent
+  PublicationCardDetailComponent, BrandsComponent
 ];
 @NgModule({
   declarations: [...components],
