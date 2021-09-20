@@ -22,6 +22,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public goTo(route: string): void {
+    this.router.navigate([`visitor/${route}`]);
+  };
+
   public getCurrentRoute(): void {
     if (this.router.url === 'visitor/login') this.inHome = false;
     else this.inHome = true;
