@@ -3,7 +3,9 @@
         [ngClass]="[getScreenSize() < 1290 && getScreenSize() >= 500? 'ms-5 ps-5' : '' , getScreenSize() < 500 ? 'ms-1 ps-1' : '']"
     >
         <ng-container *ngIf="getScreenSize() > 1290; else showSeparate">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-3 align-content-start font-secundary" style="max-width: 400px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-3 align-content-start font-secundary" (click)="goTo('home')"
+                style="cursor: pointer; user-select: none; max-width: 400px;"
+            >
                 <div class="row w-100 align-items-center">
                     <div class="col-1"></div>
                     <div class="col-lg-4 col-md-4 pe-0">
@@ -11,6 +13,7 @@
                     </div>
                     <div class="col-7 text-center ps-0"
                         [ngStyle]="{'font-size': getSizeOfLogo(getScreenSize()) ? size : '20px'}"
+                        (click)="goTo('home')"
                     >
                         Clinica Veterinaria
                         <p class="text-center m-0">Unionvet</p>
@@ -22,7 +25,9 @@
             <div class="align-content-start font-secundary" style="max-width: 400px;"
                 [ngClass]="getScreenSize() < 650 ? 'col-10 pe-0 me-0' : 'col-9'"
             >
-                <div class="row w-100 align-items-center">
+                <div class="row w-100 align-items-center" (click)="goTo('home')"
+                    style="cursor: pointer; user-select: none;"
+                >
                     <ng-container *ngIf="getScreenSize() > 1290; else showBig">
                         <div class="col-1"></div>
                         <div class="col-lg-4 col-md-4 pe-0">
