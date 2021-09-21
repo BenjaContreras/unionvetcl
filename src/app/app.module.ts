@@ -11,6 +11,7 @@ import { CoreModule } from '@core/core.module';
 import { VisitorModule } from '@visitor/visitor.module';
 import { AdminModule } from '@admin/admin.module';
 import { SharedModule } from '@shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { SharedModule } from '@shared/shared.module';
       resetTimeoutOnDuplicate: true
     }),
     CoreModule, VisitorModule,
-    AdminModule, SharedModule
+    AdminModule, SharedModule, NgbModule
   ],
   providers: [
     // {
