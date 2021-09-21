@@ -1,1 +1,158 @@
-<p>footer works!</p>
+<div class="container-fliud font-brand text-white py-4 mx-0 px-0" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 50.79%), rgba(15, 116, 153, 0.7);">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-3 py-5 text-center">
+            <ng-template [ngTemplateOutlet]="directMessage"></ng-template>
+        </div>
+        <div class="col-3 py-5 text-center">
+            <ng-template [ngTemplateOutlet]="attentionSchedule"></ng-template>
+        </div>
+        <div class="col-3 py-5 text-center">
+            <ng-template [ngTemplateOutlet]="directAccess"></ng-template>
+        </div>
+        <div class="col-3 py-5 text-center">
+            <ng-template [ngTemplateOutlet]="ourLinks"></ng-template>
+        </div>
+    </div>
+    <div class="row align-items-center justify-content-center">
+        <div class="col text-center" style="text-decoration: none; cursor: pointer; font-size: 1.5vw;">
+            © 2021 Copyrigth <a class="text-white" href="https://unionvet.cl" style="text-decoration: none !important;">Unionvet.cl</a>
+        </div>
+    </div>
+</div>
+
+<ng-template #directMessage>
+    <div class="row">
+        <div class="col-11">
+            <div class="row align-items-center justify-content-center">
+                <div class="col py-5">
+                    <h1 class="mb-5">Contacto</h1>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12">
+                    <div class="row justify-content-center" style="user-select: none;">
+                        <div class="col-1">
+                            <mat-icon>location_on</mat-icon>
+                        </div>
+                        <a class="col-6 text-white" href="https://goo.gl/maps/MWc5JryPxDBCsLas6" target="_blank" style="text-decoration: none;">
+                            <p class="m-0 p-0">Esmeralda 868, La Unión</p>
+                            <p>Región de los Ríos</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row justify-content-center" style="cursor: pointer;"
+                        
+                    >
+                        <div class="col-1">
+                            <mat-icon>smartphone</mat-icon>
+                        </div>
+                        <a class="col-4 p-0 mb-4 text-white" href="tel:+56982911498" style="text-decoration: none;">
+                            +569 82911498
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row justify-content-center" style="cursor: pointer;">
+                        <div class="col-1">
+                            <mat-icon>forward_to_inbox</mat-icon>
+                        </div>
+                        <a class="col-5 text-white" href="mailto:c.unionvet@gmail.com" style="text-decoration: none;">
+                            c.unionvet@gmail.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template [ngTemplateOutlet]="divider"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #attentionSchedule>
+    <div class="row">
+        <div class="col-11">
+            <div class="row align-items-center justify-content-center">
+                <div class="col py-5">
+                    <h1 class="mb-4">Horarios</h1>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center mt-5">
+                <div class="col-12">
+                    <div class="row justify-content-center" style="user-select: none;">
+                        <div class="col-1">
+                            <mat-icon>schedule</mat-icon>
+                        </div>
+                        <div class="col-6 text-white">
+                            <p class="text-start">Lunes a Viernes</p>
+                            <p class="text-end">09:00 a 13:00</p>
+                            <p class="text-end">15:00 a 19:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-1"></div>
+                        <div class="col-4 p-0 mb-4 text-white"></div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row justify-content-center" style="cursor: pointer;">
+                        <div class="col-1"></div>
+                        <div class="col-5 text-white"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template [ngTemplateOutlet]="divider"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #directAccess>
+    <div class="row">
+        <div class="col-11">
+            <div class="row align-items-center justify-content-center">
+                <div class="col py-5">
+                    <h1 class="">Accesos</h1>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center mt-3">
+                <div class="col text-center py-4" (click)="goTo('home')" style="cursor: pointer;">Inicio</div>
+                <div class="col text-center py-4" (click)="goTo('productos')" style="cursor: pointer;">Productos</div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col text-center py-5" (click)="goTo('servicios')" style="cursor: pointer;">Servicios</div>
+                <div class="col text-center py-5" (click)="goTo('contacto')" style="cursor: pointer;">Contactanos</div>
+            </div>
+        </div>
+        <ng-template [ngTemplateOutlet]="divider"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #ourLinks>
+    <div class="row align-items-center justify-content-center pb-4">
+        <div class="col py-5">
+            <h1 class="mb-5">Nuestras redes</h1>
+        </div>
+    </div>
+    <div class="row align-items-center justify-content-center py-4" style="font-size: 3vw;">
+        <a class="col-4 tt" href="http://www.instagram.com/union.vet" target="_blank" style="text-decoration: none; color: white;"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Visita mi Instagram! 🤩"
+        >
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a class="col-4 tt" href="https://www.facebook.com/UnionVet/" target="_blank" style="text-decoration: none; color: white;"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Chateemos por Facebook! 🥳"
+        >
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a class="col-4 tt" href="wa.link/3e9qzh" style="text-decoration: none; color: white;"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Escribeme por interno! 😎"
+        >
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</ng-template>
+
+<ng-template #divider>
+    <div class="mx-0 mb-0 mt-5 p-0 linea"></div>
+</ng-template>
