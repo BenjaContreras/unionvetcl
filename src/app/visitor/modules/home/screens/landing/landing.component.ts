@@ -8,10 +8,12 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class LandingComponent implements OnInit {
 
   constructor() {
+    window.scroll(0,0);
     this.getScreenSize();
   }
 
   ngOnInit(): void {
+    window.scroll(0,0);
   }
 
   @HostListener('window:resize', ['$event'])

@@ -16,4 +16,9 @@ export class FooterComponent implements OnInit {
   public goTo(route: string): void {
     this.router.navigate([`visitor/${route}`]);
   };
+
+  public goToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
 }
