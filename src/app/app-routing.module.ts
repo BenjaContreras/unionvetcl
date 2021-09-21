@@ -1,20 +1,20 @@
-import { HomeComponent } from './visitor/screens/home/home.component';
 import { UserGuard } from './core/guards/user/user.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '@core/guards/admin/admin.guard';
+import { VisitorModule } from './visitor/visitor.module';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'visitor/inicio',
-    component: HomeComponent,
+    redirectTo: 'visitor/home',
+    component: VisitorModule,
     pathMatch: 'full'
   },
   {
     path: 'visitor',
     loadChildren: () => import('./visitor/visitor.module')
-      .then(VisitorModule => VisitorModule.VisitorModule)
+      .then(VisitorModule => VisitorModule.VisitorModule),
   },
   {
     path: 'user',
@@ -30,8 +30,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'visitor/inicio',
-    component: HomeComponent
+    redirectTo: 'visitor/home',
+    component: VisitorModule,
   },
 ];
 

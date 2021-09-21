@@ -1,0 +1,9 @@
+<div [ngClass]="[windowScrolled ? 'show-scrolltop' : 'scroll-to-top']">
+    <button type="button" data-toggle="button" aria-pressed="true" (click)="scrollToTop()"
+        style="border: none !important; outline: none !important; background: none;"
+    >
+        <i class="fas fa-arrow-alt-circle-up" style="font-size: 4vw;"
+            [ngStyle]="{'color': yZone}"
+        ></i>
+    </button>
+</div>

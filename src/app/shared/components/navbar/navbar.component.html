@@ -1,0 +1,161 @@
+<div class="container-fluid bg-brand align-self-center ps-0 py-2">
+    <div class="row align-items-center justify-content-center"
+        [ngClass]="[getScreenSize() < 1290 && getScreenSize() >= 500? 'ms-5 ps-5' : '' , getScreenSize() < 500 ? 'ms-1 ps-1' : '']"
+    >
+        <ng-container *ngIf="getScreenSize() > 1290; else showSeparate">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-3 align-content-start font-secundary" (click)="goTo('home')"
+                style="cursor: pointer; user-select: none; max-width: 400px;"
+            >
+                <div class="row w-100 align-items-center">
+                    <div class="col-1"></div>
+                    <div class="col-lg-4 col-md-4 pe-0">
+                        <img src="../../../../assets/shared/Logo 7.svg">
+                    </div>
+                    <div class="col-7 text-center ps-0"
+                        [ngStyle]="{'font-size': getSizeOfLogo(getScreenSize()) ? size : '20px'}"
+                        (click)="goTo('home')"
+                    >
+                        Clinica Veterinaria
+                        <p class="text-center m-0">Unionvet</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #showSeparate>
+            <div class="align-content-start font-secundary" style="max-width: 400px;"
+                [ngClass]="getScreenSize() < 650 ? 'col-10 pe-0 me-0' : 'col-9'"
+            >
+                <div class="row w-100 align-items-center" (click)="goTo('home')"
+                    style="cursor: pointer; user-select: none;"
+                >
+                    <ng-container *ngIf="getScreenSize() > 1290; else showBig">
+                        <div class="col-1"></div>
+                        <div class="col-lg-4 col-md-4 pe-0">
+                            <img src="../../../../assets/shared/Logo 7.svg">
+                        </div>
+                        <div class="col-7 text-center ps-0"
+                            [ngStyle]="{'font-size': getSizeOfLogo(getScreenSize()) ? size : '20px'}"
+                        >
+                            Clinica Veterinaria
+                            <p class="text-center m-0">Unionvet</p>
+                        </div>
+                    </ng-container>
+                    <ng-template #showBig>
+                        <div [ngClass]="getScreenSize() < 769 ? 'col-3' : 'col-3 pe-0'">
+                            <img src="../../../../assets/shared/Logo 7.svg">
+                        </div>
+                        <div class="text-center"
+                            [ngClass]="getScreenSize() < 769 && getScreenSize() >= 443? 'col-6 ms-3' : 'col-9'"
+                            [ngStyle]="{'font-size': getScreenSize() > 769 ? size : getScreenSize() < 443 ? '12px' : size}"
+                        >
+                            Clinica Veterinaria
+                            <p class="text-center m-0">Unionvet</p>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </ng-template>
+        <ng-container *ngIf="getScreenSize() > 1290; else showInMenu">
+            <div class="col-lg-7 col-md-7 col-sm-6 col-6 font-brand align-content-center ps-0">
+                <div class="row justify-content-center">
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('home')"
+                    >Inicio</button>
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('servicios')"
+                    >Servicios</button>
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('productos')"
+                    >Productos</button>
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('contacto')"
+                    >Contactanos</button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #showInMenu>
+            <div [ngClass]="getScreenSize() > 650 ? 'col-3' : 'col-2 px-0'">
+                <button
+                    mat-mini-fab 
+                    [ngClass]="getScreenSize() > 650 ? 'col-1 me-3' : 'col-1'" 
+                    [matMenuTriggerFor]="bigMenu" 
+                    style="background: rgba(238, 249, 251, 0.9); color: #539AB4"
+                >
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <span *ngIf="getScreenSize() > 650"
+                    class="text-white" style="font-size: 20px;"
+                >Menú</span>
+            </div>
+        </ng-template>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-2 align-content-end pe-0">
+            <!-- en col-sm y col-xs (col) debe aparecer un icono de menu, que contenga las opciones, como el que esta abajo -->
+            <button *ngIf="isSmall && getScreenSize() > 1290"
+                mat-mini-fab class="col-1" 
+                [matMenuTriggerFor]="menu" 
+                style="background: rgba(238, 249, 251, 0.9); color: #539AB4"
+            >
+                <mat-icon>menu</mat-icon>
+            </button>
+            <ng-container *ngIf="!isSmall">
+                <div class="row" style="font-size: 17px; min-height: 33px;">
+                    <ng-container *ngIf="inHome; else showInit">
+                        <button  mat-raised-button class="anotherButton font-brand col-5">Iniciar sesión</button>
+                    </ng-container>
+                    <ng-template #showInit>
+                        <button mat-raised-button class="anotherButton  font-brandcol-5">Registrarse</button>
+                    </ng-template>
+                    <button mat-raised-button class="reserveButton font-brand col-6 ms-3">Reservar una hora</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>login</mat-icon>
+        <span>Iniciar sesión</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>add_task</mat-icon>
+        <span>Reservar una hora</span>
+    </button>
+</mat-menu>
+
+<mat-menu #bigMenu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>login</mat-icon>
+        <span>Iniciar sesión</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>add_task</mat-icon>
+        <span>Reservar una hora</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="actionsMenu">
+        <span>Acciones</span>
+    </button>
+</mat-menu>
+
+<mat-menu #actionsMenu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>home</mat-icon>
+        <span (click)="goTo('home')">Inicio</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>label_important</mat-icon>
+        <span (click)="goTo('servicios')">Servicios</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>shopping_cart</mat-icon>
+        <span (click)="goTo('productos')">Productos</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>contact_support</mat-icon>
+        <span (click)="goTo('contacto')">Contacto</span>
+    </button>
+</mat-menu>
