@@ -3,7 +3,9 @@
         [ngClass]="[getScreenSize() < 1290 && getScreenSize() >= 500? 'ms-5 ps-5' : '' , getScreenSize() < 500 ? 'ms-1 ps-1' : '']"
     >
         <ng-container *ngIf="getScreenSize() > 1290; else showSeparate">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-3 align-content-start font-secundary" style="max-width: 400px;">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-3 align-content-start font-secundary" (click)="goTo('home')"
+                style="cursor: pointer; user-select: none; max-width: 400px;"
+            >
                 <div class="row w-100 align-items-center">
                     <div class="col-1"></div>
                     <div class="col-lg-4 col-md-4 pe-0">
@@ -11,6 +13,7 @@
                     </div>
                     <div class="col-7 text-center ps-0"
                         [ngStyle]="{'font-size': getSizeOfLogo(getScreenSize()) ? size : '20px'}"
+                        (click)="goTo('home')"
                     >
                         Clinica Veterinaria
                         <p class="text-center m-0">Unionvet</p>
@@ -22,7 +25,9 @@
             <div class="align-content-start font-secundary" style="max-width: 400px;"
                 [ngClass]="getScreenSize() < 650 ? 'col-10 pe-0 me-0' : 'col-9'"
             >
-                <div class="row w-100 align-items-center">
+                <div class="row w-100 align-items-center" (click)="goTo('home')"
+                    style="cursor: pointer; user-select: none;"
+                >
                     <ng-container *ngIf="getScreenSize() > 1290; else showBig">
                         <div class="col-1"></div>
                         <div class="col-lg-4 col-md-4 pe-0">
@@ -52,13 +57,23 @@
         </ng-template>
         <ng-container *ngIf="getScreenSize() > 1290; else showInMenu">
             <div class="col-lg-7 col-md-7 col-sm-6 col-6 font-brand align-content-center ps-0">
-                <div class="row justify-content-center"
-                    [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
-                >
-                    <div class="col-2 text-center">Inicio</div>
-                    <div class="col-2 text-center">Servicios</div>
-                    <div class="col-2 text-center">Productos</div>
-                    <div class="col-2 text-center">Contactanos</div>
+                <div class="row justify-content-center">
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('home')"
+                    >Inicio</button>
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('servicios')"
+                    >Servicios</button>
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('productos')"
+                    >Productos</button>
+                    <button mat-button class="col-2 text-center" 
+                        [ngStyle]="{'font-size': getSize(getScreenSize()) ? size : '25px'}"
+                        (click)="goTo('contacto')"
+                    >Contactanos</button>
                 </div>
             </div>
         </ng-container>
@@ -129,18 +144,18 @@
 <mat-menu #actionsMenu="matMenu">
     <button mat-menu-item>
         <mat-icon>home</mat-icon>
-        <span>Inicio</span>
+        <span (click)="goTo('home')">Inicio</span>
     </button>
     <button mat-menu-item>
         <mat-icon>label_important</mat-icon>
-        <span>Servicios</span>
+        <span (click)="goTo('servicios')">Servicios</span>
     </button>
     <button mat-menu-item>
         <mat-icon>shopping_cart</mat-icon>
-        <span>Productos</span>
+        <span (click)="goTo('productos')">Productos</span>
     </button>
     <button mat-menu-item>
         <mat-icon>contact_support</mat-icon>
-        <span>Contacto</span>
+        <span (click)="goTo('contacto')">Contacto</span>
     </button>
 </mat-menu>

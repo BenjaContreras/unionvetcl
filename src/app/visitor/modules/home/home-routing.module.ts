@@ -4,6 +4,7 @@ import { LandingComponent } from './screens/landing/landing.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
+  { path: '**', component: LandingComponent},
 ];
 
 @NgModule({

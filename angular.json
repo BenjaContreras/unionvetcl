@@ -37,9 +37,13 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.sass",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/swiper/swiper-bundle.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/swiper/swiper-bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

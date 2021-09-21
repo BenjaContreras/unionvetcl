@@ -21,7 +21,7 @@ const routes: Routes = [
           .then(pM => pM.ProductsModule)
       },
       {
-        path: 'contactos',
+        path: 'contacto',
         loadChildren: () => import('./modules/contactus/contactus.module')
           .then(cM => cM.ContactusModule)
       },
