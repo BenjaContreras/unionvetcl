@@ -1,17 +1,22 @@
 <div class="container-fliud font-brand text-white py-4 mx-0 px-0" style="background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 50.79%), rgba(15, 116, 153, 0.7);">
     <div class="row align-items-center justify-content-center" style="max-width: 1880px;">
-        <div class="col-3 py-5 text-center">
-            <ng-template [ngTemplateOutlet]="directMessage"></ng-template>
-        </div>
-        <div class="col-3 py-5 text-center">
-            <ng-template [ngTemplateOutlet]="attentionSchedule"></ng-template>
-        </div>
-        <div class="col-3 py-5 text-center">
-            <ng-template [ngTemplateOutlet]="directAccess"></ng-template>
-        </div>
-        <div class="col-3 py-5 text-center">
-            <ng-template [ngTemplateOutlet]="ourLinks"></ng-template>
-        </div>
+        <ng-container *ngIf="getScreenSize() >= 750; else showInRows">
+            <div class="col-3 py-5 text-center">
+                <ng-template [ngTemplateOutlet]="directMessage"></ng-template>
+            </div>
+            <div class="col-3 py-5 text-center">
+                <ng-template [ngTemplateOutlet]="attentionSchedule"></ng-template>
+            </div>
+            <div class="col-3 py-5 text-center">
+                <ng-template [ngTemplateOutlet]="directAccess"></ng-template>
+            </div>
+            <div class="col-3 py-5 text-center">
+                <ng-template [ngTemplateOutlet]="ourLinks"></ng-template>
+            </div>
+        </ng-container>
+        <ng-template #showInRows>
+            <ng-template [ngTemplateOutlet]="showIt"></ng-template>
+        </ng-template>
     </div>
     <div class="row align-items-center justify-content-center" style="max-width: 1880px !important;">
         <div class="col text-center p-0 m-0" style="text-decoration: none; cursor: pointer; font-size: 1.5vw;">
@@ -25,39 +30,44 @@
         <div class="col-11">
             <div class="row align-items-center justify-content-center">
                 <div class="col py-5">
-                    <h1 class="mb-5">Contacto</h1>
+                    <h1 *ngIf="getScreenSize() >= 1440" class="mb-5">Contacto</h1>
+                    <h4 *ngIf="getScreenSize() >= 750 && getScreenSize() < 1440" class="mb-5">Contacto</h4>
                 </div>
             </div>
             <div class="row align-items-center justify-content-center">
                 <div class="col-12">
                     <div class="row justify-content-center" style="user-select: none;">
-                        <div class="col-1">
+                        <div [ngClass]="getScreenSize() >= 1315 ? 'col-1' : 'col-12'">
                             <mat-icon>location_on</mat-icon>
                         </div>
-                        <a class="col-6 text-white" href="https://goo.gl/maps/MWc5JryPxDBCsLas6" target="_blank" style="text-decoration: none;">
+                        <a class="text-white" href="https://goo.gl/maps/MWc5JryPxDBCsLas6" target="_blank" style="text-decoration: none;"
+                            [ngClass]="getScreenSize() >= 1315 ? 'col-6' : 'col-12'"
+                        >
                             <p class="m-0 p-0">Esmeralda 868, La Unión</p>
                             <p>Región de los Ríos</p>
                         </a>
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="row justify-content-center" style="cursor: pointer;"
-
-                    >
-                        <div class="col-1">
+                    <div class="row justify-content-center" style="cursor: pointer;">
+                        <div [ngClass]="getScreenSize() >= 1315 ? 'col-1' : 'col-12'">
                             <mat-icon>smartphone</mat-icon>
                         </div>
-                        <a class="col-4 p-0 mb-4 text-white" href="tel:+56982911498" style="text-decoration: none;">
+                        <a class="p-0 mb-4 text-white" href="tel:+56982911498" style="text-decoration: none;"
+                            [ngClass]="getScreenSize() >= 1315 ? 'col-4' : 'col-12'"
+                        >
                             +569 82911498
                         </a>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="row justify-content-center" style="cursor: pointer;">
-                        <div class="col-1">
+                        <div [ngClass]="getScreenSize() >= 1315 ? 'col-1' : 'col-12'">
                             <mat-icon>forward_to_inbox</mat-icon>
                         </div>
-                        <a class="col-5 text-white" href="mailto:c.unionvet@gmail.com" style="text-decoration: none;">
+                        <a class="text-white" href="mailto:c.unionvet@gmail.com" style="text-decoration: none;"
+                            [ngClass]="getScreenSize() >= 1315 ? 'col-5' : 'col-12'"
+                        >
                             c.unionvet@gmail.com
                         </a>
                     </div>
@@ -73,19 +83,22 @@
         <div class="col-11">
             <div class="row align-items-center justify-content-center">
                 <div class="col py-5">
-                    <h1 class="mb-4">Horarios</h1>
+                    <h1 *ngIf="getScreenSize() >= 1440" class="mb-5">Horarios</h1>
+                    <h4 *ngIf="getScreenSize() >= 750 && getScreenSize() < 1440" class="mb-5">Horarios</h4>
                 </div>
             </div>
             <div class="row align-items-center justify-content-center mt-5">
                 <div class="col-12">
                     <div class="row justify-content-center" style="user-select: none;">
-                        <div class="col-1">
+                        <div [ngClass]="getScreenSize() >= 1315 ? 'col-1' : 'col-12'">
                             <mat-icon>schedule</mat-icon>
                         </div>
-                        <div class="col-6 text-white">
-                            <p class="text-start">Lunes a Viernes</p>
-                            <p class="text-end">09:00 a 13:00</p>
-                            <p class="text-end">15:00 a 19:00</p>
+                        <div class="text-white"
+                            [ngClass]="getScreenSize() >= 1315 ? 'col-6' : 'col-12'"
+                        >
+                            <p [ngClass]="getScreenSize() >= 1315 ? 'text-start' : 'text-center'">Lunes a Viernes</p>
+                            <p [ngClass]="getScreenSize() >= 1315 ? 'text-end' : 'text-center'">09:00 a 13:00</p>
+                            <p [ngClass]="getScreenSize() >= 1315 ? 'text-end' : 'text-center'">15:00 a 19:00</p>
                         </div>
                     </div>
                 </div>
@@ -112,41 +125,156 @@
         <div class="col-11">
             <div class="row align-items-center justify-content-center">
                 <div class="col py-5">
-                    <h1 class="">Accesos</h1>
+                    <h1 *ngIf="getScreenSize() >= 1440">Accesos</h1>
+                    <h4 *ngIf="getScreenSize() >= 750 && getScreenSize() < 1440">Accesos</h4>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-center mt-3">
-                <div class="col text-center py-4" id="top" (click)="goToTop()" style="cursor: pointer;">Inicio</div>
-                <div class="col text-center py-4" (click)="goTo('productos')" style="cursor: pointer;">Productos</div>
-            </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col text-center py-5" (click)="goTo('servicios')" style="cursor: pointer;">Servicios</div>
-                <div class="col text-center py-5" (click)="goTo('contacto')" style="cursor: pointer;">Contactanos</div>
-            </div>
+            <ng-container *ngIf="getScreenSize() >= 1315; else showByOne">
+                <div class="row align-items-center justify-content-center mt-3">
+                    <div class="col text-center py-4" id="top" (click)="goToTop()" style="cursor: pointer;">Inicio</div>
+                    <div class="col text-center py-4" (click)="goTo('productos')" style="cursor: pointer;">Productos</div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col text-center py-5" (click)="goTo('servicios')" style="cursor: pointer;">Servicios</div>
+                    <div class="col text-center py-5" (click)="goTo('contacto')" style="cursor: pointer;">Contactanos</div>
+                </div>
+            </ng-container>
+            <ng-template #showByOne>
+                <div class="row align-items-center justify-content-center mt-4">
+                    <div class="col text-center py-3" id="top" (click)="goToTop()" style="cursor: pointer;">Inicio</div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col text-center py-3" (click)="goTo('productos')" style="cursor: pointer;">Productos</div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col text-center py-3" (click)="goTo('servicios')" style="cursor: pointer;">Servicios</div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col text-center py-3" (click)="goTo('contacto')" style="cursor: pointer;">Contactanos</div>
+                </div>
+            </ng-template>
         </div>
         <ng-template [ngTemplateOutlet]="divider"></ng-template>
     </div>
 </ng-template>
 
 <ng-template #ourLinks>
-    <div class="row align-items-center justify-content-center pb-4">
-        <div class="col py-5">
-            <h1 class="mb-5">Nuestras redes</h1>
+    <div class="row align-items-center justify-content-center"
+        [ngClass]="getScreenSize() >= 1315 ? 'pb-4' : 'mt-5'"
+    >
+        <div 
+            [ngClass]="getScreenSize() >= 1315 ? 'col py-5' : 'col py-3'"
+        >
+            <h1 *ngIf="getScreenSize() >= 1440" class="mb-5">Nuestras redes</h1>
+            <h4 *ngIf="getScreenSize() >= 750 && getScreenSize() < 1440"
+                [ngClass]="getScreenSize() >= 1315 ? 'mb-5' : ''"    
+            >Nuestras redes</h4>
         </div>
     </div>
-    <div class="row align-items-center justify-content-center py-4" style="font-size: 3vw;">
-        <a class="col-4" href="http://www.instagram.com/union.vet" target="_blank" style="text-decoration: none; color: white;">
+    <div class="row align-items-center justify-content-center" style="font-size: 3vw;"
+        [ngClass]="getScreenSize() >= 1315 ? 'py-3' : ''"
+    >
+        <a [ngClass]="getScreenSize() >= 1315 ? 'col-4' : 'col-12'" href="http://www.instagram.com/union.vet" target="_blank" style="text-decoration: none; color: white;">
             <i class="fab fa-instagram" placement="top" ngbTooltip="Visita mi Instagram!🤩"></i>
+            <p *ngIf="getScreenSize() < 1315" class="font-brand" style="font-size: 17px !important;"
+                [ngClass]="getScreenSize() >= 1315 ? 'col-12' : 'col-12 pt-0'"
+            >Instagram</p>
         </a>
-        <a class="col-4" href="https://www.facebook.com/UnionVet/" target="_blank" style="text-decoration: none; color: white;">
+        <a [ngClass]="getScreenSize() >= 1315 ? 'col-4' : 'col-12'" href="https://www.facebook.com/UnionVet/" target="_blank" style="text-decoration: none; color: white;">
             <i class="fab fa-facebook" placement="top" ngbTooltip="Chateemos por Facebook!🥳"></i>
+            <p *ngIf="getScreenSize() < 1315" class="font-brand" style="font-size: 17px !important;"
+                [ngClass]="getScreenSize() >= 1315 ? 'col-12' : ''"
+            >Facebook</p>
         </a>
-        <a class="col-4" href="wa.link/3e9qzh" style="text-decoration: none; color: white;">
+        <a [ngClass]="getScreenSize() >= 1315 ? 'col-4' : 'col-12'" href="wa.link/3e9qzh" style="text-decoration: none; color: white;">
             <i class="fab fa-whatsapp" placement="top" container="body" ngbTooltip="Escribeme por interno!😎"></i>
+            <p *ngIf="getScreenSize() < 1315" class="font-brand" style="font-size: 17px !important;"
+                [ngClass]="getScreenSize() >= 1315 ? 'col-12' : ''"
+            >WhatsApp</p>
         </a>
     </div>
 </ng-template>
 
 <ng-template #divider>
     <div class="mx-0 mb-0 mt-5 p-0 linea"></div>
+</ng-template>
+
+<ng-template #showIt>
+    <div class="col-12 text-center">
+        <div class="row align-items-center justify-content-center">
+            <h2 class="col text-center">Contacto</h2>
+        </div>
+        <div class="row align-items-center justify-content-center" style="user-select: none;">
+            <div class="col-1">
+                <mat-icon>location_on</mat-icon>
+            </div>
+            <a class="col-7 text-white" href="https://goo.gl/maps/MWc5JryPxDBCsLas6" target="_blank" style="text-decoration: none;">
+                <p class="m-0 p-0">Esmeralda 868, La Unión</p>
+                <p>Región de los Ríos</p>
+            </a>
+        </div>
+        <div class="row align-items-center justify-content-center" style="cursor: pointer;">
+            <div class="col-1">
+                <mat-icon>smartphone</mat-icon>
+            </div>
+            <a class="col-7 p-0 mb-4 text-white" href="tel:+56982911498" style="text-decoration: none;">
+                +569 82911498
+            </a>
+        </div>
+        <div class="row justify-content-center" style="cursor: pointer;">
+            <div class="col-1">
+                <mat-icon>forward_to_inbox</mat-icon>
+            </div>
+            <a class="col-7 text-white" href="mailto:c.unionvet@gmail.com" style="text-decoration: none;">
+                c.unionvet@gmail.com
+            </a>
+        </div>
+    </div>
+    <hr color="white" class="text-center p-0 mx-0 w-75 my-4">
+    <div class="col-12 text-center">
+        <div class="row align-items-center justify-content-center">
+            <h2 class="col text-center">Horarios</h2>
+        </div>
+        <div class="row align-items-center justify-content-center" style="user-select: none;">
+            <div class="col-6 text-center">
+                <div class="col">
+                    <mat-icon>schedule</mat-icon>
+                </div>
+                <p>Lunes a Viernes</p>
+            </div>
+            <div class="col-6">
+                <p class="m-0 p-0">09:30 a 13:00</p>
+                <p class="m-0 p-0">15:00 a 19:00</p>
+            </div>
+        </div>
+    </div>
+    <hr color="white" class="text-center p-0 mx-0 w-75 my-4">
+    <div class="col-12 text-center">
+        <div class="row align-items-center justify-content-center">
+            <h2 class="col text-center mb-3">Accesos</h2>
+        </div>
+        <div class="row align-items-center justify-content-center" style="user-select: none;">
+            <div class="col" (click)="goToTop()">Inicio</div>
+            <div class="col" (click)="goTo('productos')">Productos</div>
+            <div class="col" (click)="goTo('servicios')">Servicios</div>
+            <div class="col" (click)="goTo('contacto')">Contacto</div>
+        </div>
+    </div>
+    <hr color="white" class="text-center p-0 mx-0 w-75 my-4">
+    <div class="col-12 text-center">
+        <div class="row align-items-center justify-content-center">
+            <h2 class="col text-center mb-3">Nuestras redes</h2>
+        </div>
+        <div class="row align-items-center justify-content-center mb-5" style="user-select: none;">
+            <a class="col font-brand" href="http://www.instagram.com/union.vet" target="_blank" style="text-decoration: none; color: white;">
+                <i class="fab fa-instagram" placement="top" ngbTooltip="Visita mi Instagram!🤩"></i> Instagram
+            </a>
+            <a class="col font-brand" href="https://www.facebook.com/UnionVet/" target="_blank" style="text-decoration: none; color: white;">
+                <i class="fab fa-facebook" placement="top" ngbTooltip="Chateemos por Facebook!🥳"></i> Facebook
+            </a>
+            <a class="col font-brand" href="wa.link/3e9qzh" style="text-decoration: none; color: white;">
+                <i class="fab fa-whatsapp" placement="top" container="body" ngbTooltip="Escribeme por interno!😎"></i> WhatsApp
+            </a>
+        </div>
+    </div>
 </ng-template>
