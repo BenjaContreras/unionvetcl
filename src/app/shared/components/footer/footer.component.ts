@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,4 +21,9 @@ export class FooterComponent implements OnInit {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   };
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }
