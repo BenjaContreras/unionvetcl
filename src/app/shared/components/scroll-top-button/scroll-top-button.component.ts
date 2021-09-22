@@ -14,10 +14,12 @@ export class ScrollTopButtonComponent implements OnInit, OnChanges {
   constructor(@Inject(DOCUMENT) private document: Document) { 
     this.windowScrolled = false;
     this.yZone = this.onWindowScroll();
+    this.getScreenSize();
   }
 
   ngOnInit(): void {
     this.onWindowScroll();
+    this.getScreenSize();
   }
 
   ngOnChanges(): void {
@@ -40,5 +42,10 @@ export class ScrollTopButtonComponent implements OnInit, OnChanges {
             window.scrollTo(0, 0);
         }
     })();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
   }
 }
