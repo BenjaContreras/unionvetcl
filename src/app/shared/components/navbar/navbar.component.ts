@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public goTo(route: string): void {
-    this.router.navigate([`visitor/${route}`]);
+    // this.router.navigate([`visitor/${route}`]);
   };
 
   public getCurrentRoute(): void {
