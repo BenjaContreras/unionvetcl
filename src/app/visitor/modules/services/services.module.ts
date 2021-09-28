@@ -14,8 +14,8 @@ const components: any = [
     CommonModule,
     ServicesRoutingModule,
     SharedModule,
-    SwiperModule
+    SwiperModule,
+    SharedModule
   ],
-  exports: [...components]
 })
 export class ServicesModule { }
