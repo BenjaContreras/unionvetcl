@@ -1,5 +1,5 @@
 <div class="row align-items-center justify-content-center">
-    <div class="col-1 text-center">
+    <div class="col-1 text-center pe-0">
         <button type="button" data-bs-slide="prev" (click)="slideNext()">
             <img src="../../../../../../assets/shared/flechaIZQ.svg">
             <span class="visually-hidden">Prev</span>
@@ -16,7 +16,9 @@
             [loopFillGroupWithBlank]="true"
         >
             <ng-template swiperSlide *ngFor="let title of titles">
-                <div class="row font-brand align-items-center" style="min-height: 35px; max-height: 35px; height: 35px !important;">
+                <div class="row font-brand align-items-center" style="min-height: 35px; max-height: 35px; height: 35px !important;"
+                    (click)="onSwiper(title)"
+                >
                     <div class="col text-center h-100" style="background: #0F7499; border-radius: 10px;">
                         <p class="m-0 p-1 text-center align-items-center" style="font-size: 20px; font-weight: 600;">{{title}}</p>
                     </div>
@@ -24,7 +26,7 @@
             </ng-template>
         </swiper>
     </div>
-    <div class="col-1 text-center">
+    <div class="col-1 text-center ps-0">
         <button type="button" data-bs-slide="next" (click)="slideNext()">
             <img src="../../../../../../assets/shared/flechaDER.svg">
             <span class="visually-hidden">Next</span>
