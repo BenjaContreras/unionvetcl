@@ -13,7 +13,7 @@
                 [grabCursor]="true"
                 [centeredSlides]="true"
                 [loopFillGroupWithBlank]="true"
-                (swiper)="onSwiper($event)"
+                #swiper
             >
                 <ng-template swiperSlide>
                     <tip-card-detail
@@ -48,7 +48,7 @@
                     [grabCursor]="true"
                     [centeredSlides]="false"
                     [loopFillGroupWithBlank]="true"
-                    (swiper)="onSwiper($event)"
+                    #swiper
                 >
                     <ng-template swiperSlide>
                         <tip-card-detail
@@ -84,7 +84,7 @@
                     [grabCursor]="true"
                     [centeredSlides]="true"
                     [loopFillGroupWithBlank]="true"
-                    (swiper)="onSwiper($event)"
+                    #swiper
                 >
                     <ng-template swiperSlide>
                         <tip-card-detail
@@ -116,8 +116,11 @@
 </div>
 
 <ng-template #indicatorButtonsForTips>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="prev">
-        <img src="../../../../../../assets/visitor/botones/izq.svg" 
+    <button class="carousel-control-prev" type="button" data-bs-slide="prev" (click)="slidePrev()">
+        <img 
+            placement="left" ngbTooltip="Espere que la animación termine para presionar"
+            [openDelay]="1000" [closeDelay]="1000"
+            src="../../../../../../assets/visitor/botones/izq.svg" 
             [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
                                 : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
                         , 'width': getScreenSize() >= 575 ? '40px' 
@@ -126,8 +129,11 @@
         >
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControl" data-bs-slide="next">
-        <img src="../../../../../../assets/visitor/botones/der.svg" 
+    <button class="carousel-control-next" type="button" data-bs-slide="next" (click)="slideNext()">
+        <img 
+            placement="right" ngbTooltip="Espere que la animación termine para presionar"
+            [openDelay]="1000" [closeDelay]="1000"
+            src="../../../../../../assets/visitor/botones/der.svg" 
             [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
                                 : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
                         , 'width': getScreenSize() >= 575 ? '40px' 
