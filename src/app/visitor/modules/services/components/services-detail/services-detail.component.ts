@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Service } from '@models/service.model';
 
 @Component({
   selector: 'services-detail',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesDetailComponent implements OnInit {
 
-  constructor() { }
+  @Input() public service: Service | null;
+    this.service = null;
 
   ngOnInit(): void {
   }
