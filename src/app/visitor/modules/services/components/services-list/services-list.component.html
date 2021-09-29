@@ -1,0 +1,33 @@
+<div class="row align-items-center justify-content-center">
+    <div class="col-1 text-center">
+        <button type="button" data-bs-slide="prev" (click)="slideNext()">
+            <img src="../../../../../../assets/shared/flechaIZQ.svg">
+            <span class="visually-hidden">Prev</span>
+        </button>
+    </div>
+    <div class="col-10">
+        <swiper #swiper
+            class="align-content-center justify-content-center px-3 text-white h-100"
+            [slidesPerView]="5"
+            [spaceBetween]="30"
+            [speed]="7000"
+            [loop]="true"
+            [grabCursor]="true"
+            [loopFillGroupWithBlank]="true"
+        >
+            <ng-template swiperSlide *ngFor="let title of titles">
+                <div class="row font-brand align-items-center" style="min-height: 35px; max-height: 35px; height: 35px !important;">
+                    <div class="col text-center h-100" style="background: #0F7499; border-radius: 10px;">
+                        <p class="m-0 p-1 text-center align-items-center" style="font-size: 20px; font-weight: 600;">{{title}}</p>
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+    </div>
+    <div class="col-1 text-center">
+        <button type="button" data-bs-slide="next" (click)="slideNext()">
+            <img src="../../../../../../assets/shared/flechaDER.svg">
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
