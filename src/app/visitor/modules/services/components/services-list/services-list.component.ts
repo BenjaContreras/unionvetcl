@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
 import SwiperCore, { Swiper } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 SwiperCore.use([]);
@@ -10,6 +10,7 @@ SwiperCore.use([]);
 })
 export class ServicesListComponent implements OnInit {
 
+  @Output() public services: EventEmitter<string>;
   public titles: string[] = [
     'Aplicación de microchip',
     'Controles preventivos',
@@ -19,10 +20,16 @@ export class ServicesListComponent implements OnInit {
     'Destartraje'
   ];
 
-  constructor() {}
+  constructor() {
+    this.services = new EventEmitter<string>();
+  }
 
   ngOnInit(): void {
   }
+
+  public onSwiper(nameOfService: string) {
+    this.services.emit(nameOfService);
+  };
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
