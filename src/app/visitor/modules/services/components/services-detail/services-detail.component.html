@@ -1,14 +1,26 @@
-<div class="row mx-5 px-5">
-    <div class="col-9 pe-5">
+<div class="row mx-5" [ngClass]="getScreenSize() > 630 ? 'px-5' : ''">
+    <div [ngClass]="getScreenSize() > 1620 ? 'col-9 pe-5' : 'col-12'">
         <div class="row">
-            <div class="col" style="color: #0F7499; font-size: 48px; font-weight: 500;">{{service?.name}}</div>
+            <div class="col" style="color: #0F7499; font-weight: 500;"
+                [ngStyle]="{'font-size': 
+                            getScreenSize() > 610 ? '48px' : 
+                            getScreenSize() > 550 && getScreenSize() <= 610 ? '36px' :
+                            getScreenSize() > 470 && getScreenSize() <= 550 ? '28px' : '22px'
+                            }"
+            >{{service?.name}}</div>
         </div>
         <div class="row mt-4 mb-5">
             <div class="col">
-                <img src="../../../../../../assets/visitor/serviceImages/conejo.svg" class="img">
+                <img src="../../../../../../assets/visitor/serviceImages/conejo.svg" class="img"
+                    *ngIf="getScreenSize() > 1100"
+                >
+                <img src="../../../../../../assets/visitor/serviceImages/conejo.svg" class="img"
+                    [width]="700"
+                    *ngIf="getScreenSize() <= 1100 && getScreenSize() > 700"
+                >
             </div>
         </div>
-        <div class="row" style="font-size: 18px;">
+        <div class="row" style="font-size: 18px;" *ngIf="getScreenSize() > 1100; else showInOnePh">
             <div class="col pe-5" style="text-align: justify;">
                 <p>{{paragraph[0]}}</p>
                 <p>{{paragraph[1]}}</p>
@@ -17,8 +29,17 @@
                 <p>{{paragraph[2]}}</p>
             </div>
         </div>
+        <ng-template #showInOnePh>
+            <div class="row" style="font-size: 18px;">
+                <div class="col-12" style="text-align: justify;">
+                    <p>{{paragraph[0]}}</p>
+                    <p>{{paragraph[1]}}</p>
+                    <p>{{paragraph[2]}}</p>
+                </div>
+            </div>
+        </ng-template>
     </div>
-    <div class="col-3 text-center align-items-center">
+    <div class="col-3 text-center align-items-center" *ngIf="getScreenSize() > 1620; else showInARow">
         <div class="row align-items-center justify-content-center pt-5 pb-0 mb-0">
             <div class="row py-5 align-items-center justify-content-center">
                 <div class="col">
@@ -37,4 +58,50 @@
             </div>
         </div>
     </div>
+    <ng-template #showInARow>
+        <div class="col-12 mt-5">
+            <div class="row justify-content-center align-items-center" *ngIf="getScreenSize() > 1100 && getScreenSize() <= 1620; else showInASwiper">
+                <div class="col text-center" *ngIf="getScreenSize() > 1100 && getScreenSize() <= 1620">
+                    <img src="../../../../../../assets/visitor/serviceImages/imagen1.svg" class="smallImg">
+                </div>
+                <div class="col text-center" *ngIf="getScreenSize() > 1100 && getScreenSize() <= 1620">
+                    <img src="../../../../../../assets/visitor/serviceImages/imagen2.svg" class="smallImg">
+                </div>
+                <div class="col text-center" *ngIf="getScreenSize() > 1520">
+                    <img src="../../../../../../assets/visitor/serviceImages/imagen3.svg" class="smallImg">
+                </div>
+            </div>
+            <ng-template #showInASwiper>
+                <div class="row align-items-center justify-content-center">
+                    <swiper
+                        *ngIf="getScreenSize() <= 1100"
+                        class="pb-5"
+                        [slidesPerView]="1"
+                        [spaceBetween]="30"
+                        [loopFillGroupWithBlank]="true"
+                        [loop]="true"
+                        [freeMode]="true"
+                        [grabCursor]="true"
+                        [pagination]="{ clickable: true }"
+                    >
+                        <ng-template swiperSlide>
+                            <div class="col-12 text-center">
+                                <img src="../../../../../../assets/visitor/serviceImages/imagen1.svg">
+                            </div>
+                        </ng-template>
+                        <ng-template swiperSlide>
+                            <div class="col-12 text-center">
+                                <img src="../../../../../../assets/visitor/serviceImages/imagen2.svg" >
+                            </div>
+                        </ng-template>
+                        <ng-template swiperSlide>
+                            <div class="col-12 text-center">
+                                <img src="../../../../../../assets/visitor/serviceImages/imagen3.svg">
+                            </div>
+                        </ng-template>
+                    </swiper>
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
 </div>

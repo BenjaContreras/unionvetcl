@@ -11,6 +11,28 @@ SwiperCore.use([]);
 export class ServicesListComponent implements OnInit {
 
   @Output() public services: EventEmitter<string>;
+  public breakpoints: any = {
+    1775: {
+      slidesPerView: 5,
+      spaceBetween: 30
+    },
+    1420: {
+      slidesPerView: 4,
+      spaceBetween: 30
+    },
+    1070: {
+      slidesPerView: 3,
+      spaceBetween: 30
+    },
+    725: {
+      slidesPerView: 2,
+      spaceBetween: 30
+    },
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 30
+    },
+  }
   public titles: string[] = [
     'Aplicación de microchip',
     'Controles preventivos',
