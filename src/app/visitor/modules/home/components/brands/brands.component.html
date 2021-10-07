@@ -1,33 +1,90 @@
-<div class="container-fliud text-white py-5"
+<div class="container-fliud text-white py-5 font-brand"
     style="background: linear-gradient(90deg, rgba(255, 255, 255, 0) 42.45%, rgba(255, 255, 255, 0.4) 60.76%), #0F7499; opacity: 80%;"
 >
     <div class="row align-items-center justify-content-center">
-        <h3 class="col-6 text-center">¡Ellos también son parte de nuestro equipo!</h3>
+        <h3 class="col-6 text-center font-brand">¡Ellos también son parte de nuestro equipo!</h3>
         <div class="col-6 text-center">
-            <swiper
-                class="align-items-center justify-content-center px-4"
-                [slidesPerView]="4"
-                [speed]="9000"
-                [centeredSlides]="true"
-                [autoplay]="{delay: 0, disableOnInteraction: false}"
-                [loopFillGroupWithBlank]="true"
-                [freeMode]="true"
-                [loop]="true"
-                [grabCursor]="true"
-            >
-                <ng-template swiperSlide>
-                    Marca 1
-                </ng-template>
-                <ng-template swiperSlide>
-                    Marca 2
-                </ng-template>
-                <ng-template swiperSlide>
-                    Marca 3
-                </ng-template>
-                <ng-template swiperSlide>
-                    Marca 4
-                </ng-template>
-            </swiper>
+            <ng-template *ngIf="getScreenSize()>=1470" [ngTemplateOutlet]="slides3"></ng-template>
+            <ng-template *ngIf="getScreenSize()<1470 && getScreenSize()>=990" [ngTemplateOutlet]="slides2"></ng-template>
+            <ng-template *ngIf="getScreenSize()<990" [ngTemplateOutlet]="slides1"></ng-template>
         </div>
     </div>
 </div>
+
+<ng-template #slides3>
+    <swiper
+        class="align-items-center justify-content-center px-4"
+        id="tree"
+        [slidesPerView]="3"
+        [spaceBetween]="50"
+        [speed]="9000"
+        [centeredSlides]="true"
+        [autoplay]="{delay: 0, disableOnInteraction: false}"
+        [loopFillGroupWithBlank]="true"
+        [freeMode]="true"
+        [loop]="true"
+        [grabCursor]="true"
+    >
+        <ng-template swiperSlide>
+            <strong>Delipet</strong>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/delipetLogo.svg" height="100px" width="300px">
+        </ng-template>
+        <ng-template swiperSlide>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/drogueriaLogo.svg" height="100px" width="300px">
+        </ng-template>
+        <ng-template swiperSlide>
+            <img class="text-center" src="../../../../../../assets/shared/happyCatLogo.png" height="100px" width="350px">
+        </ng-template>
+    </swiper>
+</ng-template>
+
+<ng-template #slides2>
+    <swiper
+        class="align-items-center justify-content-center px-4"
+        id="two"
+        [slidesPerView]="2"
+        [spaceBetween]="30"
+        [speed]="9000"
+        [autoplay]="{delay: 0, disableOnInteraction: false}"
+        [loopFillGroupWithBlank]="true"
+        [freeMode]="true"
+        [loop]="true"
+        [grabCursor]="true"
+    >
+        <ng-template swiperSlide>
+            <strong>Delipet</strong>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/delipetLogo.svg" height="100px" width="300px">
+        </ng-template>
+        <ng-template swiperSlide>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/drogueriaLogo.svg" height="100px" width="300px">
+        </ng-template>
+        <ng-template swiperSlide>
+            <img class="text-center" src="../../../../../../assets/shared/happyCatLogo.png" height="100px" width="350px">
+        </ng-template>
+    </swiper>
+</ng-template>
+
+<ng-template #slides1>
+    <swiper
+        class="align-items-center justify-content-center"
+        id="one"
+        [slidesPerView]="1"
+        [speed]="9000"
+        [autoplay]="{delay: 0, disableOnInteraction: false}"
+        [loopFillGroupWithBlank]="true"
+        [freeMode]="true"
+        [loop]="true"
+        [grabCursor]="true"
+    >
+        <ng-template swiperSlide>
+            <strong>Delipet</strong>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/delipetLogo.svg" height="100px" width="300px">
+        </ng-template>
+        <ng-template swiperSlide>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/drogueriaLogo.svg" height="100px" width="300px">
+        </ng-template>
+        <ng-template swiperSlide>
+            <img class="col-12 text-center" src="../../../../../../assets/shared/happyCatLogo.png" height="100px" width="350px">
+        </ng-template>
+    </swiper>
+</ng-template>

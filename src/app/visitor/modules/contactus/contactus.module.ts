@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactusRoutingModule } from './contactus-routing.module';
-import { ContactusComponent } from './contactus.component';
 import { SharedModule } from '@shared/shared.module';
+import { ContactScreenComponent } from './screens/contact-screen/contact-screen.component';
 
-
+const components: any = [
+  ContactScreenComponent
+]
 @NgModule({
-  declarations: [
-    ContactusComponent
-  ],
+  declarations: [...components],
   imports: [
     CommonModule,
     ContactusRoutingModule,

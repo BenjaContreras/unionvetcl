@@ -25,6 +25,11 @@ const routes: Routes = [
         loadChildren: () => import('./modules/contactus/contactus.module')
           .then(cM => cM.ContactusModule)
       },
+      {
+        path: 'login',
+        loadChildren: () => import('./modules/login/login.module')
+          .then(lM => lM.LoginModule)
+      },
     ],
   },
   {

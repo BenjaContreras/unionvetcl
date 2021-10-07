@@ -1,12 +1,16 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesRoutingModule } from './services-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ServiceScreenComponent } from './screens/service-screen/service-screen.component';
 import { SharedModule } from '@shared/shared.module';
 import { SwiperModule } from 'swiper/angular';
+import { ServicesListComponent } from './components/services-list/services-list.component';
+import { ServicesDetailComponent } from './components/services-detail/services-detail.component';
 
 const components: any = [
-  ServiceScreenComponent,
+  ServiceScreenComponent, ServicesListComponent,
+  ServicesDetailComponent
 ]
 @NgModule({
   declarations: [...components],
@@ -14,8 +18,9 @@ const components: any = [
     CommonModule,
     ServicesRoutingModule,
     SharedModule,
-    SwiperModule
+    SwiperModule,
+    SharedModule,
+    NgbModule
   ],
-  exports: [...components]
 })
 export class ServicesModule { }

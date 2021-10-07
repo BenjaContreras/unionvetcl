@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { SrviceService } from '@core/providers/service/srvice.service';
+import { Service } from '@models/service.model';
 import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
 SwiperCore.use([Pagination, Navigation, Scrollbar, A11y, Autoplay, EffectFade]);
 
@@ -7,18 +9,26 @@ SwiperCore.use([Pagination, Navigation, Scrollbar, A11y, Autoplay, EffectFade]);
   templateUrl: './service-screen.component.html',
   styleUrls: ['./service-screen.component.sass']
 })
-export class ServiceScreenComponent implements OnInit {
+export class ServiceScreenComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  public service: Service | null;
+  public selectedServiceId: string;
 
-  ngOnInit(): void {
+  constructor(private serviceService: SrviceService) { 
+    this.selectedServiceId = 'Aplicación de microchip';
+    this.service = null;
   }
 
-  public onSwiper(swiper: any) {
-    console.log(swiper);
-  };
+  async ngOnInit(): Promise<void> {
+    await this.serviceIdReciver(this.selectedServiceId);
+  }
 
-  public onSlideChange(swiper: any) {
-    console.log('slide changed');
+  async ngOnChanges(): Promise<void> {
+    await this.serviceIdReciver(this.selectedServiceId);
+  }
+
+  public async serviceIdReciver(title: string) {
+    this.selectedServiceId = title;
+    this.service = await this.serviceService.getService(this.selectedServiceId);
   };
 }

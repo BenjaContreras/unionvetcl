@@ -1,5 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import SwiperCore, { Autoplay } from 'swiper';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import SwiperCore, { Autoplay, Swiper } from 'swiper';
+import { SwiperComponent } from 'swiper/angular';
 SwiperCore.use([Autoplay]);
 
 @Component({
@@ -25,8 +26,12 @@ export class TipsComponent implements OnInit {
     return window.innerWidth;
   }
 
-  public onSwiper(swiper: any) {
-    //
+  @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
+  slidePrev() {
+    this.swiper?.swiperRef.slidePrev(100);
+  };
+  slideNext() {
+    this.swiper?.swiperRef.slideNext(100);
   };
 }
 
