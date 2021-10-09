@@ -1,12 +1,143 @@
 <navbar></navbar>
 <div class="container-fluid font-brand">
-    <div class="row h-100">
-        <div class="col-2">
+    <div class="row my-5 justify-content-center">
+        <div class="col text-center">
+            <img *ngIf="getScreenSize() >= 630" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg">
+            <img *ngIf="getScreenSize() < 630 && getScreenSize() >= 430" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg" width="400">
+            <img *ngIf="getScreenSize() < 430" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg" width="300">
+        </div>
+    </div>
+    <div class="row justify-content-center h-100 mt-3" *ngIf="getScreenSize() < 1100">
+        <div class="col">
+            <ng-template [ngTemplateOutlet]="filtersInLine"></ng-template>
+        </div>
+    </div>
+    <div class="row justify-content-center h-100">
+        <div class="col-2" *ngIf="getScreenSize() >= 1100">
             <products-side-filters></products-side-filters>
         </div>
-        <div class="col-10">
+        <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']">
             <product-card></product-card>
         </div>
     </div>
 </div>
 <footer></footer>
+<scroll-top-button></scroll-top-button>
+
+<ng-template #filtersInLine>
+    <div class="row">
+        <div class="my-1"
+            [ngClass]="[getScreenSize() >= 485 ? 'col' : 'col-12']"
+        >
+            <mat-accordion style="background-color: #0F7499; color: white;">
+                <mat-expansion-panel style="background-color: #0F7499; color: white; border: none">
+                    <mat-expansion-panel-header style="background-color: #0F7499; color: white;">
+                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1215 ? '18px' : '14px'}"
+                        >
+                            Categoría
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    
+                    <ng-template matExpansionPanelContent>
+                        <input type="text" class="form-control font-brand mb-3" placeholder="Buscar categoría..." aria-label="Username" aria-describedby="basic-addon1">
+                        <section class="example-section font-brand ms-3">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">Shampoo (10)</mat-checkbox>
+                                </div>
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="medicine">Medicamentos (13)</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="desparacitante">Desparacitantes (4)</mat-checkbox>
+                                </div>
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="food">Alimento (20)</mat-checkbox>
+                                </div>
+                            </div>
+                        </section>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="my-1"
+            [ngClass]="[getScreenSize() >= 485 ? 'col' : 'col-12']"
+        >
+            <mat-accordion style="background-color: #0F7499; color: white;">
+                <mat-expansion-panel style="background-color: #0F7499; color: white; border: none">
+                    <mat-expansion-panel-header style="background-color: #0F7499; color: white;">
+                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1215 ? '18px' : '14px'}"
+                        >
+                            Marca
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    
+                    <ng-template matExpansionPanelContent>
+                        <input type="text" class="form-control font-brand mb-3" placeholder="Buscar marca..." aria-label="Username" aria-describedby="basic-addon1">
+                        <section class="example-section font-brand ms-3">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">Delipets (10)</mat-checkbox>
+                                </div>
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="medicine">Drg. Nuñoa (13)</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="desparacitante">Cruz verde (4)</mat-checkbox>
+                                </div>
+                            </div>
+                        </section>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="my-1"
+            [ngClass]="[getScreenSize() >= 485 ? 'col' : 'col-12']"
+        >
+            <mat-accordion style="background-color: #0F7499; color: white;">
+                <mat-expansion-panel style="background-color: #0F7499; color: white; border: none">
+                    <mat-expansion-panel-header style="background-color: #0F7499; color: white;">
+                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1215 ? '18px' : '14px'}"
+                        >
+                            Valoracion
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    
+                    <ng-template matExpansionPanelContent>
+                        <input type="text" class="form-control font-brand mb-3" placeholder="Buscar por valoración..." aria-label="Username" aria-describedby="basic-addon1">
+                        <section class="example-section font-brand ms-3">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">5</mat-checkbox>
+                                </div>
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">4</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">3</mat-checkbox>
+                                </div>
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">2</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-checkbox class="example-margin" value="shampoo">1</mat-checkbox>
+                                </div>
+                            </div>
+                        </section>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</ng-template>
