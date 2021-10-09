@@ -1,10 +1,22 @@
 <navbar></navbar>
 <div class="container-fluid font-brand">
-    <div class="row h-100">
-        <div class="col-2">
+    <div class="row my-5 justify-content-center">
+        <div class="col text-center">
+            <img *ngIf="getScreenSize() >= 630" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg">
+            <img *ngIf="getScreenSize() < 630 && getScreenSize() >= 430" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg" width="400">
+            <img *ngIf="getScreenSize() < 430" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg" width="300">
+        </div>
+    </div>
+    <div class="row justify-content-center h-100 mt-3" *ngIf="getScreenSize() < 1100">
+        <div class="col">
+            <ng-template [ngTemplateOutlet]="filtersInLine"></ng-template>
+        </div>
+    </div>
+    <div class="row justify-content-center h-100">
+        <div class="col-2" *ngIf="getScreenSize() >= 1100">
             <products-side-filters></products-side-filters>
         </div>
-        <div class="col-10">
+        <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']">
             <product-card></product-card>
         </div>
     </div>
