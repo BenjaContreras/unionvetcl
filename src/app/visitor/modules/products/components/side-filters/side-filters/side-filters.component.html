@@ -1,13 +1,24 @@
 <div class="row align-items-center justify-content-center my-5 mx-2 text-white" style="background-color: #0F7499; border-radius: 20px;">
     <div class="col mb-5 p-0">
         <div class="row mt-4 mb-3">
-            <div class="col ms-4" style="font-size: 40px;">
+            <div class="col" 
+                [ngClass]="[getScreenSize() > 1350 ? 'ms-4' :
+                            getScreenSize() <= 1350 && getScreenSize() > 1115 ? 'ms-3' : 'ms-2'
+                            ]"
+                [ngStyle]="{'font-size': getScreenSize() > 1575 ? '40px':
+                                        getScreenSize() <= 1575 && getScreenSize() > 1280 ? '34px' : '28px'
+                            }"
+            >
                 Insumos
             </div>
         </div>
         <div class="smallLine"></div>
         <div class="row">
-            <div class="col my-3 ms-4" style="font-weight: 200;">
+            <div class="col my-3" style="font-weight: 200;"
+                [ngClass]="[getScreenSize() > 1350 ? 'ms-4' :
+                            getScreenSize() <= 1350 && getScreenSize() > 1115 ? 'ms-3' : 'ms-2'
+                            ]"
+            >
                 Resultado (500)
             </div>
         </div>
@@ -20,9 +31,11 @@
     <div class="row font-brand">
         <div class="col mt-2">
             <mat-accordion style="background-color: #0F7499; color: white;">
-                <mat-expansion-panel style="background-color: #0F7499; color: white; border: none">
+                <mat-expansion-panel [expanded]="true" style="background-color: #0F7499; color: white; border: none">
                     <mat-expansion-panel-header style="background-color: #0F7499; color: white;">
-                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white; font-size: 18px">
+                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1215 ? '18px' : '14px'}"
+                        >
                             Categoría
                         </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -45,7 +58,9 @@
             <mat-accordion style="background-color: #0F7499; color: white;">
                 <mat-expansion-panel style="background-color: #0F7499; color: white; border: none">
                     <mat-expansion-panel-header style="background-color: #0F7499; color: white;">
-                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white; font-size: 18px">
+                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1215 ? '18px' : '14px'}"
+                        >
                             Marca
                         </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -67,7 +82,9 @@
             <mat-accordion style="background-color: #0F7499; color: white;">
                 <mat-expansion-panel style="background-color: #0F7499; color: white; border: none">
                     <mat-expansion-panel-header style="background-color: #0F7499; color: white;">
-                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white; font-size: 18px">
+                        <mat-panel-title  class="font-brand" style="background-color: #0F7499; color: white;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1215 ? '18px' : '14px'}"
+                        >
                             Valoracion
                         </mat-panel-title>
                     </mat-expansion-panel-header>
