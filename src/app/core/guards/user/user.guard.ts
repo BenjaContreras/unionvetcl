@@ -19,7 +19,7 @@ export class UserGuard implements CanActivate {
       if (this.authProvider.isAuthenticated('user')) {
         return true;
       } else {
-        this.router.navigate(['visitor/inicio']);
+        this.router.navigate(['visitor/home']);
         return false;
       }
   }
