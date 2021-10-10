@@ -1,0 +1,91 @@
+.custom-container
+    display: flex
+    flex-direction: column
+    position: absolute
+    top: 0
+    z-index: 1060 !important
+    bottom: 0
+    left: 0
+    right: 0
+
+.container-is-mobile .container-toolbar
+    position: fixed
+    width: 100%
+    /* Make sure the toolbar will stay on top of the content as it scrolls past.
+    z-index: 2
+
+h1.container-app-name
+    margin-left: 8px
+    font-size: 30px
+
+.sidenav
+    background: whitesmoke
+    border-color: whitesmoke
+    user-select: none
+    /* Standard
+    -webkit-user-select: none
+    /* Safari
+    -moz-user-select: none
+    /* Firefox
+    -ms-user-select: none
+    /* IE10+/Edge
+    z-index: 1 !important
+
+.active
+    background-color: #d0e1f3
+    color: rgb(20, 115, 190) !important
+
+.subseccion-a
+    font-family: 'Montserrat', sans-serif
+    cursor: pointer
+    color: rgb(114, 106, 106)
+    text-decoration: none
+    display: flex
+    align-items: center
+
+.subseccion-a-2
+    margin-left: 30px
+    font-size: 13px
+    font-weight: 500
+    cursor: pointer
+    color: rgb(114, 106, 106)
+    text-decoration: none
+    display: flex
+    align-items: center
+
+.seccion-a
+    font-family: 'Montserrat', sans-serif
+    font-weight: 500
+    cursor: pointer
+    color: rgb(114, 106, 106)
+    display: flex
+    align-items: center
+
+.subseccion-a:hover, .seccion-a:hover
+    background-color: #d0e1f3
+    color: rgb(30, 115, 190)
+
+.sidenav-container
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+    /* causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts.
+    flex: 1
+
+.toMobile > h1, button
+    display: inline-block
+
+.btnMobile
+    margin-bottom: 10px
+
+.container-is-mobile .sidenav-container
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+    /* `<body>` to be our scrolling element for mobile layouts.
+    flex: 1 0 auto
+
+.btn-circle.btn-sm
+    width: 30px
+    height: 30px
+    padding: 0px 0px
+    border-radius: 15px
+    font-size: 11px
+    text-align: center
+    margin: 0px
