@@ -108,7 +108,7 @@ export class AuthProviderService {
     this.authenticatedPatient = false;
     this.authenticatedAdmin = false;
     sessionStorage.removeItem('credentials');
-    this.router.navigate(['visitor/inicio']);
+    this.router.navigate(['visitor/home']);
   }
 
 }
