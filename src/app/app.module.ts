@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CoreModule } from '@core/core.module';
 import { VisitorModule } from '@visitor/visitor.module';
@@ -30,7 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       resetTimeoutOnDuplicate: true
     }),
     CoreModule, VisitorModule,
-    AdminModule, SharedModule, NgbModule
+    AdminModule, SharedModule,
+    NgbModule, HttpClientModule
   ],
   providers: [
     // {
