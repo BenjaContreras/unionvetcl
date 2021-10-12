@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
 import { Product } from '@models/product.model';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-products-screen',
@@ -35,4 +36,8 @@ export class ProductsScreenComponent implements OnInit {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }

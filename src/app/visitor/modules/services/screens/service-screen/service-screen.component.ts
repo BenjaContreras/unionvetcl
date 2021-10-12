@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, HostListener } from '@angular/core';
 import { SrviceService } from '@core/providers/service/srvice.service';
 import { Service } from '@models/service.model';
 import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
@@ -47,4 +47,9 @@ export class ServiceScreenComponent implements OnInit, OnChanges {
     this.selectedServiceId = title;
     this.service = await this.serviceService.getService(this.selectedServiceId);
   };
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }

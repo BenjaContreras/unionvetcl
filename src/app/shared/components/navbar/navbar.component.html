@@ -104,7 +104,7 @@
             <ng-container *ngIf="!isSmall">
                 <div class="row" style="font-size: 17px; min-height: 33px;">
                     <ng-container *ngIf="inHome; else showInit">
-                        <button  mat-raised-button class="anotherButton font-brand col-5" (click)="goTo('login')">Iniciar sesión</button>
+                        <button  mat-raised-button class="anotherButton font-brand col-5" (click)="goTo('home')">Iniciar sesión</button>
                     </ng-container>
                     <ng-template #showInit>
                         <button mat-raised-button class="anotherButton  font-brandcol-5">Registrarse</button>
@@ -128,7 +128,7 @@
 </mat-menu>
 
 <mat-menu #bigMenu="matMenu">
-    <button mat-menu-item (click)="goTo('login')">
+    <button mat-menu-item (click)="goTo('home')">
         <mat-icon>login</mat-icon>
         <span>Iniciar sesión</span>
     </button>

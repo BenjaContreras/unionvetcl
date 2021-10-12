@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import SwiperCore, { Pagination, FreeMode } from 'swiper';
+import { Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import { Service } from '@models/service.model';
-
+SwiperCore.use([Pagination, FreeMode]);
 @Component({
   selector: 'services-detail',
   templateUrl: './services-detail.component.html',
@@ -14,6 +15,7 @@ export class ServicesDetailComponent implements OnInit, OnChanges {
   constructor() { 
     this.service = null;
     this.paragraph = [];
+    console.log(this.getScreenSize());
   }
 
   ngOnInit(): void {
@@ -22,5 +24,10 @@ export class ServicesDetailComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.paragraph = [];
     this.service?.content.forEach(text => this.paragraph.push(text));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
   }
 }

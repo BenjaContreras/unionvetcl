@@ -88,11 +88,7 @@ export class AuthProviderService {
               this.currentUser = {
                 _id: data.user._id,
                 role: data.user.role,
-                firstName: data.user.firstName,
-                lastName: data.user.lastName,
                 mail: data.user.mail,
-                phone: data.user.phone,
-                lastConection: data.user.lastConection
               };
               this.tokenService.addRole(this.currentUser.role);
               this.tokenService.addToken(token);
@@ -112,7 +108,7 @@ export class AuthProviderService {
     this.authenticatedPatient = false;
     this.authenticatedAdmin = false;
     sessionStorage.removeItem('credentials');
-    this.router.navigate(['visitor/inicio']);
+    this.router.navigate(['visitor/home']);
   }
 
 }
