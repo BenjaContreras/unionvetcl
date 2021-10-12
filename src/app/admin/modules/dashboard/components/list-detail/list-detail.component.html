@@ -1,0 +1,18 @@
+<table class="table table-responsive text-white my-5" style="font-weight: 300; font-family: 'Roboto'; user-select: none;">
+    <thead class="pb-5">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-start">Nombre</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Última actualización</th>
+        </tr>
+    </thead>
+    <tbody class="mt-3">
+        <tr *ngFor="let product of products; let i = index">
+            <td>{{i + 1}}</td>
+            <td class="text-start">{{product.name}}</td>
+            <td>{{product.cantidad}}</td>
+            <td>{{product.updated}}</td>
+        </tr>
+    </tbody>
+</table>
