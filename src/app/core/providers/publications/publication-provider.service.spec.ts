@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DateProviderService } from './date-provider.service';
+import {PublicationProviderService } from './publication-provider.service';
 
 describe('DateProviderService', () => {
-  let service: DateProviderService;
+  let service:PublicationProviderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DateProviderService);
+    service = TestBed.inject(PublicationProviderService);
   });
 
   it('should be created', () => {
