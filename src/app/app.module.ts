@@ -12,6 +12,7 @@ import { VisitorModule } from '@visitor/visitor.module';
 import { AdminModule } from '@admin/admin.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     CoreModule, VisitorModule,
     AdminModule, SharedModule,
-    NgbModule, HttpClientModule
+    NgbModule, HttpClientModule,
+    ChartsModule
   ],
   providers: [
     // {
