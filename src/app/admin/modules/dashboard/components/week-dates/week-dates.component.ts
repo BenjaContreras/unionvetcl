@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-week-dates',
+  selector: 'admin-week-dates',
   templateUrl: './week-dates.component.html',
   styleUrls: ['./week-dates.component.sass']
 })
@@ -12,4 +12,8 @@ export class WeekDatesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-products-list',
+  selector: 'admin-products-list',
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.sass']
 })
