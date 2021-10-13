@@ -8,7 +8,7 @@ import { WeekDatesComponent } from './components/week-dates/week-dates.component
 import { WeekSellsComponent } from './components/week-sells/week-sells.component';
 import { ListDetailComponent } from './components/list-detail/list-detail.component';
 import { MaterialModule } from '@core/material.module';
-
+import { ChartsModule } from 'ng2-charts';
 const components: any = [
   PrincipalScreenComponent, ProductsListComponent,
   WeekDatesComponent, WeekSellsComponent,
@@ -19,7 +19,8 @@ const components: any = [
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ChartsModule
   ]
 })
 export class DashboardModule { }
