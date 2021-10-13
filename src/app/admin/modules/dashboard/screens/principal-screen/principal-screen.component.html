@@ -3,11 +3,11 @@
         <div class="text-center" [ngClass]="[getScreenSize() > 1440 ? 'col-5' : 'col-6']">
             <admin-products-list></admin-products-list>
         </div>
-        <div class="col-6 text-center px-5">
-            <div class="row align-items-center p-4">
+        <div class="col-6 text-center px-5 pt-5">
+            <div class="row align-items-center" [ngClass]="[getScreenSize() > 1440 ? 'p-2' : 'p-3']">
                 <admin-week-dates></admin-week-dates>
             </div>
-            <div class="row align-items-center p-4">
+            <div class="row align-items-center" [ngClass]="[getScreenSize() > 1440 ? 'p-2' : 'p-3']">
                 <admin-week-sells></admin-week-sells>
             </div>
         </div>
