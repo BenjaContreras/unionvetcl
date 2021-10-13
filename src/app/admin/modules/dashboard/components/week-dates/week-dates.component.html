@@ -19,11 +19,63 @@
             >Atenciones de la semana</h6>
         </div>
         <div class="col-4 text-end">
-            <button mat-raised-button style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto';">Ver más</button>
+            <button mat-raised-button 
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto';"
+            >
+                <mat-icon>zoom_in</mat-icon>
+            </button>
         </div>
     </div>
-    <mat-divider></mat-divider>
-    <div class="row">
-        <div class="col">Contenido</div>
+    <div class="row align-items-center justify-content-center">
+        <div class="col">
+            <div class="chart">
+                <canvas baseChart
+                    *ngIf="getScreenSize() > 1440"
+                    height="130"
+                    [datasets]="chartData"
+                    [labels]="chartLabels"
+                    [chartType]="chartType"
+                    [options]="chartOptions"
+                    [legend]="chartLegends"
+                ></canvas>
+                <canvas baseChart
+                    *ngIf="getScreenSize() <= 1440"
+                    height="220"
+                    [datasets]="chartData"
+                    [labels]="chartLabels"
+                    [chartType]="chartType"
+                    [options]="chartOptions"
+                    [legend]="chartLegends"
+                ></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 3000 !important;" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="chart">
+                    <canvas baseChart
+                        width="700"
+                        height="600"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [chartType]="chartType"
+                        [options]="chartOptions"
+                        [legend]="chartLegends"
+                    ></canvas>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button mat-raised-button 
+                    type="button"
+                    data-bs-dismiss="modal"
+                    style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto';"
+                >Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
