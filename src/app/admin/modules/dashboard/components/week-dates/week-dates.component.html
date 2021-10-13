@@ -18,12 +18,11 @@
                 style="font-family: 'Roboto'; font-weight: 200;"
             >Atenciones de la semana</h6>
         </div>
-        <div class="col-4 text-end">
-            <button mat-raised-button 
-                data-bs-toggle="modal" data-bs-target="#exampleModal"
+        <div class="col text-end">
+            <button mat-raised-button disabled
                 style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto';"
             >
-                <mat-icon>zoom_in</mat-icon>
+                {{(fechaInicio.dia + ', ' + fechaInicio.mes) + ' - ' + (fechaTermino.dia + ', ' + fechaTermino.mes)}}
             </button>
         </div>
     </div>
