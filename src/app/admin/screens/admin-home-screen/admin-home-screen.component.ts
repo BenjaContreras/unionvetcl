@@ -1,19 +1,19 @@
-import { NotificationService } from './../../../core/services/notification/notification.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { AuthProviderService } from '@core/providers/auth/auth-provider.service';
+import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
   selector: 'app-admin-home-screen',
   templateUrl: './admin-home-screen.component.html',
   styleUrls: ['./admin-home-screen.component.sass']
 })
-export class AdminHomeScreenComponent implements OnInit, OnChanges {
+export class AdminHomeScreenComponent implements OnInit {
 
   public options: string[];
-  public optionSelected: string | null;
+  public optionSelected: string;
 
   public mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -25,20 +25,29 @@ export class AdminHomeScreenComponent implements OnInit, OnChanges {
     media: MediaMatcher,
     private authProvider: AuthProviderService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {
-    this.optionSelected = null;
-    this.options = ['Resumen', 'Agenda', 'Usuarios', 'Productos', 'Consultas', 'Ofertas', 'Publicaciones', 'Contratos']
+    this.optionSelected = this.getCurrentRoute();
+    this.options = ['Resumen', 'Agenda', 'Usuarios', 'Productos', 'Consultas', 'Publicaciones', 'Contratos']
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
-  }
+  };
 
   ngOnInit(): void {
   }
 
-  ngOnChanges() {
-  }
+  public getCurrentRoute(): string {
+    const route = this.router.url;
+    if (route === '/admin/agenda') return this.optionSelected = 'Agenda';
+    if (route === '/admin/') return this.optionSelected = 'Resumen';
+    if (route === '/admin/publicaciones') return this.optionSelected = 'Publicaciones';
+    if (route === '/admin/usuarios') return this.optionSelected = 'Usuarios';
+    if (route === '/admin/productos') return this.optionSelected = 'Productos';
+    if (route === '/admin/consultas') return this.optionSelected = 'Consultas';
+    if (route === '/admin/contratos') return this.optionSelected = 'Contratos';
+    return 'Resumen';
+  };
 
   public changeValue(event: MatSelectionListChange) {
     if (event) this.optionSelected = event.options[0].value;
