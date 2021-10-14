@@ -19,28 +19,7 @@
             >Ventas semanales</h6>
         </div>
         <div class="col-4 text-end">
-            <div class="dropdown">
-                <button mat-raised-button class="dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0F7499; color: white; font-weight: 200;">
-                    Acciones
-                </button>
-                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenu2">
-                    <li>
-                        <button class="dropdown-item" type="button" (click)="addNewAttr('Desparazitantes')">
-                            <i class="fa fa-plus me-2"></i>Agregar desparazitantes
-                        </button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button" (click)="addNewAttr('Shampoos')">
-                            <i class="fas fa-plus me-2"></i>Agregar shampooos
-                        </button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button" (click)="deleteLastOne()">
-                            <i class="fas fa-backspace me-2" style="transform: rotate(180deg)"></i> Eliminar último atributo
-                        </button>
-                    </li>
-                </ul>
-            </div>
+            <button mat-raised-button [matMenuTriggerFor]="actions" style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto'; z-index: 3000 !important;">Acciones</button>
         </div>
     </div>
     <mat-divider></mat-divider>
@@ -71,3 +50,25 @@
         </div>
     </div>
 </div>
+
+<mat-menu #actions="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="acciones">
+        <mat-icon>add</mat-icon>
+        <span>Agregar nuevo atributo</span>
+    </button>
+    <button mat-menu-item (click)="deleteLastOne()">
+        <mat-icon>highlight_off</mat-icon>
+        <span>Eliminar ultimo atributo</span>
+    </button>
+</mat-menu>
+
+<mat-menu #acciones="matMenu">
+    <button mat-menu-item (click)="addNewAttr('Desparazitantes')">
+        <mat-icon>add</mat-icon>
+        <span>Desparazitantes</span>
+    </button>
+    <button mat-menu-item (click)="addNewAttr('Shampoos')">
+        <mat-icon>add</mat-icon>
+        <span>Shampoos</span>
+    </button>
+</mat-menu>
