@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DateScreenComponent } from './screens/date-screen/date-screen.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: DateScreenComponent, pathMatch: 'full'},
+  { path: '**', component: DateScreenComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
