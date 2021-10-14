@@ -1,2 +1,12 @@
 <div class="container-fluid mb-4">
+    <mat-divider></mat-divider>
+    <div class="row" *ngFor="let time of horasTarde">
+        <div class="col p-2" style="background-color: rgba(189, 222, 234, 0.4); color: #0F7499">{{time.hora.inicio|date:'HH:mm'}} - {{time.hora.fin|date:'HH:mm'}}</div>
+        <div class="col p-2">{{time.pL}}</div>
+        <div class="col p-2">{{time.pMa}}</div>
+        <div class="col p-2">{{time.pMi}}</div>
+        <div class="col p-2">{{time.pJ}}</div>
+        <div class="col p-2">{{time.pV}}</div>
+    </div>
+    <mat-divider></mat-divider>
 </div>
