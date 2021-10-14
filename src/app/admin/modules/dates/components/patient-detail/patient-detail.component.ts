@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PatientDetailComponent implements OnInit {
 
+  @Input() public patient: any;
   
   constructor() { }
 
