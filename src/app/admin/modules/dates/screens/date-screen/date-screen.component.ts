@@ -36,6 +36,10 @@ export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionSt
 })
 export class DateScreenComponent implements OnInit {
   constructor() {
+    this.range = new FormGroup({
+      start: new FormControl(),
+      end: new FormControl()
+    });
   }
 
   ngOnInit(): void {
