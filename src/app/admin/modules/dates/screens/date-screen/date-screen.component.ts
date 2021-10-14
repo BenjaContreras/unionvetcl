@@ -29,6 +29,9 @@ export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionSt
 @Component({
   selector: 'app-date-screen',
   templateUrl: './date-screen.component.html',
+  providers: [
+    { provide: MAT_DATE_RANGE_SELECTION_STRATEGY, useClass: FiveDayRangeSelectionStrategy }
+  ],
   styleUrls: ['./date-screen.component.sass']
 })
 export class DateScreenComponent implements OnInit {
