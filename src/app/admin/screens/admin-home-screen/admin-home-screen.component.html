@@ -11,7 +11,7 @@
         >
             <ng-template [ngTemplateOutlet]="listOfSidenav"></ng-template>
         </mat-sidenav>
-        <mat-sidenav-content style="background-image: url('../../../../assets/admin/fondo.svg'); background-size: cover;">
+        <mat-sidenav-content style="background-image: url('../../../../assets/admin/fondo.svg'); background-size: cover; font-family: 'Montserrat, cursive';">
             <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="col-2 text-end">
-            <button  mat-raised-button class="font-brand col-5" style="color: #0F7499 !important; background-color: white !important"
+            <button  mat-raised-button class="font-brand" style="color: #0F7499 !important; background-color: white !important"
                 (click)="logOut()"
             >Cerrar sesión</button>
         </div>
@@ -50,7 +50,8 @@
                 <mat-selection-list [multiple]="false" (selectionChange)="changeValue($event)">
                     <mat-list-option
                         (click)="goTo(optionSelected)"
-                        *ngFor="let option of options" [value]="option" 
+                        *ngFor="let option of options" 
+                        [value]="option" 
                         [ngStyle]="{'background-color': optionSelected === option ? 'rgba(255, 255, 255, 0.5)' : ''}"
                     >
                         <div class="row text-white pt-3">

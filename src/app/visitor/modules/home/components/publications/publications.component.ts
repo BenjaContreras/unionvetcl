@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Publication } from '@models/publication.model';
 
 
 @Component({
@@ -9,14 +10,20 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class PublicationsComponent implements OnInit {
 
   public url: string[];
+  @Input() publications: Publication[];
 
   constructor() {
     this.url = [];
     this.getScreenSize();
     urls.forEach((urlA: any) => this.url.push(urlA.link));
+    this.publications = [];
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges() {
+    console.log(this.publications);
   }
 
   get widthForTip(): number {

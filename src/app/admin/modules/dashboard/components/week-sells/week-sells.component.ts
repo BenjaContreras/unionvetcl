@@ -1,6 +1,6 @@
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
-import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'admin-week-sells',
@@ -8,7 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./week-sells.component.sass']
 })
 export class WeekSellsComponent implements OnInit {
-
+  
   public chartData: number[];
   public chartLabels: Label[];
   public chartOptions: ChartOptions;
@@ -48,5 +48,5 @@ export class WeekSellsComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     return window.innerWidth;
-  }
+  } 
 }

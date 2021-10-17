@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import SwiperCore, { Autoplay, Swiper } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
+import { Tip } from '@models/tip.model'
 SwiperCore.use([Autoplay]);
 
 @Component({
@@ -13,12 +14,17 @@ export class TipsComponent implements OnInit {
   public tip1: any = models[0];
   public tip2: any = models[1];
   public tip3: any = models[2];
+  @Input() tips! : Tip[];
 
   constructor() {
     this.getScreenSize();
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges() {
+    console.log(this.tips);
   }
 
   @HostListener('window:resize', ['$event'])

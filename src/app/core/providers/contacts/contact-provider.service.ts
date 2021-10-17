@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Contact } from '@core/models/contact.models';
+import { Contact } from '@core/models/contact.model';
 import { HttpService } from '@core/services/http/http.service';
 import { Observable } from 'rxjs';
 
