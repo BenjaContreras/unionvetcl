@@ -1,7 +1,7 @@
+import { Label } from 'ng2-charts';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'admin-week-dates',
@@ -20,8 +20,6 @@ export class WeekDatesComponent implements OnInit {
   public fechaTermino: any;
 
   constructor(private router: Router) {
-    const day: Date = new Date();
-    this.setDate(day);
     this.chartData = [
       {
         data: [10, 4, 15, 13, 2],
@@ -47,6 +45,7 @@ export class WeekDatesComponent implements OnInit {
     this.chartLegends = true;
     this.chartType = 'bar';
   }
+
   ngOnInit(): void {
   }
 
