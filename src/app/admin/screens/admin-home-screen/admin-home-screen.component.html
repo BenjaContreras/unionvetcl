@@ -1,0 +1,68 @@
+<div class="custom-container">
+    <mat-toolbar  class="container-toolbar" style="background-color: #0F7499 !important; color: white !important">
+        <ng-template [ngTemplateOutlet]="matToolBar"></ng-template>
+    </mat-toolbar>
+    <mat-sidenav-container class="sidenav-container" style="margin-top: 2px">
+        <mat-sidenav #snav 
+            [mode]="mobileQuery.matches ? 'over' : 'side'" 
+            class="sidenav"
+            fixedTopGap="20"
+            [opened]="true"
+        >
+            <ng-template [ngTemplateOutlet]="listOfSidenav"></ng-template>
+        </mat-sidenav>
+        <mat-sidenav-content style="background-image: url('../../../../assets/admin/fondo.svg'); background-size: cover; font-family: 'Montserrat, cursive';">
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+
+<ng-template #matToolBar>
+    <div class="row align-items-center w-100">
+        <div class="col-10">
+            <div class="row align-items-center">
+                <div class="col-1 text-center px-0">
+                    <img src="../../../../assets/admin/unionvet.svg">
+                </div>
+                <div class="col-2 px-0">
+                    <h1 class="text-white pt-2" style="font-family: 'Comfortaa', cursive; font-size: 35px;">Unionvet</h1>
+                </div>
+                <div class="col ps-0">
+                    <button mat-mini-fab color="white" (click)="snav.toggle()" #buttonNav style="color: #0F7499">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 text-end">
+            <button  mat-raised-button class="font-brand" style="color: #0F7499 !important; background-color: white !important"
+                (click)="logOut()"
+            >Cerrar sesión</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #listOfSidenav>
+    <div class="container-fluid sidenav h-100 p-0" style="min-width: 250px; background-color: #0F7499; color: white;">
+        <div class="row" style="max-width: 262px;">
+            <div class="col p-0">
+                <mat-selection-list [multiple]="false" (selectionChange)="changeValue($event)">
+                    <mat-list-option
+                        (click)="goTo(optionSelected)"
+                        *ngFor="let option of options" 
+                        [value]="option" 
+                        [ngStyle]="{'background-color': optionSelected === option ? 'rgba(255, 255, 255, 0.5)' : ''}"
+                    >
+                        <div class="row text-white pt-3">
+                            <div class="col-1"><mat-icon>{{getIcon(option)}}</mat-icon></div>
+                            <div class="col ps-4">
+                                <p>{{option}}</p>
+                            </div>
+                        </div>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </div>
+    </div>
+</ng-template>

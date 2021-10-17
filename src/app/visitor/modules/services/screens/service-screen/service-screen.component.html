@@ -1,9 +1,18 @@
 <navbar></navbar>
 <div class="container-fluid font-brand my-5 w-100">
     <div class="row my-5">
-        <div class="col text-center">
-            <img src="../../../../../../assets/shared/backgroundTitles/serviceTitle.svg">
+        <div class="col text-center" *ngIf="getScreenSize() > 410; else showText">
+            <img src="../../../../../../assets/shared/backgroundTitles/serviceTitle.svg"
+                *ngIf="getScreenSize() > 630"
+            >
+            <img src="../../../../../../assets/shared/backgroundTitles/serviceTitle.svg"
+                [width]="400"
+                *ngIf="getScreenSize() <= 630 && getScreenSize() > 410"
+            >
         </div>
+        <ng-template #showText>
+            <div class="col text-center text-white mx-5 py-2" style="background-color: #0F7499; font-size: 22px; border-radius: 10px;">Servicios</div>
+        </ng-template>
     </div>
     <div class="row my-5">
         <div class="col py-5">
@@ -20,9 +29,16 @@
         </div>
     </div>
     <div class="row mb-5">
-        <div class="col my-3 py-5 ps-5 ms-5 h-100" style="font-size: 62px; color: #0F7499; font-weight: 600;">
+        <div class="col my-3 py-5 ps-5 ms-5 h-100" style="color: #0F7499; font-weight: 600;"
+            [ngStyle]="{'font-size': 
+                        getScreenSize() > 670 ? '62px' : 
+                        getScreenSize() <= 670 && getScreenSize() > 540 ? '48px' :
+                        getScreenSize() <= 540 && getScreenSize() > 440 ? '36px' : '26px'
+                        }"
+        >
             ¡Su mascota en buenas manos!
         </div>
     </div>
 </div>
 <footer></footer>
+<scroll-top-button></scroll-top-button>

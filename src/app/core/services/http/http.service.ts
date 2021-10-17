@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnChanges } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { environment as env } from 'src/environments/environment';
 import { map } from "rxjs/operators";
-import { TokenService } from '../token/token.service';
 
 interface HttpOptions {
   headers: HttpHeaders
@@ -14,11 +13,9 @@ export class HttpService {
 
   private httpOptions: HttpOptions;
   private baseUrl: string;
-  public token: string | null;
 
-  constructor(private httpClient: HttpClient, private tokenService: TokenService) {
-    this.baseUrl = environment.apiBaseUrl;
-    this.token = this.tokenService.getToken();
+  constructor(private httpClient: HttpClient) {
+    this.baseUrl = env.apiBaseUrlDev;
 
     this.httpOptions = {
       headers: new HttpHeaders({

@@ -1,0 +1,74 @@
+<div class="container-fluid" style="box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.5); border-radius: 30px; background: rgba(255, 255, 255, 0.9);">
+    <div class="row py-2 align-items-center">
+        <div class="col-8 text-start ps-3 pt-2 pb-0">
+            <h3 
+                *ngIf="getScreenSize() > 1815"
+                style="font-family: 'Roboto'; font-weight: 200;"
+            >Ventas semanales</h3>
+            <h4 
+                *ngIf="getScreenSize() <= 1815 && getScreenSize() > 1645"
+                style="font-family: 'Roboto'; font-weight: 200;"
+            >Ventas semanales</h4>
+            <h5 
+                *ngIf="getScreenSize() <= 1645 && getScreenSize() > 1470"
+                style="font-family: 'Roboto'; font-weight: 200;"
+            >Ventas semanales</h5>
+            <h6 
+                *ngIf="getScreenSize() <= 1470"
+                style="font-family: 'Roboto'; font-weight: 200;"
+            >Ventas semanales</h6>
+        </div>
+        <div class="col-4 text-end">
+            <button mat-raised-button [matMenuTriggerFor]="actions" style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto';">Acciones</button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row align-items-center justify-content-center">
+        <div class="col">
+            <div class="chart">
+                <canvas baseChart
+                    *ngIf="getScreenSize() > 1440"
+                    height="130"
+                    [data]="chartData"
+                    [labels]="chartLabels"
+                    [chartType]="chartType"
+                    [options]="chartOptions"
+                    [colors]="chartColors"
+                    [legend]="chartLegends"
+                ></canvas>
+                <canvas baseChart
+                    *ngIf="getScreenSize() <= 1440"
+                    height="220"
+                    [data]="chartData"
+                    [labels]="chartLabels"
+                    [chartType]="chartType"
+                    [options]="chartOptions"
+                    [colors]="chartColors"
+                    [legend]="chartLegends"
+                ></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-menu #actions="matMenu" style="z-index: 1000;">
+    <button mat-menu-item [matMenuTriggerFor]="acciones">
+        <mat-icon>add</mat-icon>
+        <span>Agregar nuevo atributo</span>
+    </button>
+    <button mat-menu-item (click)="deleteLastOne()">
+        <mat-icon>highlight_off</mat-icon>
+        <span>Eliminar ultimo atributo</span>
+    </button>
+</mat-menu>
+
+<mat-menu #acciones="matMenu">
+    <button mat-menu-item (click)="addNewAttr('Desparazitantes')">
+        <mat-icon>add</mat-icon>
+        <span>Desparazitantes</span>
+    </button>
+    <button mat-menu-item (click)="addNewAttr('Shampoos')">
+        <mat-icon>add</mat-icon>
+        <span>Shampoos</span>
+    </button>
+</mat-menu>

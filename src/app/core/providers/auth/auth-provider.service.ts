@@ -13,7 +13,6 @@ export class AuthProviderService {
 
   private authenticatedAdmin: boolean;
   private authenticatedPatient: boolean;
-  private authenticatedSpecialist: boolean;
   private currentUser: any;
 
   constructor(
@@ -22,18 +21,14 @@ export class AuthProviderService {
     private router: Router
   ) {
     this.authenticatedAdmin = false;
-    this.authenticatedSpecialist = false;
     this.authenticatedPatient = false;
     this.currentUser = null;
 
     if (this.tokenService.getRole() === 'admin') {
       this.authenticatedAdmin = true;
     };
-    if (this.tokenService.getRole() === 'petOwner') {
+    if (this.tokenService.getRole() === 'user') {
       this.authenticatedPatient = true;
-    };
-    if (this.tokenService.getRole() === 'specialist') {
-      this.authenticatedSpecialist = true;
     };
   }
 
@@ -41,14 +36,10 @@ export class AuthProviderService {
     if (ruta.trim() === 'admin') { //Admin
       return this.authenticatedAdmin;
     } else {
-      if (ruta.trim() === 'patient') { //Pacient
+      if (ruta.trim() === 'user') { //Pacient
         return this.authenticatedPatient;
-      } else {
-        if (ruta.trim() === 'specialist') { //Specialist
-          return this.authenticatedSpecialist;
-        }
-      }
-    }
+      };
+    };
     return false;
   }
 
@@ -58,13 +49,13 @@ export class AuthProviderService {
 
   login(auth: { email: string, password: string }, opcion: number): Observable<any> {
     if (opcion == 1) {
-      return this.httpService.post('/auth/login/pet-owner', {
+      return this.httpService.post('/auth/login/user', {
         email: auth.email,
         password: auth.password
       })
         .pipe(
           tap((data: any) => {
-            if ((data.user.role === 'petOwner')) {
+            if ((data.user.role === 'user')) {
               const token: string = data.access_token;
               this.currentUser = {
                 _id: data.user._id,
@@ -79,37 +70,31 @@ export class AuthProviderService {
               this.tokenService.addToken(token);
               this.authenticatedPatient = true;
                 this.authenticatedAdmin = false;
-                this.authenticatedSpecialist = false;
-              this.router.navigate(['paciente/citas']);
+              this.router.navigate(['']);
             } else {
               throw (this.router.navigate(['visitor/inicio']));
             }
           })
         );
     } else {
-      return this.httpService.post('/auth/login/specialist', {
+      return this.httpService.post('/auth/login/admin', {
         email: auth.email,
         password: auth.password
       })
         .pipe(
           tap((data: any) => {
-            if ((data.user.role === 'specialist')) {
+            if ((data.user.role === 'admin')) {
               const token: string = data.access_token;
               this.currentUser = {
                 _id: data.user._id,
                 role: data.user.role,
-                firstName: data.user.firstName,
-                lastName: data.user.lastName,
                 mail: data.user.mail,
-                phone: data.user.phone,
-                lastConection: data.user.lastConection
               };
               this.tokenService.addRole(this.currentUser.role);
               this.tokenService.addToken(token);
-              this.authenticatedSpecialist = true;
                 this.authenticatedPatient = false;
-                this.authenticatedAdmin = false;
-              this.router.navigate(['doctor/citas']);
+              this.authenticatedAdmin = false;
+              this.router.navigate(['']);
             } else {
               throw (this.router.navigate(['visitor/inicio']));
             }
@@ -120,11 +105,10 @@ export class AuthProviderService {
 
   public logout(): void{
     this.currentUser = null;
-    this.authenticatedSpecialist = false;
     this.authenticatedPatient = false;
     this.authenticatedAdmin = false;
     sessionStorage.removeItem('credentials');
-    this.router.navigate(['visitor/inicio']);
+    this.router.navigate(['visitor/home']);
   }
 
 }
