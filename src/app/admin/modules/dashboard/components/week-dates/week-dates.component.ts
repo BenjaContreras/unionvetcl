@@ -1,4 +1,7 @@
+import { Label } from 'ng2-charts';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'admin-week-dates',
@@ -7,7 +10,41 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class WeekDatesComponent implements OnInit {
 
-  constructor() { }
+  public chartData: ChartDataSets[];
+  public chartLabels: Label[];
+  public chartOptions: ChartOptions;
+  public chartLegends: boolean;
+  public chartType: ChartType;
+  public chartColors: any;
+  public fechaInicio: any;
+  public fechaTermino: any;
+
+  constructor(private router: Router) {
+    this.chartData = [
+      {
+        data: [10, 4, 15, 13, 2],
+        label: 'Atenciones semanales',
+        backgroundColor: 'rgba(15, 116, 153, .8)',
+        borderColor: ['rgba(15, 116, 153, .8)'],
+        hoverBackgroundColor: 'rgba(108, 187, 168, 1)',
+        hoverBorderColor: ['rgba(15, 116, 153, .8)']
+      }
+    ];
+    this.chartLabels = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+    this.chartOptions = {
+      responsive: true,
+      legend: { position: 'bottom', labels: { fontSize: 16, fontFamily: 'Montserrat, cursive'}},
+      scales: {
+        yAxes: [{
+          ticks: {
+            stepSize: 2,
+            min: 0
+          }
+      }]}
+    };
+    this.chartLegends = true;
+    this.chartType = 'bar';
+  }
 
   ngOnInit(): void {
   }
@@ -15,5 +52,5 @@ export class WeekDatesComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     return window.innerWidth;
-  }
+  };
 }

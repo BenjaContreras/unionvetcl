@@ -1,3 +1,4 @@
+import { ChartsModule } from 'ng2-charts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -19,7 +20,8 @@ const components: any = [
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ChartsModule
   ]
 })
 export class DashboardModule { }

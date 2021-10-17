@@ -1,11 +1,14 @@
-<div class="container-fluid mt-5 mx-4" style="box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.5); border-radius: 30px; z-index: 1000; background: rgba(255, 255, 255, 0.9);">
+<div class="container-fluid mt-5 mx-4" style="box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.5); border-radius: 30px; z-index: 3010; background: rgba(255, 255, 255, 0.9);">
     <div class="row py-3 px-3">
         <div class="col text-start">
-            <h1 style="font-family: 'Roboto'; font-weight: 100; user-select: none;">Listado de productos</h1>
+            <h1 *ngIf="getScreenSize() > 1440" style="font-family: 'Roboto'; font-weight: 100; user-select: none;">Listado de productos</h1>
+            <h3 *ngIf="getScreenSize() <= 1440" style="font-family: 'Roboto'; font-weight: 100; user-select: none;">Listado de productos</h3>
         </div>
     </div>
     <div class="row px-5 pb-3">
-        <div class="col text-end px-5" style="font-size: 20px">
+        <div class="col ps-5 text-end"
+            [ngStyle]="{'font-size': getScreenSize() > 1440 ? '20px' : '14px'}"
+        >
             <strong style="font-family: 'Roboto'; user-select: none;">Ultima actualización: <span style="font-family: 'Roboto'; font-style: italic; font-weight: 200">15 de Marzo, 2021</span></strong>
         </div>
     </div>
@@ -14,11 +17,7 @@
             <admin-list-detail></admin-list-detail>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-2"></div>
-        <div class="col-8 my-4">
-            <button class="text-white py-2 px-3" mat-raised-button style="background-color: #0F7499; font-family: 'Roboto'; font-weight: 200; font-size: 24px;">Ver con detalle</button>
-        </div>
-        <div class="col-2"></div>
+    <div class="row mt-5">
+        <div class="col"></div>
     </div>
 </div>
