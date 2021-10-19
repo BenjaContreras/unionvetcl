@@ -1,0 +1,46 @@
+<form 
+  [formGroup]="addressForm" 
+  novalidate 
+  (ngSubmit)="login()" 
+  class="m-5"
+>
+  <mat-card class="shipping-card font-brand m-5 p-5" style="background-color: #5F9FB6; box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.7); border-radius: 30px">
+    <mat-card-header class="justify-content-center mb-5">
+      <img src="../../../../assets/admin/topForm.svg">
+    </mat-card-header>
+    <mat-card-content class="px-5">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput type="text" placeholder="Correo electrónico" formControlName="email" style="background-color: #5F9FB6;">
+            <mat-error *ngIf="addressForm.controls['email'].hasError('required')">
+              <strong>¡Correo requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput #input type="password" placeholder="Contraseña" formControlName="password">
+            <mat-error *ngIf="addressForm.controls['password'].hasError('required')">
+              <strong>¡Contraseña requerida!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions [align]="'end'" class="align-items-center me-5">
+      <span class="text-white me-4" style="font-size: 20px;"
+        [ngStyle]="{'cursor': hover? 'pointer' : ''}"
+        (mouseover)="hover = true"
+        (mouseout)="hover = false"
+        (click)="goTo('forgot')"
+      >¿Olvidaste tu contraseña?</span>
+      <button mat-raised-button type="submit" [disabled]="!addressForm.valid" style="color: #5F9FB6;"
+        class="btn-lg"
+        [ngStyle]="{'background-color': addressForm.valid? 'white' : 'disabled'}"
+      >Acceder</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
