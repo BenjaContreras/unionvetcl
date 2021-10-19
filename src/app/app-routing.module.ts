@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '@core/guards/admin/admin.guard';
 import { VisitorModule } from './visitor/visitor.module';
+import { LoginComponent } from '@shared/components/login/login.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
     canActivate: [UserGuard],
     loadChildren: () => import('./user/user.module')
       .then(m => m.UserModule)
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'admin',
