@@ -2,6 +2,22 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY} from '@angular/material/datepicker';
+import * as moment from 'moment';
+import 'moment/locale/es';
+moment.locale('es', {
+  months: [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ],
+  monthsShort: [
+    'En.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ag.o', 'Sept.', 'Oct.', 'Nov.', 'Dic.'
+  ],
+  weekdays: [
+    'Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'
+  ],
+  weekdaysShort: [
+    'Dom.', 'Lun.', 'Mar.', 'Mie.', 'Jue.', 'Vie.', 'Sab.'
+  ]
+});
 
 @Injectable()
 export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
@@ -38,8 +54,10 @@ export class DateScreenComponent implements OnInit {
 
   public mes!: string;
   public range: FormGroup;
+  public rango: string;
 
   constructor() {
+    this.rango = this.setRango();
     this.range = new FormGroup({
       start: new FormControl(),
       end: new FormControl()
@@ -75,4 +93,11 @@ export class DateScreenComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  public setRango(): string {
+    let start = moment().startOf('week').format('dddd DD');
+    let end = moment().endOf('week').format('dddd DD');
+    return `${start} - ${end}`;
+  };
+
 }
