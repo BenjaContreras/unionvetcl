@@ -2,6 +2,21 @@ import { Label } from 'ng2-charts';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import 'moment/locale/es';
+moment.locale('es', {
+  months: [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ],
+  monthsShort: [
+    'En.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul.', 'Ag.o', 'Sept.', 'Oct.', 'Nov.', 'Dic.'
+  ],
+  weekdays: [
+    'Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'
+  ],
+  weekdaysShort: [
+    'Dom.', 'Lun.', 'Mar.', 'Mie.', 'Jue.', 'Vie.', 'Sab.'
+  ]
+});
 
 @Component({
   selector: 'admin-week-dates',
