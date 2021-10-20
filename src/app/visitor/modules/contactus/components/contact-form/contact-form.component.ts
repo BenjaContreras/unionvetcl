@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -70,4 +70,9 @@ export class ContactFormComponent {
       verify: true 
     };
   };
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }
