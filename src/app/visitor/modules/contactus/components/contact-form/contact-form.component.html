@@ -1,0 +1,61 @@
+<form 
+  [formGroup]="contactForm" 
+  novalidate 
+  (ngSubmit)="onSubmit()" 
+  style="box-shadow: 4px 4px 10px rgba(205, 205, 205, 0.5);"
+  class="mx-5"
+>
+  <mat-card class="shipping-card">
+    <mat-card-header class="justify-content-center text-center">
+      <mat-card-title style="color: #0F7499; font-weight: 500;"
+        [ngStyle]="{'font-size': getScreenSize() > 390? '40px' : '20px'}"
+      >Escríbenos tus dudas</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" placeholder="Nombre completo" formControlName="fullName">
+            <mat-error *ngIf="contactForm.controls['fullName'].hasError('required')">
+              <strong>¡Nombre requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput type="email" placeholder="example@gmail.com" formControlName="email">
+            <mat-error *ngIf="contactForm.controls['email'].hasError('required')">
+              <strong>¡Correo requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <span matPrefix class="me-2">+56</span>
+            <input type="tel" matInput placeholder="9XXXXXXXX" formControlName="phone">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Mensaje</mat-label>
+            <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba su mensaje aquí" type="text" formControlName="message"></textarea>
+            <mat-hint align="end">{{postalCode.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit" class="btn-lg" [disabled]="!contactForm.valid"
+        [ngClass]="contactForm.valid? 'text-white': ''"
+        [ngStyle]="{'background-color': contactForm.valid? '#0F7499' : ''}"
+      >Enviar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

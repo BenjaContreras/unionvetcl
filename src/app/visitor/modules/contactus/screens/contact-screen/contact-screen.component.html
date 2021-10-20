@@ -1,3 +1,73 @@
 <navbar></navbar>
-<p>contact-screen works!</p>
+<div class="container-fluid font-brand my-5">
+    <div class="row justify-content-center align-items-center mb-5">
+        <div class="col text-center fw-bold" style="color: #0f7499"
+            [ngStyle]="{'font-size': getScreenSize() > 380? '48px' : '34px'}"
+        >
+            Contáctanos
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center mb-5">
+        <div class="text-center" [ngClass]="getScreenSize() > 1155? 'col' : 'col-12'">
+            <visitor-contact-form></visitor-contact-form>
+        </div>
+        <div class="col text-center">
+            <div class="row justify-content-center align-items-center mb-5">
+                <div class="col text-center pb-5">
+                    <img src="../../../../../../assets/shared/Horarios de atencion.svg"
+                        [ngStyle]="{'width': getScreenSize() > 1540? '' : '80%'}"
+                        [ngClass]="getScreenSize() > 1150? '' : 'mt-3'"
+                    >
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center px-5">
+                <div class="col text-center mx-5" style="box-shadow: 5px 5px 20px rgba(205, 205, 205, 0.7); color: #0f7499;"
+                    [ngStyle]="{'font-size': getScreenSize() > 1345? '55px' :
+                                            getScreenSize() <= 1345 && getScreenSize() > 1275? '48px' : 
+                                            getScreenSize() <= 1275 && getScreenSize() > 1165? '40px' : 
+                                            getScreenSize() <= 1165 && getScreenSize() > 525? '30px' : '22px'
+                                }"
+                >
+                    <div class="row align-items-center" *ngIf="getScreenSize() > 1500">
+                        <div class="col-3 pt-3">
+                            <mat-icon>whatsapp</mat-icon>
+                        </div>
+                        <div class="col">
+                            +56 982911498
+                        </div>
+                    </div>
+                    <div class="row align-items-center" *ngIf="getScreenSize() <= 1500 && getScreenSize() > 1380">
+                        <div class="col-2 pt-3">
+                            <mat-icon style="font-size: 55px;">whatsapp</mat-icon>
+                        </div>
+                        <div class="col">
+                            +56 982911498
+                        </div>
+                    </div>
+                    <div class="row align-items-center" *ngIf="getScreenSize() <= 1380">
+                        <div class="pt-3" [ngClass]="getScreenSize() > 525? 'col-1' : 'col'">
+                            <mat-icon [ngStyle]="{'font-size': getScreenSize() > 525? '55px' : '30px'}">whatsapp</mat-icon>
+                        </div>
+                        <div class="col">
+                            +56 982911498
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center my-5">
+        <div class="col text-center my-5">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3043.2159431412606!2d-73.0826732484437!3d-40.29316398758997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96166b316cebbb83%3A0xa8d7c8f4782219b4!2sEsmeralda%20868%2C%20La%20Uni%C3%B3n%2C%20Los%20R%C3%ADos!5e0!3m2!1ses!2scl!4v1634688449553!5m2!1ses!2scl" 
+                width="98%" 
+                height="600" 
+                style="border: 0; box-shadow: 5px 5px 12px rgba(205, 205, 205, 0.9);" 
+                allowfullscreen="" 
+                loading="lazy"
+            ></iframe>
+        </div>
+    </div>
+</div>
 <footer></footer>
+<scroll-top-button></scroll-top-button>

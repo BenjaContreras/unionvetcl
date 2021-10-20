@@ -47,11 +47,12 @@ export class AuthProviderService {
     return this.currentUser;
   }
 
-  login(auth: { email: string, password: string }, opcion: number): Observable<any> {
-    if (opcion == 1) {
+  login(emailRecived: string, passwordRecived: string, opcion: string): Observable<any> {
+    console.log(emailRecived, passwordRecived, opcion);
+    if (opcion === 'user') {
       return this.httpService.post('/auth/login/user', {
-        email: auth.email,
-        password: auth.password
+        email: emailRecived,
+        password: passwordRecived
       })
         .pipe(
           tap((data: any) => {
@@ -78,8 +79,8 @@ export class AuthProviderService {
         );
     } else {
       return this.httpService.post('/auth/login/admin', {
-        email: auth.email,
-        password: auth.password
+        email: emailRecived,
+        password: passwordRecived
       })
         .pipe(
           tap((data: any) => {
@@ -92,9 +93,9 @@ export class AuthProviderService {
               };
               this.tokenService.addRole(this.currentUser.role);
               this.tokenService.addToken(token);
+              this.authenticatedAdmin = true;
                 this.authenticatedPatient = false;
-              this.authenticatedAdmin = false;
-              this.router.navigate(['']);
+              this.router.navigate(['/admin']);
             } else {
               throw (this.router.navigate(['visitor/inicio']));
             }
@@ -108,6 +109,7 @@ export class AuthProviderService {
     this.authenticatedPatient = false;
     this.authenticatedAdmin = false;
     sessionStorage.removeItem('credentials');
+    sessionStorage.removeItem('role');
     this.router.navigate(['visitor/home']);
   }
 
