@@ -7,8 +7,8 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./modules/home/home.module')
-          .then(hM => hM.HomeModule)
+        loadChildren: () => import('./modules/landing/landing.module')
+          .then(lM => lM.LandingModule)
       },
       {
         path: 'servicios',
@@ -27,15 +27,13 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        loadChildren: () => import('./modules/login/login.module')
-          .then(lM => lM.LoginModule)
       },
     ],
   },
   {
     path: '**',
-    loadChildren: () => import('./modules/home/home.module')
-      .then(hM => hM.HomeModule)
+    loadChildren: () => import('./modules/landing/landing.module')
+      .then(lM => lM.LandingModule)
   },
 ];
 
