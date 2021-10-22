@@ -1,0 +1,141 @@
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="15000">
+    <div class="row pt-5 mt-5 align-items-center justify-content-center">
+        <div class="col-1"></div>
+        <div class="col-10 text-center mb-5">
+            <swiper
+                *ngIf="getScreenSize() >= 1200; else showCarouselPerTwoElement" 
+                class="align-content-center justify-content-center px-4"
+                [slidesPerView]="3"
+                [spaceBetween]="30"
+                [speed]="7000"
+                [loop]="true"
+                [autoplay]="{delay: 3000, disableOnInteraction: false}"
+                [grabCursor]="true"
+                [centeredSlides]="true"
+                [loopFillGroupWithBlank]="true"
+                #swiper
+            >
+                <ng-template swiperSlide>
+                    <tip-detail
+                        [url]="tip1.img"
+                        [title]="tip1.title"
+                        [content]="tip1.content"
+                    ></tip-detail>
+                </ng-template>
+                <ng-template swiperSlide>
+                    <tip-detail
+                        [url]="tip3.img"
+                        [title]="tip3.title"
+                        [content]="tip3.content"
+                    ></tip-detail>
+                </ng-template>
+                <ng-template swiperSlide>
+                    <tip-detail
+                        [url]="tip2.img"
+                        [title]="tip2.title"
+                        [content]="tip2.content"
+                    ></tip-detail>
+            </ng-template>
+            </swiper>
+            <ng-template #showCarouselPerTwoElement>
+                <swiper
+                    *ngIf="getScreenSize() < 1200 && getScreenSize() >= 800; else showPerOneElement" 
+                    class="align-content-center justify-content-center px-4"
+                    [slidesPerView]="2"
+                    [spaceBetween]="30"
+                    [loop]="true"
+                    [autoplay]="{delay: 5000, disableOnInteraction: false}"
+                    [grabCursor]="true"
+                    [centeredSlides]="false"
+                    [loopFillGroupWithBlank]="true"
+                    #swiper
+                >
+                    <ng-template swiperSlide>
+                        <tip-detail
+                            [url]="tip1.img"
+                            [title]="tip1.title"
+                            [content]="tip1.content"
+                        ></tip-detail>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <tip-detail
+                            [url]="tip3.img"
+                            [title]="tip3.title"
+                            [content]="tip3.content"
+                        ></tip-detail>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <tip-detail
+                            [url]="tip2.img"
+                            [title]="tip2.title"
+                            [content]="tip2.content"
+                        ></tip-detail>
+                    </ng-template>
+                </swiper>
+            </ng-template>
+            <ng-template #showPerOneElement>
+                <swiper
+                    *ngIf="getScreenSize() < 800" 
+                    class="align-content-center justify-content-center px-4"
+                    [slidesPerView]="1"
+                    [spaceBetween]="30"
+                    [loop]="true"
+                    [autoplay]="{delay: 5000, disableOnInteraction: false}"
+                    [grabCursor]="true"
+                    [centeredSlides]="true"
+                    [loopFillGroupWithBlank]="true"
+                    #swiper
+                >
+                    <ng-template swiperSlide>
+                        <tip-detail
+                            [url]="tip1.img"
+                            [title]="tip1.title"
+                            [content]="tip1.content"
+                        ></tip-detail>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <tip-detail
+                            [url]="tip3.img"
+                            [title]="tip3.title"
+                            [content]="tip3.content"
+                        ></tip-detail>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <tip-detail
+                            [url]="tip2.img"
+                            [title]="tip2.title"
+                            [content]="tip2.content"
+                        ></tip-detail>
+                    </ng-template>
+                </swiper>
+            </ng-template>
+            <ng-template [ngTemplateOutlet]="indicatorButtonsForTips"></ng-template>
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+<ng-template #indicatorButtonsForTips>
+    <button class="carousel-control-prev" type="button" data-bs-slide="prev" (click)="slidePrev()">
+        <img 
+            src="../../../../../../assets/visitor/botones/izq.svg" 
+            [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
+                        , 'width': getScreenSize() >= 575 ? '40px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '20px' : '10px'
+                        }"
+        >
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-slide="next" (click)="slideNext()">
+        <img 
+            src="../../../../../../assets/visitor/botones/der.svg" 
+            [ngStyle]="{'heigth': getScreenSize() >= 575 ? '60px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '40px' : '20px'
+                        , 'width': getScreenSize() >= 575 ? '40px' 
+                                : getScreenSize() >= 545 && getScreenSize() < 575 ? '20px' : '10px'
+                        }"
+        >
+        <span class="visually-hidden">Next</span>
+    </button>
+</ng-template>
