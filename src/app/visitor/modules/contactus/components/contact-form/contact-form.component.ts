@@ -76,6 +76,34 @@ export class ContactFormComponent {
     };
   };
 
+  private verifyMail(): {message: string, verify: boolean} {
+    this.validMails.forEach(mail => {
+      if (!this.email.includes(mail)) return {
+        message: 'El correo es invalido',
+        verify: false
+      };
+      return;
+    });
+    return {
+      message: 'Todo en orden',
+      verify: true 
+    };
+  };
+
+  private verifyName(): {message: string, verify: boolean} {
+    this.specialCharacters.forEach(car => {
+      if (!this.fullName.includes(car)) return {
+        message: 'El nombre contiene caracteres invalidos',
+        verify: false
+      };
+      return;
+    });
+    return {
+      message: 'Todo en orden',
+      verify: true 
+    };
+  };
+
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
     return window.innerWidth;
