@@ -51,13 +51,36 @@ export class ContactFormComponent {
     return this.contactForm.get('fullName')?.value;
   };
 
-  onSubmit(): void {
+  async onSubmit(): Promise<any> {
     if (this.contactForm.valid){
-      if (this.verifyForm().verify) {
-        // message validate, need to validate the other ones
+      if (this.verifyMessage().verify) {
+        if (this.verifyMail().verify){
+          if (this.verifyName().verify){
+            let contact: Contact = {
+              fullName: this.fullName,
+              phone: this.phone,
+              email: this.email,
+              message: this.message
+            };
+            try {
+              await this.contactProvider.postContact(contact).toPromise();
+              this.notificationService.success('Su solicitud fue realizada, le notificaremos en cuanto podamos! ');
+              this.cleanForm();
+            } catch (e) {
+              console.log(e);
+              this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
+            }
+          } else {
+            return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
+          };
+        } else {
+          return this.notificationService.error('¡Correo invalido, intente con otro correo!');
+        };
       }
       else {
-        // reject the request
+        return this.notificationService.error('¡El mensaje contiene caracteres invalidos!');
+      };
+    };
       };
 
   private cleanForm(){
