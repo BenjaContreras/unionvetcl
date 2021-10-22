@@ -59,6 +59,11 @@ export class ContactFormComponent {
       else {
         // reject the request
       };
+
+  private cleanForm(){
+    for(let data in this.contactForm.controls) {
+      (<FormControl>this.contactForm.controls[data]).setValue('');
+      this.contactForm.controls[data].setErrors(null);
     };
   };
 
