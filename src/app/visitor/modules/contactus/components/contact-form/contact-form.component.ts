@@ -27,7 +27,7 @@ export class ContactFormComponent {
         Validators.required, Validators.minLength(9), Validators.maxLength(9)
       ])],
       message: [null, Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(250)
+        Validators.required, Validators.minLength(1), Validators.maxLength(400)
       ])],
       email: [null, Validators.compose([
         Validators.required, Validators.email
