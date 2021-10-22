@@ -1,7 +1,9 @@
 export interface Contact {
-  id?: string;
-  name: string;
-  phone: string;
-  email: string;
-  message: string;
-}
+  id?: string,
+  fullName: string,
+  phone: string,
+  email: string,
+  message: string,
+  createdAt?: Date,
+  updatedAt?: Date
+};
