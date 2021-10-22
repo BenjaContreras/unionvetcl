@@ -62,9 +62,9 @@ export class ContactFormComponent {
     };
   };
 
-  private verifyForm(): {message: string, verify: boolean} {
+  private verifyMessage(): {message: string, verify: boolean} {
     this.specialCharacters.forEach(car => {
-      if (this.message.includes(car)) return {
+      if (!this.message.includes(car)) return {
         message: 'El mensaje contiene caracteres invalidos',
         verify: false
       };
