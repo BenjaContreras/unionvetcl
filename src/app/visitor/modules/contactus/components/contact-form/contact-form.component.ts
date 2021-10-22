@@ -1,5 +1,8 @@
 import { Component, HostListener } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
+import { NotificationService } from '@core/services/notification/notification.service';
+import { Contact } from '@models/contact.model';
 
 @Component({
   selector: 'visitor-contact-form',
@@ -12,7 +15,11 @@ export class ContactFormComponent {
   private specialCharacters: string[];
   private validMails: string[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder, 
+    private notificationService: NotificationService,
+    private contactProvider: ContactProviderService
+  ) {
     this.specialCharacters = [
       '"', "'", '&', '%', '?', '¿', '#', ',', '{', '}', '[', ']', '^', '`', 
       '´', '~', '¡', '!', "$", '/', '(', ")", '=', '¨', '°', '¬', '<', '>', 'script'
@@ -81,7 +88,7 @@ export class ContactFormComponent {
         return this.notificationService.error('¡El mensaje contiene caracteres invalidos!');
       };
     };
-      };
+  };
 
   private cleanForm(){
     for(let data in this.contactForm.controls) {
