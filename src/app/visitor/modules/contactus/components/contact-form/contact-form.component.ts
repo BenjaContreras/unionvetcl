@@ -10,11 +10,14 @@ export class ContactFormComponent {
   
   public contactForm: FormGroup;
   private specialCharacters: string[];
+  private validMails: string[];
 
   constructor(private fb: FormBuilder) {
     this.specialCharacters = [
       '"', "'", '&', '%', '?', '¿', '#', ',', '{', '}', '[', ']', '^', '`', 
-      '´', '~', '¡', '!', "$", '/', '(', ")", '=', '¨', '°', '¬', '<', '>'
+    this.validMails = [
+      'gmail.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'yahoo.es', 'yahoo.com', 'mail.pucv.cl', 'sansano.usm.cl', 'codefire.cl',
+      'alumnos.uv.cl', 'uv.cl', 'pucv.cl', 'usm.cl', 'uai.cl', 'unab.cl'
     ];
     this.contactForm = this.fb.group({
       fullName: [null, Validators.required],
