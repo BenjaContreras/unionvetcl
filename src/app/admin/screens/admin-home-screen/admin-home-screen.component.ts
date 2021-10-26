@@ -1,9 +1,13 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { AuthProviderService } from '@core/providers/auth/auth-provider.service';
+import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
+import { DatesProviderService } from '@core/providers/dates/dates.service';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { Contact } from '@models/contact.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-home-screen',
@@ -13,6 +17,8 @@ import { NotificationService } from '@core/services/notification/notification.se
 export class AdminHomeScreenComponent implements OnInit {
 
   public options: string[];
+  public lengthContact: number;
+  public lengthDates: number;
   public optionSelected: string;
 
   public mobileQuery: MediaQueryList;
@@ -26,7 +32,11 @@ export class AdminHomeScreenComponent implements OnInit {
     private authProvider: AuthProviderService,
     private router: Router,
     private notificationService: NotificationService,
+    private contactProvider: ContactProviderService,
+    private dateProvider: DatesProviderService
   ) {
+    this.lengthContact = 0;
+    this.lengthDates = 0;
     this.optionSelected = this.getCurrentRoute();
     this.options = ['Resumen', 'Agenda', 'Usuarios', 'Productos', 'Consultas', 'Publicaciones', 'Contratos']
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -34,7 +44,9 @@ export class AdminHomeScreenComponent implements OnInit {
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   };
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.lengthContact = await this.getLengthOfContacts();
+    this.lengthDates = await this.getLengthOfDates();
   }
 
   public getCurrentRoute(): string {
@@ -80,20 +92,33 @@ export class AdminHomeScreenComponent implements OnInit {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
+  public async getLengthOfDates(): Promise<number>{
+    let length = 0;
+    // const result = await this.dateProvider.getAllDates().toPromise();
+    // if (result) length = result.length;
+    return length;
+  };
+
+  public async getLengthOfContacts(): Promise<number> {
+    let length = 0;
+    const resutl = await this.contactProvider.getAllContacts().toPromise();
+    if (resutl) length = resutl.length;
+    return length;
+  };
+
   public logOut(): void {
     this.authProvider.logout();
   };
 
-  public goTo(route: string | null) {
+  public goTo(route: string | null): any {
     if (route) {
-      if (route.toLowerCase() === 'resumen') {
-        this.router.navigate(['admin/']);
-        return;
-      }
-      this.router.navigate([`admin/${route.toLowerCase()}`]);
-    // if (this.authProvider.isAuthenticated('admin')) {
-    //   this.router.navigate([`admin/${route}`]);
-    // } else this.notificationService.error('No puede ingresar a esa ruta');
-    } else this.notificationService.error('No existe dicha ruta');
+      if (this.authProvider.isAuthenticated('admin')) {
+        if (route.toLowerCase() === 'resumen') {
+          this.router.navigate(['admin/']);
+          return;
+        }
+        this.router.navigate([`admin/${route.toLowerCase()}`]);
+      } else return this.notificationService.error('No puede ingresar a esa ruta');
+    } else return this.notificationService.error('No existe dicha ruta');
   };
 }
