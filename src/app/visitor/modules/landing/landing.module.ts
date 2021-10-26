@@ -12,16 +12,20 @@ import { TipDetailComponent } from './components/tip-detail/tip-detail.component
 import { SharedModule } from '@shared/shared.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
+import { BrandsListComponent } from './components/brands-list/brands-list.component';
+import { PublicationsListComponent } from './components/publications-list/publications-list.component';
+import { PublicationCardDetailComponent } from './components/publication-card-detail/publication-card-detail.component';
 
 const compoennts: any = [
   LandingScreenComponent, HeaderComponent,
-  TipsListComponent,
-  TipDetailComponent, TipDetailComponent, 
-  ImagesCarouselComponent
+  TipsListComponent, TipDetailComponent, 
+  TipDetailComponent, ImagesCarouselComponent,
+  AboutusComponent, BrandsListComponent,
+  PublicationsListComponent, PublicationCardDetailComponent
 ];
 
 @NgModule({
-  declarations: [...compoennts, AboutusComponent],
+  declarations: [...compoennts],
   imports: [
     CommonModule,
     LandingRoutingModule,
