@@ -53,10 +53,12 @@ export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionSt
 export class DateScreenComponent implements OnInit {
 
   public mes!: string;
+  public clicked: boolean;
   public range: FormGroup;
   public rango: string;
 
   constructor() {
+    this.clicked = false;
     this.rango = this.setRango();
     this.range = new FormGroup({
       start: new FormControl(),

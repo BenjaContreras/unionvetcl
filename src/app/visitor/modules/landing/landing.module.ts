@@ -11,6 +11,7 @@ import { TipsListComponent } from './components/tips-list/tips-list.component';
 import { TipDetailComponent } from './components/tip-detail/tip-detail.component';
 import { SharedModule } from '@shared/shared.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
+import { AboutusComponent } from './components/aboutus/aboutus.component';
 
 const compoennts: any = [
   LandingScreenComponent, HeaderComponent,
@@ -20,7 +21,7 @@ const compoennts: any = [
 ];
 
 @NgModule({
-  declarations: [...compoennts],
+  declarations: [...compoennts, AboutusComponent],
   imports: [
     CommonModule,
     LandingRoutingModule,
