@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'visitor-aboutus',
@@ -12,4 +12,8 @@ export class AboutusComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  };
 }
