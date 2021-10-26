@@ -52,10 +52,14 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="submit" class="btn-lg" [disabled]="!contactForm.valid"
-        [ngClass]="contactForm.valid? 'text-white': ''"
-        [ngStyle]="{'background-color': contactForm.valid? '#0F7499' : ''}"
-      >Enviar</button>
+        <button mat-raised-button type="submit" class="btn-lg" [disabled]="!contactForm.valid"
+          [ngClass]="contactForm.valid? 'text-white': ''"
+          [ngStyle]="{'background-color': contactForm.valid? '#0F7499' : ''}"
+          *ngIf="!isLoading" 
+        >Enviar</button>
+        <button mat-button class="btn-lg" *ngIf="isLoading" style="pointer-events: none; user-select: none;">
+          <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+        </button>
     </mat-card-actions>
   </mat-card>
 </form>

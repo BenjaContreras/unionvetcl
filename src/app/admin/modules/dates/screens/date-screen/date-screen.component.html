@@ -1,7 +1,8 @@
 <div class="container-fluid m-3 px-5 py-4 font-brand" style="background: rgba(242, 244, 245, 0.85); border-radius: 20px; max-width: 97.5%; z-index: 9999 !important">
     <div class="row align-items-center justify-content-center mb-3">
         <div class="col text-center">
-            <ng-template [ngTemplateOutlet]="actionButtons"></ng-template>
+            <ng-template [ngTemplateOutlet]="actionButtons" *ngIf="clicked"></ng-template>
+            <ng-template [ngTemplateOutlet]="simbologyButtons" *ngIf="!clicked"></ng-template>
         </div>
     </div>
     <div class="row align-items-center justify-content-center">
@@ -44,7 +45,36 @@
 </ng-template>
 
 <mat-menu #actionMenu="matMenu">
-    <button mat-menu-item>Opcion 1</button>
-    <button mat-menu-item>Opcion 2</button>
-    <button mat-menu-item>Opcion 3</button>
+    <button mat-menu-item>Editar</button>
+    <button mat-menu-item>Eliminar</button>
+</mat-menu>
+
+<ng-template #simbologyButtons>
+    <div class="row align-items-center justify-content-center">
+        <div class="col">
+            <button mat-raised-button disabled
+                style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto'; font-size: 20px;"
+            >
+                {{'Semana: ' + rango}}
+            </button>
+        </div>
+        <div class="col">
+            <button mat-raised-button disabled style="background-color: #0F7499; color: white; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px; font-weight: 300;">Mes: <span style="font-weight: 500;">{{mes}}</span></button>
+        </div>
+        <div class="col">
+            <button mat-raised-button [matMenuTriggerFor]="simbologyMenu" style="background-color: #0F7499; color: white; font-weight: 400; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px;">Simbología</button>
+        </div>
+    </div>
+</ng-template>
+
+<mat-menu #simbologyMenu="matMenu">
+    <button mat-menu-item style="pointer-events: none; user-select: none">
+        <mat-icon style="color: rgb(255, 196, 0);">circle</mat-icon> Pendiente
+    </button>
+    <button mat-menu-item style="pointer-events: none; user-select: none">
+        <mat-icon style="color: rgb(1, 102, 1);">circle</mat-icon> Realizada
+    </button>
+    <button mat-menu-item style="pointer-events: none; user-select: none">
+        <mat-icon style="color: rgb(175, 0, 0);">circle</mat-icon> Rechazada
+    </button>
 </mat-menu>

@@ -1,5 +1,5 @@
 <navbar></navbar>
-<div class="container-fluid font-brand" style="user-select: none;">
+<div class="container-fluid font-brand" style="user-select: none; background-image: url('../../../../../../assets/shared/Camino\ patitas.svg');">
     <div class="row align-items-center justify-content-center">
         <div class="col text-center p-0 d-none d-sm-block">
             <landing-header></landing-header>
@@ -15,30 +15,21 @@
             <tips-list></tips-list>
         </div>
     </div>
-    <mat-divider></mat-divider>
-    <div class="row my-5">
-        <div class="col-2"></div>
-        <div class="col-8 text-center my-5 fw-bold" style="color: #0F7499;"
-            [ngStyle]="{'font-size': getScreenSize() >= 700? '60px': 
-                                    getScreenSize() < 700 && getScreenSize() >= 470? '40px' : '30px'}"
-        >Proximamente con más información para ustedes!</div>
-        <div class="col-2"></div>
-    </div>
-    <!-- <div class="row align-items-center justify-content-center">
-        <div class="col text-center">
+    <div class="row align-items-center justify-content-center">
+        <div class="col text-center" [ngClass]="getScreenSize() >= 385? 'px-5' : ''">
             <visitor-aboutus></visitor-aboutus>
         </div>
     </div>
     <div class="row align-items-center justify-content-center">
         <div class="col text-center">
-            Marcas
+            <visitor-brands-list></visitor-brands-list>
         </div>
     </div>
     <div class="row align-items-center justify-content-center">
-        <div class="col text-center">
-            Publicaciones
+        <div class="col text-center px-5" style="border-radius: 4px;">
+            <visitor-publications-list></visitor-publications-list>
         </div>
-    </div> -->
+    </div>
 </div>
 <footer></footer>
 <scroll-top-button></scroll-top-button>

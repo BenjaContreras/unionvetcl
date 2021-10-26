@@ -10,6 +10,7 @@ import { NotificationService } from '@core/services/notification/notification.se
 })
 export class LoginFormComponent {
 
+  public isLoading: boolean;
   public hover: boolean;
   public addressForm: FormGroup;
 
@@ -17,7 +18,8 @@ export class LoginFormComponent {
     private fb: FormBuilder, 
     private notificationService: NotificationService,
     private authProvider: AuthProviderService
-    ) {
+  ) {
+    this.isLoading = false;
     this.hover = false;
     this.addressForm = this.fb.group({
       email: [null, 
@@ -32,9 +34,12 @@ export class LoginFormComponent {
     const pass: string = this.addressForm.get('password')?.value;
     try {
       if (this.addressForm.valid){
+        this.isLoading = true;
         const result = await this.authProvider.login(email, pass, 'admin').toPromise();
-        if (result?.access_token) this.notificationService.success('Sesión iniciada con éxtio!');
-        else {
+        if (result?.access_token){
+          this.notificationService.success('Sesión iniciada con éxtio!');
+          this.isLoading = false;
+        } else {
           this.notificationService.error('Algo ha sucedido');
           throw new Error("Problema al iniciar sesión");
           

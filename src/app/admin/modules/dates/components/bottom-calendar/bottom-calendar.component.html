@@ -1,6 +1,6 @@
 <div class="container-fluid mb-4">
     <mat-divider></mat-divider>
-    <div class="row" *ngFor="let time of horasTarde">
+    <div class="row align-items-center" *ngFor="let time of horasTarde">
         <div class="col p-0" style="background-color: rgba(189, 222, 234, 0.4); color: #0F7499; font-weight: 600;">
             <p class="p-2 m-0">
                 {{time.hora.inicio|date:'HH:mm'}} - {{time.hora.fin|date:'HH:mm'}}
