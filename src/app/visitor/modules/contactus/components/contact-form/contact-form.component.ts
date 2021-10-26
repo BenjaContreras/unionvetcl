@@ -11,6 +11,7 @@ import { Contact } from '@models/contact.model';
 })
 export class ContactFormComponent {
   
+  public isLoading: boolean;
   public contactForm: FormGroup;
   private specialCharacters: string[];
   private validMails: string[];
@@ -20,6 +21,7 @@ export class ContactFormComponent {
     private notificationService: NotificationService,
     private contactProvider: ContactProviderService
   ) {
+    this.isLoading = false;
     this.specialCharacters = [
       '"', "'", '&', '%', '?', '¿', '#', ',', '{', '}', '[', ']', '^', '`', 
       '´', '~', '¡', '!', "$", '/', '(', ")", '=', '¨', '°', '¬', '<', '>', 'script'
@@ -70,7 +72,9 @@ export class ContactFormComponent {
               message: this.message
             };
             try {
-              await this.contactProvider.postContact(contact).toPromise();
+              this.isLoading = true;
+              const result = await this.contactProvider.postContact(contact).toPromise();
+              if (result) this.isLoading = false;
               this.notificationService.success('Su solicitud fue realizada, le notificaremos en cuanto podamos! ');
               this.cleanForm();
             } catch (e) {

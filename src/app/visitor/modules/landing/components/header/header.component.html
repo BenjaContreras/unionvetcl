@@ -1,102 +1,156 @@
-<div class="container-fluid" style="width: 100%; height: 620px; background-image: url('../../../../../../assets/visitor/png/Hero\ BG\ 3.png'); background-size: cover;"
-    *ngIf="getScreenSize() >= 1410" 
->
-    <div class="row py-5 align-items-cente">
-        <div class="col-1"></div>
-        <div class="col-5 my-5">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 text-start" style="color: #5F9FB6; font-size: 36px; font-weight: 600;">CLINICA VETERINARIA</div>
-                <div class="col-12 text-start fw-bold" style="font-size: 64px; color: #0F7499;">Unionvet</div>
-            </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col text-start ps-5 my-4" style="color: #6D868F;"
-                    [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
-                >
-                    <p class="ps-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis pellentesque magna senectus massa.</p>
-                </div>
-            </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
-                    <div class="row">
-                        <div class="col my-2"
+<div [ngSwitch]="screen">
+    <div *ngSwitchCase="'big'">
+        <div class="container-fluid" style="width: 100%; height: 620px; background-image: url('../../../../../../assets/visitor/png/Hero\ BG\ 3.png'); background-size: cover;">
+            <div class="row py-5 align-items-cente">
+                <div class="col-1"></div>
+                <div class="col-5 my-5">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-12 text-start" style="color: #5F9FB6; font-size: 36px; font-weight: 600;">CLINICA VETERINARIA</div>
+                        <div class="col-12 text-start fw-bold" style="font-size: 64px; color: #0F7499;">Unionvet</div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col text-start ps-5 my-4" style="color: #6D868F;"
                             [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
                         >
-                            <i class="far fa-clock me-2"></i>Horario de atención
+                            <p class="ps-5 m-0">Atención confiable y personalizada!</p>
+                            <p class="ps-5">Su mascota en las mejores manos</p>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Luneas a Viernes</div>
-                    </div>
-                    <div class="row">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">9:00 a 13:00 - 15:00 a 19:00</div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
+                            <div class="row">
+                                <div class="col my-2"
+                                    [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
+                                >
+                                    <i class="far fa-clock me-2"></i>Horario de atención
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Luneas a Viernes</div>
+                            </div>
+                            <div class="row">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">9:00 a 13:00 - 15:00 a 19:00</div>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
+                            <div class="row">
+                                <div class="col my-2" [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Esmeralda 868</div>
+                            </div>
+                            <div class="row">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Frente a 3a Cia. Bomberos</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-1"></div>
-                <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
-                    <div class="row">
-                        <div class="col my-2" [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}">
-                            <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <div *ngSwitchCase="'normal'">
+        <div class="container-fluid" style="width: 100%; height: 620px;">
+            <div class="row py-5 align-items-cente">
+                <div class="col text-center my-5">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-12" style="color: #5F9FB6; font-size: 36px; font-weight: 600;">CLINICA VETERINARIA</div>
+                        <div class="col-12 fw-bold" style="font-size: 64px; color: #0F7499;">Unionvet</div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col my-4 text-center" style="color: #6D868F;"
+                            [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
+                        >
+                            <p class="m-0">Atención confiable y personalizada!</p>
+                            <p class="ps-2">Su mascota en las mejores manos</p>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Esmeralda 868</div>
-                    </div>
-                    <div class="row">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Frente a 3a Cia. Bomberos</div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col text-white pt-2 pb-3 mx-2" style="background-color: #33A1C9;">
+                            <div class="row">
+                                <div class="col my-2"
+                                    [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
+                                >
+                                    <i class="far fa-clock me-2"></i>Horario de atención
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Luneas a Viernes</div>
+                            </div>
+                            <div class="row">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">9:00 a 13:00 - 15:00 a 19:00</div>
+                            </div>
+                        </div>
+                        <div class="col text-white pt-2 pb-3 mx-2" style="background-color: #33A1C9;">
+                            <div class="row">
+                                <div class="col my-2" [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Esmeralda 868</div>
+                            </div>
+                            <div class="row">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Frente a 3a Cia. Bomberos</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col"></div>
     </div>
-</div>
-
-<div class="container-fluid" style="width: 100%; height: 620px;"
-    *ngIf="getScreenSize() < 1410" 
->
-    <div class="row py-5 align-items-cente">
-        <div class="col text-center my-5">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12" style="color: #5F9FB6; font-size: 36px; font-weight: 600;">CLINICA VETERINARIA</div>
-                <div class="col-12 fw-bold" style="font-size: 64px; color: #0F7499;">Unionvet</div>
-            </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col my-4" style="color: #6D868F;"
-                    [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
-                >
-                    <p class="ps-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis pellentesque magna senectus massa.</p>
-                </div>
-            </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
-                    <div class="row">
-                        <div class="col my-2"
-                            [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
-                        >
-                            <i class="far fa-clock me-2"></i>Horario de atención
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Luneas a Viernes</div>
-                    </div>
-                    <div class="row">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">9:00 a 13:00 - 15:00 a 19:00</div>
-                    </div>
-                </div>
+    <div *ngSwitchCase="'small'">
+        <div class="container-fluid" style="width: 100%; height: 620px; background-image: url('../../../../../../assets/visitor/png/Hero\ BG\ 3 (1).png'); background-size: cover;">
+            <div class="row py-5 align-items-cente">
                 <div class="col-1"></div>
-                <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
-                    <div class="row">
-                        <div class="col my-2" [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}">
-                            <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                <div class="col-5 my-5">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-12 text-start" style="color: #5F9FB6; font-size: 36px; font-weight: 600;">CLINICA VETERINARIA</div>
+                        <div class="col-12 text-start fw-bold" style="font-size: 64px; color: #0F7499;">Unionvet</div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col text-start ps-5 my-4" style="color: #6D868F; font-size: 24px;"
+                        >
+                            <p class="ps-5 m-0">Atención confiable y personalizada!</p>
+                            <p class="ps-5">Su mascota en las mejores manos</p>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Esmeralda 868</div>
-                    </div>
-                    <div class="row">
-                        <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Frente a 3a Cia. Bomberos</div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
+                            <div class="row">
+                                <div class="col my-2"
+                                    [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}"
+                                >
+                                    <i class="far fa-clock me-2"></i>Horario de atención
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Luneas a Viernes</div>
+                            </div>
+                            <div class="row">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">9:00 a 13:00 - 15:00 a 19:00</div>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col text-white pt-2 pb-3" style="background-color: #33A1C9;">
+                            <div class="row">
+                                <div class="col my-2" [ngStyle]="{'font-size': getScreenSize() > 1590? '24px' : '16px'}">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Ubicación
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Esmeralda 868</div>
+                            </div>
+                            <div class="row">
+                                <div class="col" [ngStyle]="{'font-size': getScreenSize() > 1590? '' : '12px'}">Frente a 3a Cia. Bomberos</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="col"></div>
             </div>
         </div>
     </div>

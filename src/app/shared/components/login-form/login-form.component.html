@@ -37,7 +37,8 @@
         (mouseout)="hover = false"
         (click)="goTo('forgot')"
       >¿Olvidaste tu contraseña?</span>
-      <button mat-raised-button type="submit" [disabled]="!addressForm.valid" style="color: #5F9FB6;"
+      <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+      <button mat-raised-button type="submit" [disabled]="!addressForm.valid" style="color: #5F9FB6;" *ngIf="!isLoading" 
         class="btn-lg"
         [ngStyle]="{'background-color': addressForm.valid? 'white' : 'disabled'}"
       >Acceder</button>

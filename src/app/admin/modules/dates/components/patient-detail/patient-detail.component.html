@@ -5,17 +5,23 @@
         </div>
     </div>
     <div *ngSwitchCase="1">
-        <div class="col p-2 text-white" style="background: rgba(255, 153, 0, 0.7); font-weight: 500;">
+        <div class="col p-2 text-white" style="background: rgba(255, 153, 0, 0.7); font-weight: 500;"
+            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
+        >
             {{patient.fullName}}
         </div>
     </div>
     <div *ngSwitchCase="2">
-        <div class="col p-2 text-white bg-success" style="font-weight: 500;">
+        <div class="col p-2 text-white bg-success" style="font-weight: 500;"
+            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
+        >
             {{patient.fullName}}
         </div>
     </div>
     <div *ngSwitchCase="3">
-        <div class="col p-2 text-white" style="background: rgba(247, 36, 36, 0.7); font-weight: 500;">
+        <div class="col p-2 text-white" style="background: rgba(247, 36, 36, 0.7); font-weight: 500;"
+            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
+        >
             {{patient.fullName}}
         </div>
     </div>
