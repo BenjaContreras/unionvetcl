@@ -55,7 +55,21 @@
                         [ngStyle]="{'background-color': optionSelected === option ? 'rgba(255, 255, 255, 0.5)' : ''}"
                     >
                         <div class="row text-white pt-3">
-                            <div class="col-1"><mat-icon>{{getIcon(option)}}</mat-icon></div>
+                            <div class="col-1">
+                                <div [ngSwitch]="getIcon(option)">
+                                    <div *ngSwitchCase="'book'">
+                                        <mat-icon *ngIf="lengthDates > 0"  matBadge="{{lengthDates}}" matBadgeColor="warn">{{getIcon(option)}}</mat-icon>
+                                        <mat-icon *ngIf="lengthDates <= 0">{{getIcon(option)}}</mat-icon>
+                                    </div>
+                                    <div *ngSwitchCase="'help'">
+                                        <mat-icon *ngIf="lengthContact > 0"  matBadge="{{lengthContact}}" matBadgeColor="warn">{{getIcon(option)}}</mat-icon>
+                                        <mat-icon *ngIf="lengthContact <= 0">{{getIcon(option)}}</mat-icon>
+                                    </div>
+                                    <div *ngSwitchDefault>
+                                        <mat-icon>{{getIcon(option)}}</mat-icon>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col ps-4">
                                 <p>{{option}}</p>
                             </div>
