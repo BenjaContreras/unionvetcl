@@ -23,7 +23,6 @@ export class ServiceScreenComponent implements OnInit, OnChanges {
 
   async ngOnInit(): Promise<void> {
     await this.serviceIdReciver(this.selectedServiceId);
-    console.log(this.services)
   }
 
   async ngOnChanges(): Promise<void> {
@@ -32,13 +31,11 @@ export class ServiceScreenComponent implements OnInit, OnChanges {
 
   public async getAllServicess(): Promise<Service[]> {
     try {
-      const service: Service[] = await this.serviceService
-        .getAllServices()
-        .toPromise();
-      if (service) {
-        return service;
-      } else return [];
+      const service: Service[] = await this.serviceService.getAllServices().toPromise();
+      if (service) return service;
+      else return [];
     } catch (error) {
+      console.log(error);
       return [];
     }
   }

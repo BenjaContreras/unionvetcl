@@ -31,74 +31,73 @@ export class SrviceService {
   };
 
   public async getService(id: string): Promise<Service | null> {
-    if (id === 'Aplicación de microchip') {
+    if (id === 'Cirugias') {
       return {
         id: '1',
-        name: 'Aplicacion de microchip',
-        content: [
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, accumsan vitae lorem vel, consequat tempor neque. Maecenas maximus facilisis finibus. Nunc convallis ante sit amet viverra vulputate. Maecenas eu felis neque. Cras elit libero, aliquet sed ultrices ut, porttitor non nisi. Nam ut rutrum mi, quis laoreet erat. Etiam iaculis tincidunt urna, eu pretium orci. Integer et ex tincidunt, pharetra enim sit amet, dapibus ipsum.',
-          'Etiam dignissim mattis nisl, a congue lectus pharetra in. Sed sed est consectetur, convallis nisi ut, lacinia leo. Phasellus urna libero, egestas molestie varius a, lacinia a enim. Aliquam eu leo ultricies, feugiat leo ut, egestas mauris. Pellentesque congue vulputate nibh sagittis varius. Cras lacinia sapien odio, vitae tempus sapien iaculis eu. Sed eget scelerisque orci, in vehicula elit.',
-          'Pellentesque vel fringilla mauris. Etiam tempus tincidunt nisi, in cursus odio sodales nec. Suspendisse porttitor felis vel ligula euismod, nec malesuada erat dapibus. In facilisis mattis lectus, eu maximus nunc laoreet sit amet. Vivamus nec lectus justo. Nullam dignissim ultrices felis, sit amet aliquam nibh tincidunt id. Duis vulputate elementum elit sed convallis. Donec finibus tortor sit amet tellus imperdiet placerat. Maecenas consectetur, erat ut hendrerit sodales, justo arcu accumsan sem, sit amet eleifend ligula nibh eget quam. Quisque rhoncus consectetur ligula sit amet elementum. Donec at ipsum nulla. Aenean nisl ipsum, tempus a ultricies id, faucibus eget nibh.'
+        name: 'Cirugias',
+        description: [
+          '¡No todo se resuelve con medicamentos!',
+          'Nuestra clínica cuenta con variados servicios de cirugía, tanto programadas como de emergencia. El procedimiento más frecuente, es la ESTERILIZACIÓN, se realiza a diario en hembras y machos, y es masivamente conocido con el fin de controlar la población animal. Pero lo que muchas veces ignoramos, son los múltiples beneficios que entrega, en donde destaca por lo demás el disminuir el porcentaje de aparición de quistes o TUMORES; problema que, de igual forma, resolvemos de manera quirúrgica en nuestro pabellón.',
+          'Sin duda son muchos los problemas que pueden surgir en el cuidado de nuestras mascotas, y los accidentes son algo del día a día. Acá realizamos manejos quirúrgicos básicos que van de curaciones de HERIDAS, hasta otros más complejos como ENTEROTOMIAS o incluso AMPUTACIONES por nombrar algunos. '
         ],
         imagesURL: ['..', '..', '..', '..']
       };
     } else {
-      if (id === 'Controles preventivos') {
+      if (id === 'Destartraje') {
         return {
           id: '2',
-          name: 'Controles preventivos',
-          content: [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, accumsan vitae lorem vel, consequat tempor neque. Maecenas maximus facilisis finibus. Nunc convallis ante sit amet viverra vulputate. Maecenas eu felis neque. Cras elit libero, aliquet sed ultrices ut, porttitor non nisi. Nam ut rutrum mi, quis laoreet erat. Etiam iaculis tincidunt urna, eu pretium orci. Integer et ex tincidunt, pharetra enim sit amet, dapibus ipsum.',
-            'Etiam dignissim mattis nisl, a congue lectus pharetra in. Sed sed est consectetur, convallis nisi ut, lacinia leo. Phasellus urna libero, egestas molestie varius a, lacinia a enim. Aliquam eu leo ultricies, feugiat leo ut, egestas mauris. Pellentesque congue vulputate nibh sagittis varius. Cras lacinia sapien odio, vitae tempus sapien iaculis eu. Sed eget scelerisque orci, in vehicula elit.',
-            'Pellentesque vel fringilla mauris. Etiam tempus tincidunt nisi, in cursus odio sodales nec. Suspendisse porttitor felis vel ligula euismod, nec malesuada erat dapibus. In facilisis mattis lectus, eu maximus nunc laoreet sit amet. Vivamus nec lectus justo. Nullam dignissim ultrices felis, sit amet aliquam nibh tincidunt id. Duis vulputate elementum elit sed convallis. Donec finibus tortor sit amet tellus imperdiet placerat. Maecenas consectetur, erat ut hendrerit sodales, justo arcu accumsan sem, sit amet eleifend ligula nibh eget quam. Quisque rhoncus consectetur ligula sit amet elementum. Donec at ipsum nulla. Aenean nisl ipsum, tempus a ultricies id, faucibus eget nibh.'
+          name: 'Destartraje',
+          description: [
+            '¿Quieres que tu mascota tenga una dentadura perfecta? Acá tenemos la solución.',
+            'Unos dientes limpios, son el sinónimo de una buena salud bucal. Por eso te orientaremos y guiaremos en los cuidados básicos que necesita.',
+            'El DETARTRAJE es una técnica que no solo deja relucientes sus dientes, sino que también ayuda a evitar problemas de SARRO y GINGIVITIS como consecuencia de este. Si la salud bucal de nuestra mascota se ve afectada, la calidad de vida de ellos TAMBIEN. No descuides su higiene dental y tú mascota te lo agradecerá.'
           ],
           imagesURL: ['..', '..', '..', '..']
         };
       } else {
-        if (id === 'Consultas veterinarias') {
+        if (id === 'Aplicación de microchip') {
           return {
             id: '3',
-            name: 'Consultas veterinarias',
-            content: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, accumsan vitae lorem vel, consequat tempor neque. Maecenas maximus facilisis finibus. Nunc convallis ante sit amet viverra vulputate. Maecenas eu felis neque. Cras elit libero, aliquet sed ultrices ut, porttitor non nisi. Nam ut rutrum mi, quis laoreet erat. Etiam iaculis tincidunt urna, eu pretium orci. Integer et ex tincidunt, pharetra enim sit amet, dapibus ipsum.',
-              'Etiam dignissim mattis nisl, a congue lectus pharetra in. Sed sed est consectetur, convallis nisi ut, lacinia leo. Phasellus urna libero, egestas molestie varius a, lacinia a enim. Aliquam eu leo ultricies, feugiat leo ut, egestas mauris. Pellentesque congue vulputate nibh sagittis varius. Cras lacinia sapien odio, vitae tempus sapien iaculis eu. Sed eget scelerisque orci, in vehicula elit.',
-              'Pellentesque vel fringilla mauris. Etiam tempus tincidunt nisi, in cursus odio sodales nec. Suspendisse porttitor felis vel ligula euismod, nec malesuada erat dapibus. In facilisis mattis lectus, eu maximus nunc laoreet sit amet. Vivamus nec lectus justo. Nullam dignissim ultrices felis, sit amet aliquam nibh tincidunt id. Duis vulputate elementum elit sed convallis. Donec finibus tortor sit amet tellus imperdiet placerat. Maecenas consectetur, erat ut hendrerit sodales, justo arcu accumsan sem, sit amet eleifend ligula nibh eget quam. Quisque rhoncus consectetur ligula sit amet elementum. Donec at ipsum nulla. Aenean nisl ipsum, tempus a ultricies id, faucibus eget nibh.'
+            name: 'Aplicación de microchip',
+            description: [
+              '¿Te has imaginado perder a tu mascota y poder encontrarla gracias a un simple código? Esto es posible gracias al sistema de identificación y registro de microchips.',
+              'Si, tu mascota igual necesita estar registrada. En Chile es obligación que nuestros animales de compañía lleven un sistema de identificación, para lo cual el microchip es la técnica más segura al momento de registrar a nuestro animal.',
+              'En los últimos años, muchas mascotas perdidas han sido encontradas y devueltas a sus hogares gracias a este sistema, generando el tan anhelado reencuentro.'
             ],
             imagesURL: ['..', '..', '..', '..']
           };
         } else {
-          if (id === 'Cirugias') {
+          if (id === 'Controles preventivos') {
             return {
               id: '4',
-              name: 'Cirugias',
-              content: [
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, accumsan vitae lorem vel, consequat tempor neque. Maecenas maximus facilisis finibus. Nunc convallis ante sit amet viverra vulputate. Maecenas eu felis neque. Cras elit libero, aliquet sed ultrices ut, porttitor non nisi. Nam ut rutrum mi, quis laoreet erat. Etiam iaculis tincidunt urna, eu pretium orci. Integer et ex tincidunt, pharetra enim sit amet, dapibus ipsum.',
-                'Etiam dignissim mattis nisl, a congue lectus pharetra in. Sed sed est consectetur, convallis nisi ut, lacinia leo. Phasellus urna libero, egestas molestie varius a, lacinia a enim. Aliquam eu leo ultricies, feugiat leo ut, egestas mauris. Pellentesque congue vulputate nibh sagittis varius. Cras lacinia sapien odio, vitae tempus sapien iaculis eu. Sed eget scelerisque orci, in vehicula elit.',
-                'Pellentesque vel fringilla mauris. Etiam tempus tincidunt nisi, in cursus odio sodales nec. Suspendisse porttitor felis vel ligula euismod, nec malesuada erat dapibus. In facilisis mattis lectus, eu maximus nunc laoreet sit amet. Vivamus nec lectus justo. Nullam dignissim ultrices felis, sit amet aliquam nibh tincidunt id. Duis vulputate elementum elit sed convallis. Donec finibus tortor sit amet tellus imperdiet placerat. Maecenas consectetur, erat ut hendrerit sodales, justo arcu accumsan sem, sit amet eleifend ligula nibh eget quam. Quisque rhoncus consectetur ligula sit amet elementum. Donec at ipsum nulla. Aenean nisl ipsum, tempus a ultricies id, faucibus eget nibh.'
+              name: 'Controles preventivos',
+              description: [
+                '¡Porque siempre será mejor prevenir que lamentar!',
+                'Ciertamente nunca querremos ver a nuestras mascotas enfermas, por eso ofrecemos un variado abanico de opciones para prevenir problemas de salud e ir evaluando el estado de nuestros animales.',
+                'Siempre lo principal al momento de prevenir, será la aplicación de vacunas, es por eso que nos enfocamos en entregar un servicio cómodo y personalizado en donde inculcamos el uso y la importancia que estas tienen para prevenir eventuales problemas de salud, llevando a cabo un calendario de vacunación adaptado a las necesidades de cada paciente. Pero no todo se realiza en la consulta, también ofrecemos métodos preventivos contra parásitos externos e internos que pueden ser aplicados tanto  acá, como en la comodidad del hogar, evitando sí la infestación de parásitos y ectoparásitos que puedan haber en el ambiente.'
               ],
               imagesURL: ['..', '..', '..', '..']
             };
           } else {
-            if (id === 'Farmacia') {
+            if (id === 'Consultas veterinarias') {
               return {
                 id: '5',
-                name: 'Farmacia',
-                content: [
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, accumsan vitae lorem vel, consequat tempor neque. Maecenas maximus facilisis finibus. Nunc convallis ante sit amet viverra vulputate. Maecenas eu felis neque. Cras elit libero, aliquet sed ultrices ut, porttitor non nisi. Nam ut rutrum mi, quis laoreet erat. Etiam iaculis tincidunt urna, eu pretium orci. Integer et ex tincidunt, pharetra enim sit amet, dapibus ipsum.',
-                  'Etiam dignissim mattis nisl, a congue lectus pharetra in. Sed sed est consectetur, convallis nisi ut, lacinia leo. Phasellus urna libero, egestas molestie varius a, lacinia a enim. Aliquam eu leo ultricies, feugiat leo ut, egestas mauris. Pellentesque congue vulputate nibh sagittis varius. Cras lacinia sapien odio, vitae tempus sapien iaculis eu. Sed eget scelerisque orci, in vehicula elit.',
-                  'Pellentesque vel fringilla mauris. Etiam tempus tincidunt nisi, in cursus odio sodales nec. Suspendisse porttitor felis vel ligula euismod, nec malesuada erat dapibus. In facilisis mattis lectus, eu maximus nunc laoreet sit amet. Vivamus nec lectus justo. Nullam dignissim ultrices felis, sit amet aliquam nibh tincidunt id. Duis vulputate elementum elit sed convallis. Donec finibus tortor sit amet tellus imperdiet placerat. Maecenas consectetur, erat ut hendrerit sodales, justo arcu accumsan sem, sit amet eleifend ligula nibh eget quam. Quisque rhoncus consectetur ligula sit amet elementum. Donec at ipsum nulla. Aenean nisl ipsum, tempus a ultricies id, faucibus eget nibh.'
+                name: 'Consultas veterinarias',
+                description: [
+                  'Siempre trataremos de ofrecer la mejor atención posible, cada problema tendrá una solución.',
+                  'Estamos enfocados a tratar las diversas enfermedades de sus mascotas, ocupando manejos integrales tanto en la consulta, como de aplicación casera, facilitando controles de rutina que mantengan un seguimiento de nuestros pacientes, evaluando así su evolución hasta su pronta recuperación.',
+                  'Desde un resfrió a un parvovirus, todas sus consultas serán tratadas con la misma atención y dedicación.',
                 ],
                 imagesURL: ['..', '..', '..', '..']
               };
             } else {
-              if (id === 'Destartraje') {
+              if (id === 'Farmacia') {
                 return {
                   id: '6',
-                  name: 'Destartraje',
-                  content: [
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, accumsan vitae lorem vel, consequat tempor neque. Maecenas maximus facilisis finibus. Nunc convallis ante sit amet viverra vulputate. Maecenas eu felis neque. Cras elit libero, aliquet sed ultrices ut, porttitor non nisi. Nam ut rutrum mi, quis laoreet erat. Etiam iaculis tincidunt urna, eu pretium orci. Integer et ex tincidunt, pharetra enim sit amet, dapibus ipsum.',
-                    'Etiam dignissim mattis nisl, a congue lectus pharetra in. Sed sed est consectetur, convallis nisi ut, lacinia leo. Phasellus urna libero, egestas molestie varius a, lacinia a enim. Aliquam eu leo ultricies, feugiat leo ut, egestas mauris. Pellentesque congue vulputate nibh sagittis varius. Cras lacinia sapien odio, vitae tempus sapien iaculis eu. Sed eget scelerisque orci, in vehicula elit.',
-                    'Pellentesque vel fringilla mauris. Etiam tempus tincidunt nisi, in cursus odio sodales nec. Suspendisse porttitor felis vel ligula euismod, nec malesuada erat dapibus. In facilisis mattis lectus, eu maximus nunc laoreet sit amet. Vivamus nec lectus justo. Nullam dignissim ultrices felis, sit amet aliquam nibh tincidunt id. Duis vulputate elementum elit sed convallis. Donec finibus tortor sit amet tellus imperdiet placerat. Maecenas consectetur, erat ut hendrerit sodales, justo arcu accumsan sem, sit amet eleifend ligula nibh eget quam. Quisque rhoncus consectetur ligula sit amet elementum. Donec at ipsum nulla. Aenean nisl ipsum, tempus a ultricies id, faucibus eget nibh.'
+                  name: 'Farmacia',
+                  description: [
+                    'Una salud integral, va de la mano de tratamientos farmacológicos. Por eso y para su comodidad, contamos en la clínica con variados productos de diferentes laboratorios, destinados a cubrir las diversas necesidades de nuestras mascotas, tanto para sanar como para prevenir.',
+                    'Pero no todo es medicamentos. También podrás encontrar diferentes marcas de insumos de estética y belleza que mantendrán a nuestros amigos con el mejor estilo posible.',
                   ],
                   imagesURL: ['..', '..', '..', '..']
                 };
