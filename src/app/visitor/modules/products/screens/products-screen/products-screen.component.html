@@ -14,10 +14,18 @@
     </div>
     <div class="row justify-content-center h-100">
         <div class="col-2" *ngIf="getScreenSize() >= 1100">
-            <products-side-filters></products-side-filters>
+            <products-side-filters
+                [length]="length"
+                [categories]="lengthOfCategories"
+                [brands]="lengthOfBrands"
+            ></products-side-filters>
         </div>
         <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']">
-            <product-card></product-card>
+            <product-card 
+                (lengthOfProducts)="lengthReciver($event)"
+                (lengthOfCategories)="lengthOfCategoriesReciver($event)"
+                (lengthOfBrands)="lengthOfBrandsReciver($event)"
+            ></product-card>
         </div>
     </div>
 </div>
@@ -41,24 +49,17 @@
                     
                     <ng-template matExpansionPanelContent>
                         <input type="text" class="form-control font-brand mb-3" placeholder="Buscar categoría..." aria-label="Username" aria-describedby="basic-addon1">
-                        <section class="example-section font-brand ms-3">
-                            <div class="row">
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="shampoo">Shampoo (10)</mat-checkbox>
-                                </div>
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="medicine">Medicamentos (13)</mat-checkbox>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="desparacitante">Desparacitantes (4)</mat-checkbox>
-                                </div>
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="food">Alimento (20)</mat-checkbox>
-                                </div>
-                            </div>
-                        </section>
+                        <mat-selection-list 
+                            class="example-section font-brand ms-3"
+                            *ngFor="let category of lengthOfCategories"
+                            [multiple]="true" 
+                            (selectionChange)="changeValue($event)"
+                        >
+                            <mat-list-option 
+                                class="example-margin text-white p-0 m-0" 
+                                [value]="category.name.toLowerCase()" 
+                            >{{category.name}} ({{category.length}})</mat-list-option>
+                        </mat-selection-list>
                     </ng-template>
                 </mat-expansion-panel>
             </mat-accordion>
@@ -78,21 +79,17 @@
                     
                     <ng-template matExpansionPanelContent>
                         <input type="text" class="form-control font-brand mb-3" placeholder="Buscar marca..." aria-label="Username" aria-describedby="basic-addon1">
-                        <section class="example-section font-brand ms-3">
-                            <div class="row">
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="shampoo">Delipets (10)</mat-checkbox>
-                                </div>
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="medicine">Drg. Nuñoa (13)</mat-checkbox>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <mat-checkbox class="example-margin" value="desparacitante">Cruz verde (4)</mat-checkbox>
-                                </div>
-                            </div>
-                        </section>
+                        <mat-selection-list 
+                            class="example-section font-brand ms-3"
+                            *ngFor="let brand of lengthOfBrands"
+                            [multiple]="true" 
+                            (selectionChange)="changeValue($event)"
+                        >
+                            <mat-list-option 
+                                class="example-margin text-white p-0 m-0" 
+                                [value]="brand.name.toLowerCase()" 
+                            >{{brand.name}} ({{brand.length}})</mat-list-option>
+                        </mat-selection-list>
                     </ng-template>
                 </mat-expansion-panel>
             </mat-accordion>

@@ -1,12 +1,23 @@
 <div class="container-fluid my-3">
-    <div class="row my-3">
-        <div class="my-2" *ngFor="let item of testLength"
+    <div class="row my-3" *ngIf="!isLoading; else spinner">
+        <div class="my-2" 
+            *ngFor="let product of testLength"
             [ngClass]="[getScreenSize() > 1500 ? 'col-3' : 
                         getScreenSize() > 1130 && getScreenSize() <= 1500 ? 'col-4' : 
                         getScreenSize() > 770 && getScreenSize() <= 1130 ? 'col-6' : 'col-12'
                         ]"
         >
-            <product-card-detail></product-card-detail>
+            <product-card-detail
+                [product]="product"
+            ></product-card-detail>
         </div>
     </div>
+    <ng-template #spinner>
+        <div class="row my-5 py-5 align-items-center justify-content-center">
+            <div class="col-4 my-5 py-5">
+                <span style="color: #0F7499; font-size: 24px;">Cargando...</span>
+                <mat-spinner class="mt-4 ms-4" color="warn"></mat-spinner>
+            </div>
+        </div>
+    </ng-template>
 </div>

@@ -1,7 +1,7 @@
 export interface Service {
   id?: string,
   name: string,
-  content: string[],
+  description: string[],
   imagesURL: string[],
   createdAt?: Date,
   updatedAt?: Date
