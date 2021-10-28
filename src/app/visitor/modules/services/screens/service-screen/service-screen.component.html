@@ -7,7 +7,11 @@
             >
             <img src="../../../../../../assets/shared/backgroundTitles/serviceTitle.svg"
                 [width]="400"
-                *ngIf="getScreenSize() <= 630 && getScreenSize() > 410"
+                *ngIf="getScreenSize() <= 630 && getScreenSize() > 440"
+            >
+            <img src="../../../../../../assets/shared/backgroundTitles/serviceTitle.svg"
+                [width]="300"
+                *ngIf="getScreenSize() <= 440 && getScreenSize() > 330"
             >
         </div>
         <ng-template #showText>

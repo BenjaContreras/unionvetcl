@@ -13,25 +13,11 @@
                 [loopFillGroupWithBlank]="true"
                 #swiper
             >
-                <ng-template swiperSlide>
+                <ng-template swiperSlide *ngFor="let tip of tipsAux" >
                     <tip-detail
-                        [url]="tip1.img"
-                        [title]="tip1.title"
-                        [content]="tip1.content"
-                    ></tip-detail>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <tip-detail
-                        [url]="tip3.img"
-                        [title]="tip3.title"
-                        [content]="tip3.content"
-                    ></tip-detail>
-                </ng-template>
-                <ng-template swiperSlide>
-                    <tip-detail
-                        [url]="tip2.img"
-                        [title]="tip2.title"
-                        [content]="tip2.content"
+                        [url]="tip.img"
+                        [title]="tip.title"
+                        [content]="tip.content"
                     ></tip-detail>
                 </ng-template>
             </swiper>

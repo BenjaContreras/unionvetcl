@@ -11,9 +11,7 @@ SwiperCore.use([Autoplay]);
 })
 export class TipsListComponent implements OnInit, OnChanges {
 
-  public tip1: any = models[0];
-  public tip2: any = models[1];
-  public tip3: any = models[2];
+  public tipsAux: any[];
   public center: boolean;
   public breakpoints: any = {
     1220: {
@@ -32,6 +30,8 @@ export class TipsListComponent implements OnInit, OnChanges {
   @Input() tips! : Tip[];
 
   constructor() {
+    this.tipsAux = [];
+    models.forEach((tip: any) => this.tipsAux.push(tip));
     this.center = false;
     if (this.getScreenSize() >= 1230) this.center = true;
   }
@@ -75,5 +75,25 @@ const models: any = [
     img: '../../../../../../assets/visitor/png/Image3.png',
     title: 'Temporada de calor',
     content: 'Recuerde mantener un recambio constante del agua de su mascota. Considerando un lugar fresco!'
+  },
+  {
+    img: '../../../../../../assets/visitor/png/Image2.png',
+    title: 'Área de recreo',
+    content: 'Siempre estimular con juguetes y juegos, eso mantendrá una buena actividad mental y física en sus mascotas, facilitando una mejor salud.'
+  },
+  {
+    img: '../../../../../../assets/visitor/png/Image.png',
+    title: 'Descanso',
+    content: 'Ellos igual necesitan tiempo para recargar energías. No interrumpas sus momentos de relajo, podrías estresarlos y generar conductas inapropiadas.'
+  },
+  {
+    img: '../../../../../../assets/visitor/png/Image2.png',
+    title: 'Alimentación',
+    content: 'Comer dará salud, y una dieta completa y balanceada entrega mayores beneficios para su inmunidad y defensas. Los excesos son peligrosos.'
+  },
+  {
+    img: '../../../../../../assets/visitor/png/Image3.png',
+    title: 'Compañia',
+    content: 'Más que una mascota, son familia. No los descuides, mantén al día sus controles y podrán acompañarte por muchos años.'
   },
 ]

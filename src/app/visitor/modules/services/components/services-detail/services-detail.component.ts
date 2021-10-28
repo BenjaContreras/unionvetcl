@@ -15,7 +15,6 @@ export class ServicesDetailComponent implements OnInit, OnChanges {
   constructor() { 
     this.service = null;
     this.paragraph = [];
-    console.log(this.getScreenSize());
   }
 
   ngOnInit(): void {
@@ -23,7 +22,7 @@ export class ServicesDetailComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.paragraph = [];
-    this.service?.content.forEach(text => this.paragraph.push(text));
+    this.service?.description.forEach(text => this.paragraph.push(text));
   }
 
   @HostListener('window:resize', ['$event'])

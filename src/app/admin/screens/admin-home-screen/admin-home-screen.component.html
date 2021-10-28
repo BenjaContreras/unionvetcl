@@ -48,33 +48,81 @@
         <div class="row" style="max-width: 262px;">
             <div class="col p-0">
                 <mat-selection-list [multiple]="false" (selectionChange)="changeValue($event)">
-                    <mat-list-option
-                        (click)="goTo(optionSelected)"
-                        *ngFor="let option of options" 
-                        [value]="option" 
-                        [ngStyle]="{'background-color': optionSelected === option ? 'rgba(255, 255, 255, 0.5)' : ''}"
-                    >
-                        <div class="row text-white pt-3">
-                            <div class="col-1">
-                                <div [ngSwitch]="getIcon(option)">
-                                    <div *ngSwitchCase="'book'">
-                                        <mat-icon *ngIf="lengthDates > 0"  matBadge="{{lengthDates}}" matBadgeColor="warn">{{getIcon(option)}}</mat-icon>
-                                        <mat-icon *ngIf="lengthDates <= 0">{{getIcon(option)}}</mat-icon>
+                    <mat-accordion style="background-color: #0F7499; border: none;">
+                        <ng-container *ngFor="let option of options">
+                            <mat-expansion-panel hideToggle style="background-color: #0F7499;" *ngIf="!(option.name === 'Resumen' || option.name === 'Contratos'); else isAnother">
+                                <mat-expansion-panel-header class="p-0" style="background: none">
+                                    <mat-panel-title class="m-0">
+                                        <mat-list-option 
+                                            [value]="option.name" 
+                                            [ngStyle]="{'background-color': optionSelected === option.name ? 'rgba(255, 255, 255, 0.5)' : ''}"
+                                        >
+                                            <div class="row text-white pt-3">
+                                                <div class="col-1">
+                                                    <div [ngSwitch]="getIcon(option.name)">
+                                                        <div *ngSwitchCase="'book'">
+                                                            <mat-icon *ngIf="lengthDates > 0"  matBadge="{{lengthDates}}" matBadgeColor="warn">{{getIcon(option.name)}}</mat-icon>
+                                                            <mat-icon *ngIf="lengthDates <= 0">{{getIcon(option.name)}}</mat-icon>
+                                                        </div>
+                                                        <div *ngSwitchCase="'help'">
+                                                            <mat-icon *ngIf="lengthContact > 0"  matBadge="{{lengthContact}}" matBadgeColor="warn">{{getIcon(option.name)}}</mat-icon>
+                                                            <mat-icon *ngIf="lengthContact <= 0">{{getIcon(option.name)}}</mat-icon>
+                                                        </div>
+                                                        <div *ngSwitchDefault>
+                                                            <mat-icon>{{getIcon(option.name)}}</mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col ps-4">
+                                                    <p>{{option.name}}</p>
+                                                </div>
+                                            </div>
+                                        </mat-list-option>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <ng-template matExpansionPanelContent class="p-0">
+                                    <mat-selection-list 
+                                        [multiple]="false" 
+                                        (selectionChange)="changeValue($event)"
+                                        class="p-0"
+                                    >
+                                        <mat-list-option
+                                            (click)="goTo(optionSelected, subcategory)"
+                                            *ngFor="let subcategory of option.subcategories" 
+                                            [value]="subcategory" 
+                                            class="p-0"
+                                            [ngStyle]="{'background-color': optionSelected === subcategory ? 'rgba(255, 255, 255, 0.5)' : '', 'border-radius': optionSelected === subcategory? '10px' : ''}"
+                                        >
+                                            <div class="row text-white pt-3 p-0 align-items-center">
+                                                <div class="col-1">
+                                                    <mat-icon>{{getIcon(option.name)}}</mat-icon>
+                                                </div>
+                                                <div class="col ps-4 pt-3 pe-0">
+                                                    <p>{{subcategory}}</p>
+                                                </div>
+                                            </div>
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                </ng-template>
+                            </mat-expansion-panel>
+                            <ng-template #isAnother>
+                                <mat-list-option
+                                    (click)="goTo(optionSelected)"
+                                    [value]="option.name" 
+                                    [ngStyle]="{'background-color': optionSelected === option.name ? 'rgba(255, 255, 255, 0.5)' : ''}"
+                                >
+                                    <div class="row text-white pt-3">
+                                        <div class="col-1">
+                                            <mat-icon>{{getIcon(option.name)}}</mat-icon>
+                                        </div>
+                                        <div class="col ps-4">
+                                            <p>{{option.name}}</p>
+                                        </div>
                                     </div>
-                                    <div *ngSwitchCase="'help'">
-                                        <mat-icon *ngIf="lengthContact > 0"  matBadge="{{lengthContact}}" matBadgeColor="warn">{{getIcon(option)}}</mat-icon>
-                                        <mat-icon *ngIf="lengthContact <= 0">{{getIcon(option)}}</mat-icon>
-                                    </div>
-                                    <div *ngSwitchDefault>
-                                        <mat-icon>{{getIcon(option)}}</mat-icon>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col ps-4">
-                                <p>{{option}}</p>
-                            </div>
-                        </div>
-                    </mat-list-option>
+                                </mat-list-option>
+                            </ng-template>
+                        </ng-container>
+                    </mat-accordion>
                 </mat-selection-list>
             </div>
         </div>

@@ -4,6 +4,8 @@ import { DateScreenComponent } from './screens/date-screen/date-screen.component
 
 const routes: Routes = [
   { path: '', component: DateScreenComponent, pathMatch: 'full'},
+  { path: 'crear-cita', component: DateScreenComponent},
+  { path: 'lista-citas', component: DateScreenComponent},
   { path: '**', component: DateScreenComponent },
 ];
 
