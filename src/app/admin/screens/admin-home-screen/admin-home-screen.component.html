@@ -68,6 +68,10 @@
                                                             <mat-icon *ngIf="lengthContact > 0"  matBadge="{{lengthContact}}" matBadgeColor="warn">{{getIcon(option.name)}}</mat-icon>
                                                             <mat-icon *ngIf="lengthContact <= 0">{{getIcon(option.name)}}</mat-icon>
                                                         </div>
+                                                        <div *ngSwitchCase="'dynamic_feed'">
+                                                            <mat-icon *ngIf="lengthPublications > 0"  matBadge="{{lengthPublications}}" matBadgeColor="warn">{{getIcon(option.name)}}</mat-icon>
+                                                            <mat-icon *ngIf="lengthPublications <= 0">{{getIcon(option.name)}}</mat-icon>
+                                                        </div>
                                                         <div *ngSwitchDefault>
                                                             <mat-icon>{{getIcon(option.name)}}</mat-icon>
                                                         </div>
@@ -93,11 +97,11 @@
                                             class="p-0"
                                             [ngStyle]="{'background-color': optionSelected === subcategory ? 'rgba(255, 255, 255, 0.5)' : '', 'border-radius': optionSelected === subcategory? '10px' : ''}"
                                         >
-                                            <div class="row text-white pt-3 p-0 align-items-center">
+                                            <div class="row text-white pt-2 p-0 align-items-center">
                                                 <div class="col-1">
-                                                    <mat-icon>{{getIcon(option.name)}}</mat-icon>
+                                                    <mat-icon>{{getIcon(subcategory)}}</mat-icon>
                                                 </div>
-                                                <div class="col ps-4 pt-3 pe-0">
+                                                <div class="col ps-4 pt-2 pe-0">
                                                     <p>{{subcategory}}</p>
                                                 </div>
                                             </div>
