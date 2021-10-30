@@ -57,4 +57,55 @@ export class HelperService {
     };
     return '';
   };
+
+  public verifyMail(email: string): {message: string, verify: boolean} {
+    this.validMails.forEach(mail => {
+      if (!email.includes(mail)) return {
+        message: 'El correo es invalido',
+        verify: false
+      };
+      return;
+    });
+    return {
+      message: 'Todo en orden',
+      verify: true 
+    };
+  };
+
+  public verifyName(name: string): {message: string, verify: boolean} {
+    this.specialCharacters.forEach(car => {
+      if (!name.includes(car)) return {
+        message: 'El nombre contiene caracteres invalidos',
+        verify: false
+      };
+      return;
+    });
+    return {
+      message: 'Todo en orden',
+      verify: true 
+    };
+  };
+
+  public verifyMessage(message: string): {message: string, verify: boolean} {
+    this.specialCharacters.forEach(car => {
+      if (!message.includes(car)) return {
+        message: 'El mensaje contiene caracteres invalidos',
+        verify: false
+      };
+      return;
+    });
+    return {
+      message: 'Todo en orden',
+      verify: true 
+    };
+  };
+
+  public verifyRut(rut: string): boolean {
+    const rutFormatted: string = rutTools.format(rut); // (123456789) => (12345678-9)
+    return rutTools.validate(rutFormatted);
+  };
+
+  public verifyPhone(phone: string): boolean { 
+    return phoneTools.validate(phone);
+  };
 }
