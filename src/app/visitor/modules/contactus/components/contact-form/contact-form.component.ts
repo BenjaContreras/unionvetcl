@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
+import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Contact } from '@models/contact.model';
 
@@ -13,23 +14,14 @@ export class ContactFormComponent {
   
   public isLoading: boolean;
   public contactForm: FormGroup;
-  private specialCharacters: string[];
-  private validMails: string[];
 
   constructor(
     private fb: FormBuilder, 
     private notificationService: NotificationService,
-    private contactProvider: ContactProviderService
+    private contactProvider: ContactProviderService,
+    private helperService: HelperService
   ) {
     this.isLoading = false;
-    this.specialCharacters = [
-      '"', "'", '&', '%', '?', '¿', '#', ',', '{', '}', '[', ']', '^', '`', 
-      '´', '~', '¡', '!', "$", '/', '(', ")", '=', '¨', '°', '¬', '<', '>', 'script'
-    ];
-    this.validMails = [
-      'gmail.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'yahoo.es', 'yahoo.com', 'mail.pucv.cl', 'sansano.usm.cl', 'codefire.cl',
-      'alumnos.uv.cl', 'uv.cl', 'pucv.cl', 'usm.cl', 'uai.cl', 'unab.cl'
-    ];
     this.contactForm = this.fb.group({
       fullName: [null, Validators.required],
       phone: [null, Validators.compose([
@@ -62,9 +54,9 @@ export class ContactFormComponent {
 
   async onSubmit(): Promise<any> {
     if (this.contactForm.valid){
-      if (this.verifyMessage().verify) {
-        if (this.verifyMail().verify){
-          if (this.verifyName().verify){
+      if (this.helperService.verifyMessage(this.message).verify) {
+        if (this.helperService.verifyMail(this.email).verify){
+          if (this.helperService.verifyName(this.fullName).verify){
             let contact: Contact = {
               fullName: this.fullName,
               phone: this.phone,
@@ -98,48 +90,6 @@ export class ContactFormComponent {
     for(let data in this.contactForm.controls) {
       (<FormControl>this.contactForm.controls[data]).setValue('');
       this.contactForm.controls[data].setErrors(null);
-    };
-  };
-
-  private verifyMessage(): {message: string, verify: boolean} {
-    this.specialCharacters.forEach(car => {
-      if (!this.message.includes(car)) return {
-        message: 'El mensaje contiene caracteres invalidos',
-        verify: false
-      };
-      return;
-    });
-    return {
-      message: 'Todo en orden',
-      verify: true 
-    };
-  };
-
-  private verifyMail(): {message: string, verify: boolean} {
-    this.validMails.forEach(mail => {
-      if (!this.email.includes(mail)) return {
-        message: 'El correo es invalido',
-        verify: false
-      };
-      return;
-    });
-    return {
-      message: 'Todo en orden',
-      verify: true 
-    };
-  };
-
-  private verifyName(): {message: string, verify: boolean} {
-    this.specialCharacters.forEach(car => {
-      if (!this.fullName.includes(car)) return {
-        message: 'El nombre contiene caracteres invalidos',
-        verify: false
-      };
-      return;
-    });
-    return {
-      message: 'Todo en orden',
-      verify: true 
     };
   };
 
