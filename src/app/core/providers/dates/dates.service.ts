@@ -16,4 +16,8 @@ export class DatesProviderService {
   // public getDateById(id: string): Observable<Date> {
   //   return this.httpService.get<Date>(`/dates/${id}`);
   // };
+
+  // public postDate(date: any): Observable<Date> {
+  //   return this.httpService.post<Date>('/dates', date);
+  // };
 }
