@@ -7,7 +7,7 @@ import { rutTools, phoneTools } from 'prettyutils'
 export class HelperService {
 
   public communes: {name: string, communes: string[]}[] = COMMUNES;
-  public blocks: string[] = BLOCKS;
+  public blocks: Block[] = BLOCKS;
   public specialCharacters: string[] = SPECIALCHARACTERS;
   public validMails: string[] = VALIDMAILS;
 
@@ -116,10 +116,27 @@ export class HelperService {
   };
 }
 
-const BLOCKS = [
-  '09:30 - 10:00', '10:00 - 10:30', '10:30 - 11:00', '11:00 - 11:30', '11:30 - 12:00', '12:00 - 12:30', '12:30 - 13:00',
-  '15:00 - 15:30', '15:30 - 16:00', '16:00 - 16:30', '16:30 - 17:00', '17:00 - 17:30', '17:30 - 18:00', '18:00 - 18:30',
-  '18:30 - 19:00'
+export interface Block {
+  name: string;
+  value: number;
+};
+
+const BLOCKS: Block[] = [
+  {name: '09:30 - 10:00', value: 1}, 
+  {name: '10:00 - 10:30', value: 2}, 
+  {name: '10:30 - 11:00', value: 3}, 
+  {name: '11:00 - 11:30', value: 4}, 
+  {name: '11:30 - 12:00', value: 5},
+  {name: '12:00 - 12:30', value: 6},
+  {name: '12:30 - 13:00', value: 7},
+  {name: '15:00 - 15:30', value: 8},
+  {name: '15:30 - 16:00', value: 9},
+  {name: '16:00 - 16:30', value: 10},
+  {name: '16:30 - 17:00', value: 11},
+  {name: '17:00 - 17:30', value: 12},
+  {name: '17:30 - 18:00', value: 13},
+  {name: '18:00 - 18:30', value: 14},
+  {name: '18:30 - 19:00', value: 15},
 ];
 
 const COMMUNES = [
