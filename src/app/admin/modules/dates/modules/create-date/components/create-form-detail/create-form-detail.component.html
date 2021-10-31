@@ -1,5 +1,5 @@
-<form [formGroup]="createDateForm" novalidate>
-    <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+<form [formGroup]="createDateForm" novalidate >
+    <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;" *ngIf="client; else dontHaveClient">
       <mat-card-content>
         <div class="row">
           <div class="col">
@@ -27,7 +27,7 @@
                   {{ region }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="createDateForm.controls['commune'].hasError('required')">
+              <mat-error *ngIf="createDateForm.controls['region'].hasError('required')">
                 State is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -92,8 +92,8 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-select placeholder="Bloque" formControlName="block">
-                  <mat-option *ngFor="let block of blocks" [value]="block">
-                  {{ block }}
+                  <mat-option *ngFor="let block of blocks" [value]="block.value">
+                  {{ block.name }}
                   </mat-option>
               </mat-select>
               <mat-error *ngIf="createDateForm.controls['block'].hasError('required')">
@@ -104,8 +104,16 @@
         </div>
       </mat-card-content>
       <mat-card-actions class="m-0 p-0 text-end">
-        <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Cancelar</button>
+        <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanClient()">Cancelar</button>
+        <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
         <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agendar</button>
     </mat-card-actions>
     </mat-card>
+    <ng-template #dontHaveClient>
+      <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+        <mat-card-content style="font-size: 22px; text-align: center;">
+          Es necesario que seleccione un cliente, para asociarle la cita a crear, de otro modo presione sobre "Nuevo usuario"
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
   </form>

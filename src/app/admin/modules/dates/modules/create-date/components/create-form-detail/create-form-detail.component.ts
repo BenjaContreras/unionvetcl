@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatesProviderService } from '@core/providers/dates/dates.service';
-import { HelperService } from '@core/services/helper/helper.service';
+import { Block, HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { DateModel } from '@models/date.models';
 
@@ -10,13 +10,15 @@ import { DateModel } from '@models/date.models';
   templateUrl: './create-form-detail.component.html',
   styleUrls: ['./create-form-detail.component.sass']
 })
-export class CreateFormDetailComponent implements OnInit {
+export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewInit {
 
+  @Input() client: any;
+  @Output() cleanClientEmitter: EventEmitter<any>;
   public createDateForm: FormGroup;
   public regionSelected: string;
   public communes: string[];
   public regiones: string[];
-  public blocks: string[];
+  public blocks: Block[];
   public isLoading: boolean;
 
   constructor(
@@ -25,6 +27,8 @@ export class CreateFormDetailComponent implements OnInit {
     private notificationService: NotificationService,
     private dateProvider: DatesProviderService,
   ) {
+    this.cleanClientEmitter = new EventEmitter<any>();
+    this.client = null;
     this.isLoading = false;
     this.createDateForm = this.fb.group({
       fullName: [null, Validators.required],
@@ -47,6 +51,7 @@ export class CreateFormDetailComponent implements OnInit {
     this.blocks = this.helperService.blocks;
     this.communes = [];
     this.regiones = this.helperService.communes.map(commune => commune.name);
+    if (this.client) this.cleanForm();
   }
 
   public setRegionSelected(region: string): void {
@@ -66,6 +71,10 @@ export class CreateFormDetailComponent implements OnInit {
       this.createDateForm.controls[data].setErrors(null);
     };
     this.regionSelected = '';
+  };
+
+  public cleanClient(){
+    this.cleanClientEmitter.emit(null);
   };
 
   myFilter = (d: Date | null): boolean => {
@@ -125,5 +134,15 @@ export class CreateFormDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.client) this.cleanForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.client.currentValue === this.client) this.cleanForm();
+    if (this.client) this.cleanForm();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.client) this.cleanForm();
   }
 }
