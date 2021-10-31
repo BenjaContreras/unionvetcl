@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthProviderService } from '@core/providers/auth/auth-provider.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 
@@ -41,13 +41,22 @@ export class LoginFormComponent {
           this.isLoading = false;
         } else {
           this.notificationService.error('Algo ha sucedido');
+          this.isLoading = false;
           throw new Error("Problema al iniciar sesión");
-          
         }
       }
     } catch (e) {
       console.log(e);
       this.notificationService.error('Verifique sus datos, no pudimos iniciarle sesión');
+      this.cleanForm();
+      this.isLoading = false;
+    };
+  };
+
+  private cleanForm(){
+    for(let data in this.addressForm.controls) {
+      (<FormControl>this.addressForm.controls[data]).setValue('');
+      this.addressForm.controls[data].setErrors(null);
     };
   };
 

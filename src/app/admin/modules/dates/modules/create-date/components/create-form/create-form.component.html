@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col p-0">
+            <mat-card class="w-100 font-brand p-0">
+                <mat-card-title class="p-3 ps-5 m-0" style="color: white; background-color: #4F96B0;">
+                    <div class="row align-items-center">
+                        <div class="col" style="font-size: 48px;">
+                            Datos del paciente
+                        </div>
+                        <div class="col-3 mt-2" style="font-size: 15px;">
+                            <form [formGroup]="clientSelectionForm">
+                                <mat-form-field class="w-100 pb-0">
+                                    <mat-select formControlName="client" placeholder="Seleccione un cliente">
+                                        <mat-option 
+                                            *ngFor="let client of clients" 
+                                            [value]="client" 
+                                            (click)="setSelectedClient(client)"
+                                        >
+                                            {{ client }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </mat-card-title>
+                <mat-card-content class="p-3 ps-5 m-0" style="background-color: #A7CAD7; color: white;">
+                    <div class="row">
+                        <div class="col">
+                            <app-create-form-detail
+                                [client]="selectedClient"
+                                (cleanClientEmitter)="emitterReciver($event)"
+                            ></app-create-form-detail>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
