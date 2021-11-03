@@ -10,20 +10,24 @@ import { NotificationService } from '@core/services/notification/notification.se
 })
 export class CreatePetFormDetailComponent implements OnInit {
 
-  client: any;
-  @Output() cleanClientEmitter: EventEmitter<any>;
-  public createDateForm: FormGroup;
+  @Input() user: any;
+  @Output() cleanPetEmitter: EventEmitter<any>;
+  @Output() expandOption: EventEmitter<boolean>;
+  public optionSelected: any;
+  public createPetForm: FormGroup;
   public isLoading: boolean;
 
   constructor(
     private fb: FormBuilder,
     private notificationService: NotificationService,
-    private dateProvider: DatesProviderService,
+    // private petProvider: PetProviderService,
   ) {
-    this.cleanClientEmitter = new EventEmitter<any>();
-    this.client = null;
+    this.cleanPetEmitter = new EventEmitter<any>();
+    this.expandOption = new EventEmitter<boolean>();
+    this.user = null;
+    this.optionSelected = null;
     this.isLoading = false;
-    this.createDateForm = this.fb.group({
+    this.createPetForm = this.fb.group({
       name: [null, Validators.required],
       age: [null, Validators.required],
       breed: [null, Validators.required],
@@ -33,18 +37,19 @@ export class CreatePetFormDetailComponent implements OnInit {
       gender: [null, Validators.required],
       dateBirth: [null, Validators.required]
     });
-    if (this.client) this.cleanForm();
+    if (this.user) this.cleanForm();
   }
 
   public cleanForm(){
-    for(let data in this.createDateForm.controls) {
-      (<FormControl>this.createDateForm.controls[data]).setValue(null);
-      this.createDateForm.controls[data].setErrors(null);
+    for(let data in this.createPetForm.controls) {
+      (<FormControl>this.createPetForm.controls[data]).setValue(null);
+      this.createPetForm.controls[data].setErrors(null);
     };
+    this.optionSelected = null;
   };
 
-  public cleanClient(){
-    this.cleanClientEmitter.emit(null);
+  public expandOptionFunction(){
+    this.expandOption.emit(true);
   };
 
   myFilter = (d: Date | null): boolean => {
@@ -52,14 +57,14 @@ export class CreatePetFormDetailComponent implements OnInit {
     return day !== 0 && day !== 6;
   };
 
-  get name(): string { return this.createDateForm.get('name')?.value };
-  get age(): string { return this.createDateForm.get('age')?.value };
-  get breed(): string { return this.createDateForm.get('breed')?.value };
-  get species(): string { return this.createDateForm.get('species')?.value };
-  get color(): string { return this.createDateForm.get('color')?.value };
-  get chipNumber(): string { return this.createDateForm.get('chipNumber')?.value };
-  get gender(): string { return this.createDateForm.get('gender')?.value };
-  get dateBirth(): string { return this.createDateForm.get('dateBirth')?.value };
+  get name(): string { return this.createPetForm.get('name')?.value };
+  get age(): string { return this.createPetForm.get('age')?.value };
+  get breed(): string { return this.createPetForm.get('breed')?.value };
+  get species(): string { return this.createPetForm.get('species')?.value };
+  get color(): string { return this.createPetForm.get('color')?.value };
+  get chipNumber(): string { return this.createPetForm.get('chipNumber')?.value };
+  get gender(): string { return this.createPetForm.get('gender')?.value };
+  get dateBirth(): string { return this.createPetForm.get('dateBirth')?.value };
 
   async onSubmit(): Promise<any> {
     // if (this.createDateForm.valid){
@@ -101,16 +106,16 @@ export class CreatePetFormDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.client) this.cleanForm();
+    if (this.user) this.cleanForm();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.client.currentValue === this.client) this.cleanForm();
-    if (this.client) this.cleanForm();
+    if (changes.client.currentValue === this.user) this.cleanForm();
+    if (this.user) this.cleanForm();
   }
 
   ngAfterViewInit(): void {
-    if (this.client) this.cleanForm();
+    if (this.user) this.cleanForm();
   }
 
 }

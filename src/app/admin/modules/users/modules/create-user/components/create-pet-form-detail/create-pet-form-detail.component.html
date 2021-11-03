@@ -1,11 +1,11 @@
-<form [formGroup]="createDateForm" novalidate >
+<form [formGroup]="createPetForm" novalidate>
   <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
     <mat-card-content>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput placeholder="Nombre" formControlName="name">
-            <mat-error *ngIf="createDateForm.controls['name'].hasError('required')">
+            <mat-error *ngIf="createPetForm.controls['name'].hasError('required')">
               <strong>Nombre requerido!</strong>
             </mat-error>
           </mat-form-field>
@@ -13,7 +13,7 @@
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput placeholder="Número chip" formControlName="chipNumber">
-            <mat-error *ngIf="createDateForm.controls['chipNumber'].hasError('required')">
+            <mat-error *ngIf="createPetForm.controls['chipNumber'].hasError('required')">
               <strong>Número chip requerido!</strong>
             </mat-error>
           </mat-form-field>
@@ -24,7 +24,7 @@
             <mat-form-field class="full-width">
                 <mat-label>Especie</mat-label>
               <input matInput placeholder="Especie" formControlName="species">
-              <mat-error *ngIf="createDateForm.controls['species'].hasError('required')">
+              <mat-error *ngIf="createPetForm.controls['species'].hasError('required')">
                 <strong>Especie requerida!</strong>
               </mat-error>
             </mat-form-field>
@@ -33,7 +33,7 @@
             <mat-form-field class="full-width">
               <mat-label>Sexo</mat-label>
               <input matInput placeholder="Sexo" formControlName="gender">
-              <mat-error *ngIf="createDateForm.controls['gender'].hasError('required')">
+              <mat-error *ngIf="createPetForm.controls['gender'].hasError('required')">
                 <strong>Sexo requerido!</strong>
               </mat-error>
             </mat-form-field>
@@ -44,46 +44,64 @@
           <mat-form-field class="full-width">
               <mat-label>Raza</mat-label>
             <input matInput placeholder="Raza" formControlName="breed">
-            <mat-error *ngIf="createDateForm.controls['breed'].hasError('required')">
+            <mat-error *ngIf="createPetForm.controls['breed'].hasError('required')">
               <strong>Raza requerida!</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter" formControlName="dateBirth">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="createDateForm.controls['dateBirth'].hasError('required')">
-                <strong>Fecha de nacimiento valida!</strong>
+              <mat-label>Color</mat-label>
+            <input matInput placeholder="Color" formControlName="color">
+            <mat-error *ngIf="createPetForm.controls['color'].hasError('required')">
+              <strong>Color requerido!</strong>
             </mat-error>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
-              <mat-label>Color</mat-label>
-            <input matInput placeholder="Color" formControlName="color">
-            <mat-error *ngIf="createDateForm.controls['color'].hasError('required')">
-              <strong>Color requerido!</strong>
-            </mat-error>
-          </mat-form-field>
+          <div class="row mt-4">
+            <div class="col text-center">
+              <h5>
+                ¿Sabe la fecha de nacimiento de su mascota?
+              </h5>
+            </div>
+            <div class="col">
+              <mat-radio-group>
+                <mat-radio-button class="me-4" [value]="'si'" (click)="optionSelected = 'si'" [checked]="optionSelected === 'si'? true : false">Si</mat-radio-button>
+                <mat-radio-button [value]="'no'" (click)="optionSelected = 'no'" [checked]="optionSelected === 'no'? true : false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="row p-0" *ngIf="optionSelected === 'si'">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter" formControlName="dateBirth">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="createPetForm.controls['dateBirth'].hasError('required')">
+                    <strong>Fecha de nacimiento valida!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
         </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Edad</mat-label>
-            <input type="tel" matInput placeholder="Edad" formControlName="age">
-            <mat-error *ngIf="createDateForm.controls['age'].hasError('required')">
-              <strong>Edad requerido!</strong>
-            </mat-error>
-          </mat-form-field>
+        <div class="row" *ngIf="optionSelected === 'no'">
+          <div class="col m-0">
+            <mat-form-field class="full-width">
+              <mat-label>Edad</mat-label>
+              <input type="tel" matInput placeholder="Edad" formControlName="age">
+              <mat-error *ngIf="createPetForm.controls['age'].hasError('required')">
+                <strong>Edad requerido!</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions class="m-0 p-0 text-end">
-      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanClient()">Cancelar</button>
       <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
       <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
   </mat-card-actions>
