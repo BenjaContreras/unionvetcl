@@ -1,0 +1,54 @@
+<form 
+  [formGroup]="addressForm" 
+  novalidate 
+  (ngSubmit)="login()" 
+  class="py-5"
+>
+  <mat-card class="shipping-card font-brand m-5 p-0" style="background-color: #5F9FB6; box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.7); border-radius: 30px">
+    <div class="row p-0 m-0">
+      <div class="col-7 p-5">
+        <mat-card-header class="justify-content-center mb-5 px-3">
+            <div class="row">
+              <img class="col-12" src="../../../../assets/admin/topForm.svg">
+              <div class="col-12 text-white mt-5 pt-5">
+                  <mat-card-title style="font-weight: 900; font-size: 36px;">¿Olvidaste tu contraseña?</mat-card-title>
+                  <mat-card-subtitle style="font-size: 16px; font-weight: 300; color: white;">¡No te preocupes, ingresa tu correo y te enviaremos un link para cambiarla!</mat-card-subtitle>
+              </div>
+          </div>
+        </mat-card-header>
+        <mat-card-content class="px-5">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput type="email" placeholder="Correo electrónico" formControlName="email" style="background-color: #5F9FB6;">
+                <mat-error *ngIf="addressForm.controls['email'].hasError('required')">
+                  <strong>Correo requerido!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="align-items-center text-center mt-5">
+            <div class="row align-items-center">
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <span style="color: #FFFFFF; cursor: pointer; font-size: 22px;" class="text-center align-items-center" (click)="backPreviousPage()">
+                        <i class="fas fa-backward me-2"></i>Volver
+                    </span>
+                </div>
+                <div class="col">
+                    <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                    <button mat-raised-button type="submit" [disabled]="!addressForm.valid" style="color: #5F9FB6;" *ngIf="!isLoading" 
+                        class="btn-lg w-75 text-center"
+                        [ngStyle]="{'background-color': addressForm.valid? 'white' : 'disabled'}"
+                    >Guardar</button>
+                </div>
+            </div>
+        </mat-card-actions>
+      </div>
+      <div class="col-5 text-center m-0 p-3" style="border-radius: 0 30px 30px 0; background-color: #C1DEE7; max-height: 650px;">
+        <img src="../../../../assets/shared/gran-interrogante-realizados-desde-pequenos-signos-de-interrogacion-los-colores-del-arco-iris-2a26xd_adobespark 1.png" height="100%">
+      </div>
+    </div>
+  </mat-card>
+</form>
