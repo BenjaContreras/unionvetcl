@@ -1,0 +1,17 @@
+<div class="container-fluid font-brand" style="max-width: 700px;">
+    <div class="row">
+        <div class="col p-0">
+            <h1 mat-dialog-title class="bg-danger text-white text-center py-4" style="font-size: 50px;">{{data.title}}</h1>
+            <div mat-dialog-content class="mt-5 mb-5 ms-1" style="font-size: 20px; max-width: 6500px !important;">{{data.message}}</div>
+            <div mat-dialog-content class="text-center my-3 px-0" style="font-size: 22px; max-width: 6500px !important;">
+                <strong>
+                    ¿Seguro desea continuar?
+                </strong>
+            </div>
+            <div mat-dialog-actions [align]="'end'" class="mx-5">
+                <button mat-raised-button (click)="onClick()" class="btn-lg">{{data.buttonText[1]}}</button>
+                <button mat-raised-button (click)="onClick('continue')" class="bg-danger text-white btn-lg" cdkFocusInitial>{{data.buttonText[0]}}</button>
+            </div>
+        </div>
+    </div>
+</div>
