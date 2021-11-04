@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DatesProviderService } from '@core/providers/dates/dates.service';
+import { ProductProviderService } from '@core/providers/products/product-provider.service';
 import { Block, HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { Product } from '@models/product.model';
 
 @Component({
   selector: 'app-create-form-detail',
@@ -12,67 +13,30 @@ import { NotificationService } from '@core/services/notification/notification.se
 export class CreateFormDetailComponent implements OnInit {
 
   client: any;
-  @Output() cleanClientEmitter: EventEmitter<any>;
-  public createDateForm: FormGroup;
-  public regionSelected: string;
-  public communes: string[];
-  public regiones: string[];
-  public blocks: Block[];
+  public createProductForm: FormGroup;
   public isLoading: boolean;
 
   constructor(
     private fb: FormBuilder,
-    private helperService: HelperService,
     private notificationService: NotificationService,
-    private dateProvider: DatesProviderService,
+    private productProvider: ProductProviderService,
   ) {
-    this.cleanClientEmitter = new EventEmitter<any>();
-    this.client = null;
     this.isLoading = false;
-    this.createDateForm = this.fb.group({
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required],
-      rut: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
-      ],
-      address: [null, Validators.required],
-      region: [null, Validators.required],
-      commune: [null, Validators.required],
-      email: [null, Validators.compose([
-        Validators.required, Validators.email])
-      ],
-      phone: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
-      ],
+    this.createProductForm = this.fb.group({
+      imageUrl: [null],
+      brand: [null, Validators.required],
+      name: [null, Validators.required],
+      description: [null, Validators.required],
+      stock: [null],
+      sale: [null],
     });
-    this.regionSelected = '';
-    this.blocks = this.helperService.blocks;
-    this.communes = [];
-    this.regiones = this.helperService.communes.map(commune => commune.name);
-    if (this.client) this.cleanForm();
   }
 
-  public setRegionSelected(region: string): void {
-    this.regionSelected = region;
-    this.communes = this.getCommunes(region);
-  };
-
-  private getCommunes(region: string): string[] {
-    const regionAux = this.helperService.communes.find(commune => commune?.name === region);
-    if (regionAux) return regionAux.communes;
-    else return [];
-  };
-
   public cleanForm(){
-    for(let data in this.createDateForm.controls) {
-      (<FormControl>this.createDateForm.controls[data]).setValue(null);
-      this.createDateForm.controls[data].setErrors(null);
+    for(let data in this.createProductForm.controls) {
+      (<FormControl>this.createProductForm.controls[data]).setValue(null);
+      this.createProductForm.controls[data].setErrors(null);
     };
-    this.regionSelected = '';
-  };
-
-  public cleanClient(){
-    this.cleanClientEmitter.emit(null);
   };
 
   myFilter = (d: Date | null): boolean => {
@@ -80,66 +44,45 @@ export class CreateFormDetailComponent implements OnInit {
     return day !== 0 && day !== 6;
   };
 
-  get firstName(): string { return this.createDateForm.get('firstName')?.value };
-  get lastName(): string { return this.createDateForm.get('lastName')?.value };
-  get email(): string { return this.createDateForm.get('email')?.value };
-  get password(): string { return this.createDateForm.get('password')?.value };
-  get address(): string { return this.createDateForm.get('address')?.value };
-  get phone(): string { return this.createDateForm.get('phone')?.value };
-  get rut(): string { return this.createDateForm.get('rut')?.value };
-  get commune(): string { return this.createDateForm.get('commune')?.value }
-  get region(): string { return this.createDateForm.get('region')?.value }
+  get imageUrl(): string { return this.createProductForm.get('imageUrl')?.value };
+  get brand(): string { return this.createProductForm.get('brand')?.value };
+  get name(): string { return this.createProductForm.get('name')?.value };
+  get description(): string { return this.createProductForm.get('description')?.value };
+  get stock(): number { return this.createProductForm.get('stock')?.value };
+  get sale(): boolean { return this.createProductForm.get('sale')?.value };
 
   async onSubmit(): Promise<any> {
-    // if (this.createDateForm.valid){
-    //   if (this.helperService.verifyRut(this.rut)){
-    //     if (this.helperService.verifyName(this.fullName).verify){
-    //       let newDate: DateModel = {
-    //         day: this.day,
-    //         block: this.block,
-    //         user: {
-    //           fullName: this.fullName,
-    //           RUT: this.rut,
-    //           address: {
-    //             region: this.region,
-    //             commune: this.commune,
-    //             street: this.street,
-    //             number: this.number,
-    //           },
-    //           email: this.email,
-    //           phone: this.phone,
-    //         }
-    //       };
-    //       try {
-    //         this.isLoading = true;
-    //         // const result = await this.dateProvider.postDate(newDate).toPromise();
-    //         // if (result) this.isLoading = false;
-    //         this.notificationService.success(`Se ha creado la cita para el dia ${this.day} en el bloque ${this.block}`);
-    //         this.cleanForm();
-    //       } catch (e) {
-    //         console.log(e);
-    //         this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
-    //       }
-    //     } else {
-    //       return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
-    //     };
-    //   } else {
-    //     return this.notificationService.error('RUT invalido, intente con otro correo!');
-    //   };
-    // };
+    if (this.createProductForm.valid){
+      let newProduct: Product = {
+        imageUrl: this.imageUrl,
+        brand: this.brand,
+        name: this.name,
+        description: this.description,
+        stock: this.stock,
+      };
+      try {
+        this.isLoading = true;
+        const result = await this.productProvider.postProduct(newProduct).toPromise();
+        if (result) this.isLoading = false;
+        this.notificationService.success(`Se ha creado el producto con exito!`);
+        this.cleanForm();
+      } catch (e) {
+        console.log(e);
+        this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
+      }
+    };
   }
 
   ngOnInit(): void {
-    if (this.client) this.cleanForm();
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.client.currentValue === this.client) this.cleanForm();
-    if (this.client) this.cleanForm();
+
   }
 
   ngAfterViewInit(): void {
-    if (this.client) this.cleanForm();
+
   }
 
 }

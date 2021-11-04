@@ -1,20 +1,20 @@
-<form [formGroup]="createDateForm" novalidate >
+<form [formGroup]="createProductForm" novalidate >
   <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
     <mat-card-content>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Nombre" formControlName="firstName">
-            <mat-error *ngIf="createDateForm.controls['firstName'].hasError('required')">
+            <input matInput placeholder="Nombre" formControlName="name">
+            <mat-error *ngIf="createProductForm.controls['name'].hasError('required')">
               <strong>Nombre requerido!</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Apellido" formControlName="lastName">
-            <mat-error *ngIf="createDateForm.controls['lastName'].hasError('required')">
-              <strong>Apellido requerido!</strong>
+            <input matInput placeholder="Marca" formControlName="brand">
+            <mat-error *ngIf="createProductForm.controls['brand'].hasError('required')">
+              <strong>Marca requerida!</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -22,65 +22,23 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Rut" formControlName="rut">
-            <mat-error *ngIf="createDateForm.controls['rut'].hasError('required')">
-              <strong>Rut requerido!</strong>
-            </mat-error>
+            <mat-label>Stock</mat-label>
+            <input type="number" matInput placeholder="stock" formControlName="stock">
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-              <mat-label>Dirección</mat-label>
-            <input matInput type="text" placeholder="Calle, numero" formControlName="address">
-            <mat-error *ngIf="createDateForm.controls['address'].hasError('required')">
-              Address is <strong>required</strong>
-            </mat-error>
+              <mat-label>URL imagen</mat-label>
+            <input matInput type="text" placeholder="ingrese el url de la imagen" formControlName="imageUrl">
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Región" formControlName="region">
-              <mat-option *ngFor="let region of regiones" [value]="region" (click)="setRegionSelected(region)">
-                {{ region }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="createDateForm.controls['region'].hasError('required')">
-              State is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-              <mat-select placeholder="Comuna" formControlName="commune">
-                  <mat-option *ngFor="let commune of communes" [value]="commune">
-                  {{ commune }}
-                  </mat-option>
-              </mat-select>
-              <mat-error *ngIf="createDateForm.controls['commune'].hasError('required')">
-                  State is <strong>required</strong>
-              </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-label>Teléfono</mat-label>
-            <span matPrefix class="me-2">+56</span>
-            <input type="tel" matInput placeholder="9XXXXXXXX" formControlName="phone">
-            <mat-error *ngIf="createDateForm.controls['phone'].hasError('required')">
-              <strong>Teléfono requerido!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-              <mat-label>Correo electrónico</mat-label>
-            <input matInput type="email" placeholder="ejemplo@gmail.com" formControlName="email">
-            <mat-error *ngIf="createDateForm.controls['email'].hasError('required')">
-              <strong>Correo electrónico requerido!</strong>
+            <input matInput placeholder="Descripción" formControlName="description">
+            <mat-error *ngIf="createProductForm.controls['description'].hasError('required')">
+              <strong>Descripción requerida!</strong>
             </mat-error>
           </mat-form-field>
         </div>
