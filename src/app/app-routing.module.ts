@@ -24,6 +24,11 @@ const routes: Routes = [
       .then(m => m.UserModule)
   },
   {
+    path: 'password',
+    loadChildren: () => import('./password-recover/password-recover.module')
+      .then(m => m.PasswordRecoverModule)
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },
