@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContactsListRoutingModule } from './contacts-list-routing.module';
 import { ListScreenComponent } from './screens/list-screen/list-screen.component';
 import { ListComponentComponent } from './components/list-component/list-component.component';
+import { MaterialModule } from '@core/material.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ListComponentComponent } from './components/list-component/list-compone
   ],
   imports: [
     CommonModule,
-    ContactsListRoutingModule
+    ContactsListRoutingModule,
+    MaterialModule
   ]
 })
 export class ContactsListModule { }
