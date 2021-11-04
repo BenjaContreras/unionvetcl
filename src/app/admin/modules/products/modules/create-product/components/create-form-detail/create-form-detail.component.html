@@ -1,0 +1,52 @@
+<form [formGroup]="createProductForm" novalidate >
+  <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nombre" formControlName="name">
+            <mat-error *ngIf="createProductForm.controls['name'].hasError('required')">
+              <strong>Nombre requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Marca" formControlName="brand">
+            <mat-error *ngIf="createProductForm.controls['brand'].hasError('required')">
+              <strong>Marca requerida!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Stock</mat-label>
+            <input type="number" matInput placeholder="stock" formControlName="stock">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+              <mat-label>URL imagen</mat-label>
+            <input matInput type="text" placeholder="ingrese el url de la imagen" formControlName="imageUrl">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Descripción" formControlName="description">
+            <mat-error *ngIf="createProductForm.controls['description'].hasError('required')">
+              <strong>Descripción requerida!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="m-0 p-0 text-end">
+      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
+      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+  </mat-card-actions>
+  </mat-card>
+</form>
