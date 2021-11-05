@@ -13,6 +13,11 @@ export class TokenService {
     this.privateKey = environment.PRIVATE_KEY;
   }
 
+  addPasswordToken(token: string): void {
+    const encyptedToken = this.encrypt(token);
+    sessionStorage.setItem('passwordToken', encyptedToken);
+  }
+
   addToken(token: string): void {
     const encyptedToken = this.encrypt(token);
     sessionStorage.setItem('credentials', encyptedToken);
@@ -21,6 +26,14 @@ export class TokenService {
   addRole(role: string): void {
     const encyptedToken = this.encrypt(role);
     sessionStorage.setItem('role', encyptedToken);
+  }
+
+  getPasswordToken(): string | null {
+    const token = sessionStorage.getItem('passwordToken');
+    if (token) {
+      return this.decrypt(token);
+    }
+    return null;
   }
 
   getToken(): string | null {
@@ -64,4 +77,7 @@ export class TokenService {
     return decrypted.toString(CryptoJS.enc.Utf8);
   }
 
+  removePasswordToken(): void {
+    sessionStorage.removeItem('passwordToken');
+  }
 }

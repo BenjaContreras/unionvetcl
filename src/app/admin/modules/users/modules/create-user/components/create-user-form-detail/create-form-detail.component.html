@@ -1,0 +1,96 @@
+<form [formGroup]="createUserForm" novalidate>
+  <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nombre" formControlName="firstName">
+            <mat-error *ngIf="createUserForm.controls['firstName'].hasError('required')">
+              <strong>Nombre requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Apellido" formControlName="lastName">
+            <mat-error *ngIf="createUserForm.controls['lastName'].hasError('required')">
+              <strong>Apellido requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Rut" formControlName="rut">
+            <mat-error *ngIf="createUserForm.controls['rut'].hasError('required')">
+              <strong>Rut requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+              <mat-label>Correo electrónico</mat-label>
+            <input matInput type="email" placeholder="ejemplo@gmail.com" formControlName="email">
+            <mat-error *ngIf="createUserForm.controls['email'].hasError('required')">
+              <strong>Correo electrónico requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Región" formControlName="region">
+              <mat-option *ngFor="let region of regiones" [value]="region" (click)="setRegionSelected(region)">
+                {{ region }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="createUserForm.controls['region'].hasError('required')">
+              <strong>La región es necesaria!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+              <mat-select placeholder="Comuna" formControlName="commune">
+                  <mat-option *ngFor="let commune of communes" [value]="commune">
+                  {{ commune }}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="createUserForm.controls['commune'].hasError('required')">
+                <strong>La comuna también es necesaria!</strong>
+              </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+              <mat-label>Dirección</mat-label>
+            <input matInput type="text" placeholder="Calle, numero" formControlName="address">
+            <mat-error *ngIf="createUserForm.controls['address'].hasError('required')">
+              <strong>Dirección requerida!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Teléfono</mat-label>
+            <span matPrefix class="me-2">+56</span>
+            <input type="tel" matInput placeholder="9XXXXXXXX" formControlName="phone">
+            <mat-error *ngIf="createUserForm.controls['phone'].hasError('required')">
+              <strong>Teléfono requerido!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="m-0 p-0 text-end">
+      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
+      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+  </mat-card-actions>
+  </mat-card>
+</form>

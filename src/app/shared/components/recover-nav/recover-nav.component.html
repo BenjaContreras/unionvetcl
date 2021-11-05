@@ -1,0 +1,38 @@
+<div [ngSwitch]="getCurrentRoute()">
+    <div *ngSwitchCase="1">
+        <ng-template [ngTemplateOutlet]="passwordForgotten"></ng-template>
+    </div>
+    <div *ngSwitchCase="2">
+        <ng-template [ngTemplateOutlet]="passwordRecover"></ng-template>
+    </div>
+</div>
+
+<ng-template #passwordForgotten>
+    <div class="container-fluid bg-brand font-brand py-3" style="box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-2" *ngIf="getScreenSize() >= 530"></div>
+            <div class="text-center" [ngClass]="getScreenSize() >= 530? 'col-8' : 'col'">
+                <h3 class="pt-2">Olvido de contraseña</h3>
+            </div>
+            <div class="text-end" [ngClass]="getScreenSize() >= 530? 'col-1' : 'col'">
+                <button mat-raised-button class="btn-lg w-100 bg-danger text-white" (click)="openAlertModal('olvido')">Salir</button>
+            </div>
+            <div class="col-1" *ngIf="getScreenSize() >= 400" ></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #passwordRecover>
+    <div class="container-fluid bg-brand font-brand py-3" style="box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-2" *ngIf="getScreenSize() >= 530"></div>
+            <div class="text-center" [ngClass]="getScreenSize() >= 530? 'col-8' : 'col'">
+                <h3 class="pt-2">Recuperación de contraseña</h3>
+            </div>
+            <div class="text-end" [ngClass]="getScreenSize() >= 530? 'col-1' : 'col'">
+                <button mat-raised-button class="btn-lg w-100 bg-danger text-white" (click)="openAlertModal('recuperacion')">Salir</button>
+            </div>
+            <div class="col-1" *ngIf="getScreenSize() >= 400" ></div>
+        </div>
+    </div>
+</ng-template>

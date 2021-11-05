@@ -5,7 +5,7 @@ export interface Product {
   name: string,
   description: string,
   stock: number,
-  sale: boolean,
+  sale?: boolean,
   createdAt?: Date,
   updatedAt?: Date
 };

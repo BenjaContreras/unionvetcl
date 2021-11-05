@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthProviderService } from '@core/providers/auth/auth-provider.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 
@@ -17,7 +18,8 @@ export class LoginFormComponent {
   constructor(
     private fb: FormBuilder, 
     private notificationService: NotificationService,
-    private authProvider: AuthProviderService
+    private authProvider: AuthProviderService,
+    private router: Router
   ) {
     this.isLoading = false;
     this.hover = false;
@@ -61,6 +63,6 @@ export class LoginFormComponent {
   };
 
   public goTo(route: string){
-    //
+    this.router.navigate([`password/${route}`]);
   };
 }

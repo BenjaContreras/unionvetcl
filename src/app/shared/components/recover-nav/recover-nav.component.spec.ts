@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateComponentComponent } from './create-component.component';
+import { RecoverNavComponent } from './recover-nav.component';
 
-describe('CreateComponentComponent', () => {
-  let component: CreateComponentComponent;
-  let fixture: ComponentFixture<CreateComponentComponent>;
+describe('RecoverNavComponent', () => {
+  let component: RecoverNavComponent;
+  let fixture: ComponentFixture<RecoverNavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateComponentComponent ]
+      declarations: [ RecoverNavComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateComponentComponent);
+    fixture = TestBed.createComponent(RecoverNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

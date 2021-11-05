@@ -1,0 +1,50 @@
+<div class="container-fluid font-brand">
+    <div class="row mb-5">
+        <div class="col p-0 text-white">
+            <mat-accordion style="font-family: 'Montserrat, cursive' !important;">
+                <mat-expansion-panel class="m-0 p-0" [expanded]="true">
+                    <mat-expansion-panel-header class="m-0 py-5 text-white" style="color: white; background-color: #0F7499;">
+                        <mat-panel-title class="font-brand">
+                            <div class="col m-3 text-white fw-bold" style="font-size: 48px;">
+                                Datos del usuario
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent class="p-0 m-0">
+                        <mat-card-content class="p-3 ps-5 m-0" style="color: white;">
+                            <div class="row">
+                                <div class="col">
+                                    <app-create-form-detail></app-create-form-detail>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>              
+        </div>
+    </div>
+    <div class="row">
+        <div class="col p-0 text-white">
+            <mat-accordion style="font-family: 'Montserrat, cursive' !important;">
+                <mat-expansion-panel class="m-0 p-0">
+                    <mat-expansion-panel-header class="m-0 py-5 text-white" style="color: white; background-color: #0F7499;">
+                        <mat-panel-title class="font-brand">
+                            <div class="col m-3 text-white fw-bold" style="font-size: 48px;">
+                                Datos de la mascota
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent class="p-0 m-0">
+                        <mat-card-content class="p-3 ps-5 m-0" style="color: white;">
+                            <div class="row">
+                                <div class="col">
+                                    <app-create-pet-form-detail></app-create-pet-form-detail>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>              
+        </div>
+    </div>
+</div>
