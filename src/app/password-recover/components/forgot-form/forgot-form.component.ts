@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecoverPasswordService } from '@core/providers/recover-password/recover-password.service';
 import { HelperService } from '@core/services/helper/helper.service';
@@ -71,7 +71,8 @@ export class ForgotFormComponent {
     };
   };
 
-  public goTo(route: string){
-    //
-  };
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }

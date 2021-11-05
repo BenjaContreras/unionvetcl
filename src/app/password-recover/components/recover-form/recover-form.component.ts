@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { RecoverPasswordService } from '@core/providers/recover-password/recover-password.service';
@@ -78,13 +78,14 @@ export class RecoverFormComponent {
     };
   };
 
-  public goTo(route: string){
-    //
-  };
-
   private passwordMatchValidator(group: FormGroup) {
     let pass = group.controls.password.value;
     let confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : { notSame: true }
   };
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }
