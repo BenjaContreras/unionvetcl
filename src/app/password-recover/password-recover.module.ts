@@ -7,7 +7,6 @@ import { RecoverFormComponent } from './components/recover-form/recover-form.com
 import { MaterialModule } from '@core/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { DataInputScreenComponent } from './screens/data-input/data-input.component';
-import { EmailForPasswordFormComponent } from './components/email-for-password-form/email-for-password-form.component';
 import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
 
 
@@ -16,7 +15,6 @@ import { ForgotFormComponent } from './components/forgot-form/forgot-form.compon
     RecoverScreenComponent,
     RecoverFormComponent,
     DataInputScreenComponent,
-    EmailForPasswordFormComponent,
     ForgotFormComponent
   ],
   imports: [
