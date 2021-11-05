@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
@@ -53,4 +53,9 @@ export class RecoverNavComponent implements OnInit {
       });
     };
   };
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  }
 }
