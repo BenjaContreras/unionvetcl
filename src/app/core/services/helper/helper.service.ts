@@ -20,11 +20,11 @@ export class HelperService {
       return 'agenda/lista-citas';
     } else if (route === 'Horario') {
       return 'agenda';
-    } else if (route === 'Crear usuario') {
+    } else if (route === 'Crear dueño') {
       return 'usuarios/crear-usuario';
     } else if (route === 'Verificar usuario') {
       return 'usuarios/verificar-usuario';
-    } else if (route === 'Lista de usuarios') {
+    } else if (route === 'Lista de dueños') {
       return 'usuarios/lista-usuarios';
     } else if (route === 'Actualizar productos') {
       return 'productos/actualizar-productos';
