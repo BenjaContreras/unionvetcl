@@ -73,7 +73,12 @@ export class WeekDatesComponent implements OnInit {
 
   public setRango(): string {
     let start = moment().startOf('week').format('dddd DD');
-    let end = moment().endOf('week').format('dddd DD');
+    let startAux = moment().startOf('week').toDate();
+    let end = moment([
+      startAux.getFullYear(), 
+      startAux.getMonth(), 
+      startAux.getDay() + 4,
+    ]).format('dddd DD');
     return `${start} - ${end}`;
   };
 
