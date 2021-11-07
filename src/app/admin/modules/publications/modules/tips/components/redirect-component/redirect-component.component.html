@@ -1,1 +1,19 @@
-<p>redirect-tips-component works!</p>
+<div class="container-fluid">
+    <div class="row align-items-center justify-content-center">
+        <div class="col text-center p-5 m-5" *ngFor="let category of categories">
+            <mat-card class="cardHover ms-5" style="max-width: 70%;">
+                <img *ngIf="category === 'Crear tip'" mat-card-image src="../../../../../../../../assets/admin/creartip.jpg">
+                <img *ngIf="category === 'Lista de tips'" mat-card-image src="../../../../../../../../assets/admin/listatips.jpg">
+                <mat-card-content>
+                    <h5 *ngIf="category === 'Crear tip'" style="font-weight: 300;">Si desea crear algo nuevo para los cliente y visitantes de la pagina, presione el boton de abajo!</h5>
+                    <h5 *ngIf="category === 'Lista de tips'" style="font-weight: 300;">Si desea ver todos los tips existentes, presione el boton de abajo!</h5>
+                    <mat-card-actions>
+                        <button mat-raised-button class="btn-lg text-white" (click)="goTo(category)" style="cursor: pointer;"
+                            [ngStyle]="{'background-color': category === 'Crear tip'? '#00B082': '#4DC1B6'}"
+                        >{{category}}</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
