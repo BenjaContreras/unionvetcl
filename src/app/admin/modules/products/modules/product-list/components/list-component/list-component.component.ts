@@ -23,7 +23,6 @@ export class ListComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
   }
 
   ngOnChanges() {
@@ -34,6 +33,7 @@ export class ListComponentComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
