@@ -1,1 +1,19 @@
-<p>redirect-social-medial-component works!</p>
+<div class="container-fluid">
+    <div class="row align-items-center justify-content-center">
+        <div class="col text-center p-5 m-5" *ngFor="let category of categories">
+            <mat-card class="cardHover ms-5" style="max-width: 70%;">
+                <img *ngIf="category === 'Subir publicación'" mat-card-image src="../../../../../../../../assets/admin/subirimagen.jpg">
+                <img *ngIf="category === 'Lista de publicaciones'" mat-card-image src="../../../../../../../../assets/admin/listapublicaciones.png">
+                <mat-card-content>
+                    <h5 *ngIf="category === 'Subir publicación'" style="font-weight: 300;">Si desea subir un link de una publicacion con su información, presione el boton de abajo!</h5>
+                    <h5 *ngIf="category === 'Lista de publicaciones'" style="font-weight: 300;">Si desea ver la lista de todas las publicaciones, presione el boton de abajo!</h5>
+                    <mat-card-actions>
+                        <button mat-raised-button class="btn-lg text-white" (click)="goTo(category)" style="cursor: pointer;"
+                            [ngStyle]="{'background-color': category === 'Subir publicación'? '#0762B5': '#FEBBAD'}"
+                        >{{category}}</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

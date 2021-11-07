@@ -23,12 +23,12 @@ export class CreateFormDetailComponent implements OnInit {
   ) {
     this.isLoading = false;
     this.createProductForm = this.fb.group({
-      imageUrl: [null],
+      imageUrl: [""],
       brand: [null, Validators.required],
       name: [null, Validators.required],
       description: [null, Validators.required],
-      stock: [null],
-      sale: [null],
+      stock: [0],
+      sale: [false],
     });
   }
 

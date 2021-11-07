@@ -6,13 +6,15 @@ import { VerifyScreenComponent } from './screens/verify-screen/verify-screen.com
 import { VerifyComponentComponent } from './components/verify-component/verify-component.component';
 import { MaterialModule } from '@core/material.module';
 import { VerifyHeaderComponent } from './components/verify-header/verify-header.component';
+import { VerifyModalComponent } from './components/verify-modal/verify-modal.component';
 
 
 @NgModule({
   declarations: [
     VerifyScreenComponent,
     VerifyComponentComponent,
-    VerifyHeaderComponent
+    VerifyHeaderComponent,
+    VerifyModalComponent
   ],
   imports: [
     CommonModule,

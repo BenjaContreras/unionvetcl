@@ -8,19 +8,10 @@
                             Datos del paciente
                         </div>
                         <div class="col-3 mt-2" style="font-size: 15px;">
-                            <form [formGroup]="clientSelectionForm">
-                                <mat-form-field class="w-100 pb-0">
-                                    <mat-select formControlName="client" placeholder="Seleccione un cliente">
-                                        <mat-option 
-                                            *ngFor="let client of clients" 
-                                            [value]="client" 
-                                            (click)="setSelectedClient(client)"
-                                        >
-                                            {{ client }}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </form>
+                            <button mat-button class="btn-lg bg-white" style="color: #0f7499" [matMenuTriggerFor]="menu">
+                                <span *ngIf="!selectedClient">Seleccione un cliente</span>
+                                <span *ngIf="selectedClient">{{selectedClient}}</span>
+                            </button>
                         </div>
                         <div class="col-1"></div>
                     </div>
@@ -39,3 +30,7 @@
         </div>
     </div>
 </div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let client of clients" (click)="setSelectedClient(client)">{{client}}</button>
+</mat-menu>

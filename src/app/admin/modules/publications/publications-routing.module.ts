@@ -8,7 +8,7 @@ const routes: Routes = [
       .then(tM => tM.TipsModule)
   },
   {
-    path: 'redes-sociales',
+    path: 'rrss',
     loadChildren: () => import('./modules/social-media/social-media.module')
       .then(rsM => rsM.SocialMediaModule)
   },

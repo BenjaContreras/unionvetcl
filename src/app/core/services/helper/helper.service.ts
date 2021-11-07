@@ -20,11 +20,11 @@ export class HelperService {
       return 'agenda/lista-citas';
     } else if (route === 'Horario') {
       return 'agenda';
-    } else if (route === 'Crear usuario') {
+    } else if (route === 'Crear dueño') {
       return 'usuarios/crear-usuario';
     } else if (route === 'Verificar usuario') {
       return 'usuarios/verificar-usuario';
-    } else if (route === 'Lista de usuarios') {
+    } else if (route === 'Lista de dueños') {
       return 'usuarios/lista-usuarios';
     } else if (route === 'Actualizar productos') {
       return 'productos/actualizar-productos';
@@ -45,13 +45,11 @@ export class HelperService {
     } else if (route === 'Lista de tips') {
       return 'publicaciones/tips/lista-tips';
     } else if (route === 'Redes sociales') {
-      return 'publicaciones/redes-sociales';
-    } else if (route === 'Crear publicacion') {
-      return 'publicaciones/tips/crear-publicacion';
-    } else if (route === 'Actualizar publicacion') {
-      return 'publicaciones/tips/actualizar-publicacion';
+      return 'publicaciones/rrss';
+    } else if (route === 'Subir publicación') {
+      return 'publicaciones/rrss/subir-publicacion';
     } else if (route === 'Lista de publicaciones') {
-      return 'publicaciones/tips/lista-publicaciones';
+      return 'publicaciones/rrss/lista-publicaciones';
     } else if (route === 'Crear oferta') {
       return 'ofertas/crear-oferta';
     } else if (route === 'Lista de ofertas') {

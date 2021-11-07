@@ -4,7 +4,10 @@ import { TipsRoutingModule } from './tips-routing.module';
 import { RedirectScreenComponent } from './screens/redirect-screen/redirect-screen.component';
 import { RedirectComponentComponent } from './components/redirect-component/redirect-component.component';
 import { TipScreenComponent } from './screens/tip-screen/tip-screen.component';
-import { TipComponentComponent } from './components/tip-component/tip-component.component';
+import { CreateTipComponent } from './components/create-tip/create-tip.component';
+import { UpdateTipComponent } from './components/update-tip/update-tip.component';
+import { TipListComponent } from './components/tip-list/tip-list.component';
+import { MaterialModule } from '@core/material.module';
 
 
 
@@ -13,11 +16,14 @@ import { TipComponentComponent } from './components/tip-component/tip-component.
     RedirectScreenComponent,
     RedirectComponentComponent,
     TipScreenComponent,
-    TipComponentComponent
+    CreateTipComponent,
+    UpdateTipComponent,
+    TipListComponent
   ],
   imports: [
     CommonModule,
-    TipsRoutingModule
+    TipsRoutingModule,
+    MaterialModule
   ]
 })
 export class TipsModule { }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TipComponentComponent } from './tip-component.component';
+import { UploadPublicationComponent } from './upload-publication.component';
 
-describe('TipComponentComponent', () => {
-  let component: TipComponentComponent;
-  let fixture: ComponentFixture<TipComponentComponent>;
+describe('UploadPublicationComponent', () => {
+  let component: UploadPublicationComponent;
+  let fixture: ComponentFixture<UploadPublicationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TipComponentComponent ]
+      declarations: [ UploadPublicationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TipComponentComponent);
+    fixture = TestBed.createComponent(UploadPublicationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

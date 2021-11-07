@@ -1,7 +1,14 @@
-<div class="container-fluid">
+<div class="container-fluid w-100">
     <div class="row">
         <div class="col">
-            <app-social-media-component></app-social-media-component>
+            <div [ngSwitch]="getCurrentRoute()">
+                <div *ngSwitchCase="1">
+                    <app-publication-list></app-publication-list>
+                </div>
+                <div *ngSwitchCase="2">
+                    <app-upload-publication></app-upload-publication>
+                </div>
+            </div>
         </div>
     </div>
 </div>
