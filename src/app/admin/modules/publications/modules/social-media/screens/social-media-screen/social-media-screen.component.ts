@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-social-media-screen',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SocialMediaScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  public getCurrentRoute(): number {
+    let url = this.router.url;
+    if (url === '/admin/publicaciones/rrss/subir-publicacion') return 2;
+    else if (url === '/admin/publicaciones/rrss/lista-publicaciones') return 1;
+    else return 0; // Error
+  }
 }
