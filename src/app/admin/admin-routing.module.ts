@@ -37,6 +37,11 @@ const routes: Routes = [
         loadChildren: () => import('./modules/publications/publications.module')
           .then(pM => pM.PublicationsModule)
       },
+      {
+        path: '**',
+        loadChildren: () => import('./modules/dashboard/dashboard.module')
+          .then(dM => dM.DashboardModule)
+      }
     ]
   },
   {
