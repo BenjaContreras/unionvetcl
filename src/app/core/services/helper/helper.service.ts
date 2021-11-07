@@ -45,13 +45,11 @@ export class HelperService {
     } else if (route === 'Lista de tips') {
       return 'publicaciones/tips/lista-tips';
     } else if (route === 'Redes sociales') {
-      return 'publicaciones/redes-sociales';
-    } else if (route === 'Crear publicacion') {
-      return 'publicaciones/tips/crear-publicacion';
-    } else if (route === 'Actualizar publicacion') {
-      return 'publicaciones/tips/actualizar-publicacion';
+      return 'publicaciones/rrss';
+    } else if (route === 'Subir publicación') {
+      return 'publicaciones/rrss/subir-publicacion';
     } else if (route === 'Lista de publicaciones') {
-      return 'publicaciones/tips/lista-publicaciones';
+      return 'publicaciones/rrss/lista-publicaciones';
     } else if (route === 'Crear oferta') {
       return 'ofertas/crear-oferta';
     } else if (route === 'Lista de ofertas') {
