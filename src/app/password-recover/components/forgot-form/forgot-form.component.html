@@ -2,17 +2,21 @@
   [formGroup]="addressForm" 
   novalidate 
   (ngSubmit)="login()" 
-  class="py-5"
+  [ngClass]="getScreenSize() >= 520? 'py-5': ''"
 >
-  <mat-card class="shipping-card font-brand m-5 p-0" style="background-color: #5F9FB6; box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.7); border-radius: 30px">
+  <mat-card class="shipping-card font-brand p-0" [ngClass]="getScreenSize() >= 400? 'm-5': 'm-1 mt-5'" style="background-color: #5F9FB6; box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.7); border-radius: 30px">
     <div class="row p-0 m-0">
-      <div class="col-7 p-5">
-        <mat-card-header class="justify-content-center mb-5 px-3">
+      <div [ngClass]="[getScreenSize() >= 1000? 'col-7 px-5': 'col-12', getScreenSize() >= 515? 'pt-5': '']">
+        <mat-card-header class="justify-content-center mb-5" [ngClass]="getScreenSize() >= 460? 'px-3': ''">
             <div class="row">
-              <img class="col-12" src="../../../../assets/admin/topForm.svg">
+              <img class="col-12" *ngIf="getScreenSize() >= 515"  src="../../../../assets/admin/topForm.svg">
               <div class="col-12 text-white mt-5 pt-5">
-                  <mat-card-title style="font-weight: 900; font-size: 36px;">¿Olvidaste tu contraseña?</mat-card-title>
-                  <mat-card-subtitle style="font-size: 16px; font-weight: 300; color: white;">¡No te preocupes, ingresa tu correo y te enviaremos un link para cambiarla!</mat-card-subtitle>
+                  <mat-card-title style="font-weight: 900;"
+                    [ngStyle]="{'font-size': getScreenSize() >= 490? '36px': '26px'}"
+                  >¿Olvidaste tu contraseña?</mat-card-title>
+                  <mat-card-subtitle style="font-weight: 300; color: white;"
+                    [ngStyle]="{'font-size': getScreenSize() >= 460? '16px': '14px'}"
+                  >¡No te preocupes, ingresa tu correo y te enviaremos un link para cambiarla!</mat-card-subtitle>
               </div>
           </div>
         </mat-card-header>
@@ -32,7 +36,9 @@
             <div class="row align-items-center">
                 <div class="col-1"></div>
                 <div class="col-3">
-                    <span style="color: #FFFFFF; cursor: pointer; font-size: 22px;" class="text-center align-items-center" (click)="backPreviousPage()">
+                    <span style="color: #FFFFFF; cursor: pointer;" class="text-center align-items-center" (click)="backPreviousPage()"
+                      [ngStyle]="{'font-size': getScreenSize() >= 500? '22px': '14px'}"
+                    >
                         <i class="fas fa-backward me-2"></i>Volver
                     </span>
                 </div>
@@ -46,8 +52,9 @@
             </div>
         </mat-card-actions>
       </div>
-      <div class="col-5 text-center m-0 p-3" style="border-radius: 0 30px 30px 0; background-color: #C1DEE7; max-height: 650px;">
-        <img src="../../../../assets/shared/gran-interrogante-realizados-desde-pequenos-signos-de-interrogacion-los-colores-del-arco-iris-2a26xd_adobespark 1.png" height="100%">
+      <div class="text-center m-0" [ngClass]="[getScreenSize() >= 1400? 'p-3' : '', getScreenSize() >= 1000? 'col-5': '']" *ngIf="getScreenSize() >= 1000"  style="border-radius: 0 30px 30px 0; background-color: #C1DEE7; max-height: 650px;">
+        <img *ngIf="getScreenSize() >= 1200" src="../../../../assets/shared/gran-interrogante-realizados-desde-pequenos-signos-de-interrogacion-los-colores-del-arco-iris-2a26xd_adobespark 1.png" height="100%">
+        <img *ngIf="getScreenSize() < 1200" class="mt-5 pt-5" src="../../../../assets/shared/gran-interrogante-realizados-desde-pequenos-signos-de-interrogacion-los-colores-del-arco-iris-2a26xd_adobespark 1.png" height="70%">
       </div>
     </div>
   </mat-card>

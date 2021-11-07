@@ -1,7 +1,7 @@
 <recover-nav></recover-nav>
 <div class="container fluid">
     <div class="row align-items-center">
-        <div class="col px-4 pb-0 pt-3">
+        <div class="col" [ngClass]="getScreenSize() >= 400? 'px-4 pb-0 pt-3': ''">
             <app-forgot-form></app-forgot-form>
         </div>
     </div>
