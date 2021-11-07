@@ -49,7 +49,7 @@ export class AdminHomeScreenComponent implements OnInit {
       { name: 'Productos', subcategories: ['Crear producto', 'Actualizar productos', 'Lista de productos']}, 
       { name: 'Consultas', subcategories: ['Responder consulta', 'Lista de consultas']}, 
       { name: 'Publicaciones', subcategories: ['Tips', 'Redes sociales']}, 
-      { name: 'Contratos', subcategories: []}
+      // { name: 'Contratos', subcategories: []}
     ];
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -68,6 +68,7 @@ export class AdminHomeScreenComponent implements OnInit {
     if (route === '/admin/') return this.optionSelected = 'Resumen';
     if (route === '/admin/publicaciones') return this.optionSelected = 'Publicaciones';
     if (route === '/admin/usuarios') return this.optionSelected = 'Usuarios';
+    if (route === '/admin/dueños') return this.optionSelected = 'Usuarios';
     if (route === '/admin/productos') return this.optionSelected = 'Productos';
     if (route === '/admin/consultas') return this.optionSelected = 'Consultas';
     if (route === '/admin/contratos') return this.optionSelected = 'Contratos';
@@ -166,7 +167,11 @@ export class AdminHomeScreenComponent implements OnInit {
         if (route.toLowerCase() === 'resumen') {
           this.router.navigate(['admin/']);
           return;
-        }
+        };
+        if (route.toLowerCase() === 'dueños') {
+          this.router.navigate(['admin/usuarios']);
+          return;
+        };
         if (subcategory) {
           if (route === subcategory) {
             this.handleException(route);
