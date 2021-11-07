@@ -19,7 +19,7 @@ import { MaterialModule } from '@core/material.module';
   imports: [
     CommonModule,
     CreateProductRoutingModule,
-    MaterialModule
+    MaterialModule,
   ]
 })
 export class CreateProductModule { }
