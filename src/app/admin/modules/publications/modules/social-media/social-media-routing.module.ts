@@ -5,8 +5,7 @@ import { SocialMediaScreenComponent } from './screens/social-media-screen/social
 
 const routes: Routes = [
   { path: '', component: RedirectScreenComponent, pathMatch: 'full' },
-  { path: 'crear-publicacion', component: SocialMediaScreenComponent},
-  { path: 'actualizar-publicacion', component: SocialMediaScreenComponent},
+  { path: 'subir-publicacion', component: SocialMediaScreenComponent},
   { path: 'lista-publicaciones', component: SocialMediaScreenComponent},
   { path: '**', component: RedirectScreenComponent},
 ];
