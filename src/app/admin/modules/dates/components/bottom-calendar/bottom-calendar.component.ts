@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { InformationModalComponent } from '../information-modal/information-modal.component';
 
 @Component({
   selector: 'admin-bottom-calendar',
@@ -8,8 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class BottomCalendarComponent implements OnInit {
 
   public horasTarde: any[];
+  public dateSelected: {fullName: string, state: number};
+  @Output() selectedDateEmitter: EventEmitter<{fullName: string, state: number}>;
+  @Input() dateTop: any;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.horasTarde = [
       {
         hora: { inicio: new Date("2021-10-13T15:00:00"), fin: new Date("2021-10-13T15:30:00") },
@@ -76,9 +81,29 @@ export class BottomCalendarComponent implements OnInit {
         pV: { fullName: 'Valentina Marut', state: 1}
       },
     ];
+    this.dateSelected = {fullName: '', state: 0};
+    this.selectedDateEmitter = new EventEmitter();
   }
 
   ngOnInit(): void {
   }
 
+  public setSelectedDate(person: {fullName: string, state: number}, dia: string, time: Date, patient: string): void {
+    this.dateSelected = person;
+    this.selectedDateEmitter.emit(this.dateSelected);
+    if (this.dateSelected.state !== 0) {
+      this.dialog.open(InformationModalComponent, {
+        width: '700px',
+        data: {
+          date: this.dateSelected,
+          patient: patient,
+          day: dia,
+          time: time
+        }
+      }).afterClosed().subscribe(() => {
+          this.dateSelected = {fullName: '', state: 0};
+          this.selectedDateEmitter.emit(this.dateSelected);
+      });
+    };
+  };
 }
