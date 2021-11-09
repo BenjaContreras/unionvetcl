@@ -9,7 +9,10 @@
         <div class="container-fluid" style="background: rgba(255, 255, 255, 0.85); border-radius: 20px;">
             <div class="row justify-content-center align-items-center">
                 <div class="col text-center">
-                    <admin-top-calendar></admin-top-calendar>
+                    <admin-top-calendar
+                        (selectedDateEmitter)="verifySelectedTopDate($event)"
+                        [dateBottom]="dateBottomSelected"
+                    ></admin-top-calendar>
                 </div>
             </div>
             <div class="row align-items-center justify-content-center">
@@ -19,7 +22,10 @@
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col text-center">
-                    <admin-bottom-calendar></admin-bottom-calendar>
+                    <admin-bottom-calendar
+                        (selectedDateEmitter)="verifySelectedBottomDate($event)"
+                        [dateTop]="dateTopSelected"
+                    ></admin-bottom-calendar>
                 </div>
             </div>
         </div>
