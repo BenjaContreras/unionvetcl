@@ -6,11 +6,36 @@
                 {{time.hora.inicio|date:'HH:mm'}} - {{time.hora.fin|date:'HH:mm'}}
             </p>
         </div>
-        <div class="col p-0"><admin-patient-detail [patient]="time.pL"></admin-patient-detail></div>
-        <div class="col p-0"><admin-patient-detail [patient]="time.pMa"></admin-patient-detail></div>
-        <div class="col p-0"><admin-patient-detail [patient]="time.pMi"></admin-patient-detail></div>
-        <div class="col p-0"><admin-patient-detail [patient]="time.pJ"></admin-patient-detail></div>
-        <div class="col p-0"><admin-patient-detail [patient]="time.pV"></admin-patient-detail></div>
+        <div class="col p-0" style="border: 1px solid white;"
+            [ngClass]="[time.pL.state !== 0 ? 'dateHover': '', time.pL === dateSelected && !dateTop && time.pL.state !== 0? 'clickedDate': '']"
+            (click)="setSelectedDate(time.pL, 'Lunes', time.hora, 'Rocky')"
+        >
+            <admin-patient-detail [patient]="time.pL"></admin-patient-detail>
+        </div>
+        <div class="col p-0" style="border: 1px solid white;"
+            [ngClass]="[time.pMa.state !== 0 ? 'dateHover': '', time.pMa === dateSelected && !dateTop && time.pMa.state !== 0? 'clickedDate': '']"
+            (click)="setSelectedDate(time.pMa, 'Martes', time.hora, 'Jhonny')"
+        >
+            <admin-patient-detail [patient]="time.pMa"></admin-patient-detail>
+        </div>
+        <div class="col p-0" style="border: 1px solid white;"
+            [ngClass]="[time.pMi.state !== 0 ? 'dateHover': '', time.pMi === dateSelected && !dateTop && time.pMi.state !== 0? 'clickedDate': '']"
+            (click)="setSelectedDate(time.pMi, 'Miercoles', time.hora, 'Cachupin')"
+        >
+            <admin-patient-detail [patient]="time.pMi"></admin-patient-detail>
+        </div>
+        <div class="col p-0" style="border: 1px solid white;"
+            [ngClass]="[time.pJ.state !== 0 ? 'dateHover': '', time.pJ === dateSelected && !dateTop && time.pJ.state !== 0? 'clickedDate': '']"
+            (click)="setSelectedDate(time.pJ, 'Jueves', time.hora, 'Lunita')"
+        >
+            <admin-patient-detail [patient]="time.pJ"></admin-patient-detail>
+        </div>
+        <div class="col p-0" style="border: 1px solid white;"
+            [ngClass]="[time.pV.state !== 0 ? 'dateHover': '', time.pV === dateSelected && !dateTop && time.pV.state !== 0? 'clickedDate': '']"
+            (click)="setSelectedDate(time.pV, 'Viernes', time.hora, 'Flopi')"
+        >
+            <admin-patient-detail [patient]="time.pV"></admin-patient-detail>
+        </div>
         <mat-divider></mat-divider>
     </div>
     <mat-divider></mat-divider>

@@ -56,6 +56,8 @@ export class DateScreenComponent implements OnInit {
   public clicked: boolean;
   public range: FormGroup;
   public rango: string;
+  public dateTopSelected: any;
+  public dateBottomSelected: any;
 
   constructor() {
     this.clicked = false;
@@ -102,9 +104,20 @@ export class DateScreenComponent implements OnInit {
     let end = moment([
       startAux.getFullYear(), 
       startAux.getMonth(), 
-      startAux.getDay() + 4,
+      startAux.getDate() + 4,
     ]).format('dddd DD');
     return `${start} - ${end}`;
   };
 
+  public verifySelectedTopDate(event: any): void {
+    if (event.state === 0) this.dateTopSelected = null;
+    else this.dateTopSelected = event;
+    this.dateBottomSelected = null;
+  };
+
+  public verifySelectedBottomDate(event: any): void {
+    if (event.state === 0) this.dateBottomSelected = null;
+    else this.dateBottomSelected = event;
+    this.dateTopSelected = null;
+  };
 }

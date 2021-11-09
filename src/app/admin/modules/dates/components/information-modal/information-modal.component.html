@@ -1,0 +1,47 @@
+<div class="container-fluid font-brand">
+    <div class="row align-items-center justify-content-center mb-3">
+        <div class="col text-center">
+            <button mat-raised-button disabled class="btn-lg text-center" style="background-color: #0f7499;">
+                <p class="m-0 p-2" style="font-size: 40px; color: white">
+                    Resumen de la cita
+                </p>
+            </button>
+        </div>
+    </div>
+    <mat-dialog-content class="align-items-center justify-content-center">
+        <div class="row my-3">
+            <div class="col fw-bold"> Nombre del dueño: </div>
+            <div class="col"> {{data.date.fullName}} </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row my-3">
+            <div class="col fw-bold"> Nombre del paciente: </div>
+            <div class="col"> {{data.patient}} </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row my-3">
+            <div class="col fw-bold"> Estado de la cita: </div>
+            <div class="col"> {{data.date.state | state}} </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row my-3">
+            <div class="col fw-bold"> Dia de realización: </div>
+            <div class="col"> {{data.day}} </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row my-3">
+            <div class="col fw-bold"> Bloque de realización: </div>
+            <div class="col"> {{data.time.inicio | date:'HH:mm a'}} - {{data.time.fin | date:'HH:mm a'}} </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row my-3">
+            <div class="col fw-bold"> Observaciones: </div>
+            <div class="col"> No presenta observaciones </div>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button class="btn-lg btn-secundary" mat-dialog-close>Cerrar</button>
+        <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499" [mat-dialog-close]="true" cdkFocusInitial>Continuar</button>
+    </mat-dialog-actions>
+</div>

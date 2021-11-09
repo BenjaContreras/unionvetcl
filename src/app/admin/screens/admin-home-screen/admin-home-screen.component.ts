@@ -46,7 +46,7 @@ export class AdminHomeScreenComponent implements OnInit {
       { name: 'Resumen', subcategories: [] },
       { name: 'Agenda', subcategories: ['Crear cita', 'Horario', 'Lista de citas']}, 
       { name: 'Dueños', subcategories: ['Crear dueño', 'Verificar usuario', 'Lista de dueños']}, 
-      { name: 'Productos', subcategories: ['Crear producto', 'Actualizar productos', 'Lista de productos']}, 
+      { name: 'Productos', subcategories: ['Crear producto', 'Lista de productos']}, 
       { name: 'Consultas', subcategories: ['Responder consulta', 'Lista de consultas']}, 
       { name: 'Publicaciones', subcategories: ['Tips', 'Redes sociales']}, 
       // { name: 'Contratos', subcategories: []}

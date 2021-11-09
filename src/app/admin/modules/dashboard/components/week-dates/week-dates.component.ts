@@ -77,7 +77,7 @@ export class WeekDatesComponent implements OnInit {
     let end = moment([
       startAux.getFullYear(), 
       startAux.getMonth(), 
-      startAux.getDay() + 4,
+      startAux.getDate() + 4,
     ]).format('dddd DD');
     return `${start} - ${end}`;
   };

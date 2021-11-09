@@ -45,10 +45,13 @@ export class ResponseComponentComponent implements OnInit {
   }
 
   public openModal(element: any) {
-    console.log(element);
-    this.dialog.open(ResponseModalComponent, {});
     this.clicked = true;
     this.elementSelected = element;
+    this.dialog.open(ResponseModalComponent, {
+      //
+    }).afterClosed().subscribe(result => {
+        this.elementSelected = null;
+    });
   }
 }
 
