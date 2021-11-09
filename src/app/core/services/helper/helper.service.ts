@@ -10,8 +10,11 @@ export class HelperService {
   public blocks: Block[] = BLOCKS;
   public specialCharacters: string[] = SPECIALCHARACTERS;
   public validMails: string[] = VALIDMAILS;
+  public isAdmin: boolean;
 
-  constructor() { }
+  constructor() {
+    this.isAdmin = true;
+  }
 
   public hendleRoutes(route: string): string {
     if (route === 'Crear cita') {

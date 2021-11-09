@@ -18,31 +18,46 @@
             [ngClass]="[time.pL.state !== 0 ? 'dateHover': '', time.pL === dateSelected && !dateBottom && time.pL.state !== 0? 'clickedDate': '']"
             (click)="setSelectedDate(time.pL, 'Lunes', time.hora, 'Rocky')"
         >
-            <admin-patient-detail [patient]="time.pL"></admin-patient-detail>
+            <admin-patient-detail 
+                [patient]="time.pL"
+                [isAdminInput]="true"
+            ></admin-patient-detail>
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pMa.state !== 0 ? 'dateHover': '', time.pMa === dateSelected && !dateBottom && time.pMa.state !== 0? 'clickedDate': '']"
             (click)="setSelectedDate(time.pMa, 'Martes', time.hora, 'Jhonny')"
         >
-            <admin-patient-detail [patient]="time.pMa"></admin-patient-detail>
+            <admin-patient-detail 
+                [patient]="time.pMa"
+                [isAdminInput]="true"
+            ></admin-patient-detail>
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pMi.state !== 0 ? 'dateHover': '', time.pMi === dateSelected && !dateBottom && time.pMi.state !== 0? 'clickedDate': '']"
             (click)="setSelectedDate(time.pMi, 'Miercoles', time.hora, 'Cachupin')"
         >
-            <admin-patient-detail [patient]="time.pMi"></admin-patient-detail>
+            <admin-patient-detail 
+                [patient]="time.pMi"
+                [isAdminInput]="true"
+            ></admin-patient-detail>
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pJ.state !== 0 ? 'dateHover': '', time.pJ === dateSelected && !dateBottom && time.pJ.state !== 0? 'clickedDate': '']"
             (click)="setSelectedDate(time.pJ, 'Jueves', time.hora, 'Lunita')"
         >
-            <admin-patient-detail [patient]="time.pJ"></admin-patient-detail>
+            <admin-patient-detail 
+                [patient]="time.pJ"
+                [isAdminInput]="true"
+            ></admin-patient-detail>
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pV.state !== 0 ? 'dateHover': '', time.pV === dateSelected && !dateBottom && time.pV.state !== 0? 'clickedDate': '']"
             (click)="setSelectedDate(time.pV, 'Viernes', time.hora, 'Flopi')"
         >
-            <admin-patient-detail [patient]="time.pV"></admin-patient-detail>
+            <admin-patient-detail 
+                [patient]="time.pV"
+                [isAdminInput]="true"
+            ></admin-patient-detail>
         </div>
         <mat-divider></mat-divider>
     </div>
