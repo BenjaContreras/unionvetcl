@@ -14,6 +14,7 @@ export class TopCalendarComponent implements OnInit {
   public dateSelected: {fullName: string, state: number};
   @Output() selectedDateEmitter: EventEmitter<{fullName: string, state: number}>;
   @Input() dateBottom: any;
+  @Input() isAdmin: boolean;
 
   constructor(private dialog: MatDialog) { 
     this.hora = new Date();
@@ -77,6 +78,7 @@ export class TopCalendarComponent implements OnInit {
     ];
     this.dateSelected = {fullName: '', state: 0};
     this.selectedDateEmitter = new EventEmitter();
+    this.isAdmin = false;
   };
 
   ngOnInit(): void {

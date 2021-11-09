@@ -1,0 +1,68 @@
+<div class="container fluid font-brand">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h1>Horarios disponibles</h1>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let date of dates">
+                    <mat-expansion-panel-header
+                        class="m-1"
+                        style="opacity: 0.9;"
+                        [ngStyle]="{'background-color': date.day === 'Lunes'? '#0091FC' : 
+                        date.day === 'Martes'? '#D42324' : 
+                        date.day === 'Jueves'? '#7920CA' : 
+                        date.day === 'Miercoles'? '#9BC323' : '#FFAE02'}"
+                    >
+                        <mat-panel-title class="text-white">
+                            {{date.day}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent>
+                        <div class="row py-4">
+                            <div class="col">
+                                <span class="fw-bold">Mañana: </span>
+                                <span class="ms-2">
+                                    <mat-chip-list>
+                                        <mat-chip
+                                            *ngFor="let hour of date.mnna">
+                                            {{hour}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="fw-bold">Tarde: </span>
+                                <span class="ms-2">
+                                    <mat-chip-list>
+                                        <mat-chip
+                                            *ngFor="let hour of date.tarde">
+                                            {{hour}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+    <div class="row">
+        <a class="col w-100" href="https://wa.me/56982911498">
+            <button mat-flat-button class="bg-success text-white py-3 w-100" href="https://wa.me/56982911498" style="cursor: pointer;"
+                [ngStyle]="{'font-size': getScreenSize() >= 590? '18px' : 
+                getScreenSize() >= 495 && getScreenSize() < 590? '14px': '16px'}"
+            >
+                <i class="fa fa-whatsapp me-3"></i>
+                <span *ngIf="getScreenSize() >= 495">Si desea solicitar una hora, presione aquí!</span>
+                <span *ngIf="getScreenSize() < 495">Pide una hora aquí!</span>
+            </button>
+        </a>
+    </div>
+</div>

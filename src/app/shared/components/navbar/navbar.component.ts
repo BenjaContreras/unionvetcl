@@ -1,5 +1,8 @@
+import { DateScreenComponent } from '@admin/modules/dates/screens/date-screen/date-screen.component';
 import { Component, OnInit, HostListener } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { CalendarModalComponent } from '../calendar-modal/calendar-modal.component';
 
 @Component({
   selector: 'navbar',
@@ -12,7 +15,7 @@ export class NavbarComponent implements OnInit {
   public isSmall: boolean;
   public size: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private dialog: MatDialog) {
     this.inHome = true;
     this.isSmall = false;
     this.size = '22px';
@@ -69,6 +72,22 @@ export class NavbarComponent implements OnInit {
       } else return false;
     };
   }
+
+  public openCalendarModal(): void {
+    if (this.getScreenSize() >= 1150){
+      this.dialog.open(DateScreenComponent, {
+        width: '1000px',
+        height: '98%',
+        data: {
+          isVisitor: true
+        }
+      });
+    } else {
+      this.dialog.open(CalendarModalComponent, {
+        width: '600px',
+      });
+    };
+  };
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
