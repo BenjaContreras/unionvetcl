@@ -85,6 +85,7 @@ export class NavbarComponent implements OnInit {
     } else {
       this.dialog.open(CalendarModalComponent, {
         width: '600px',
+        height: '80%',
       });
     };
   };
