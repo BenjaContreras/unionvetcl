@@ -1,4 +1,4 @@
-<div class="container-fluid bg-brand align-self-center ps-0 py-2" style="box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);">
+<div class="container-fluid bg-brand align-self-center ps-0 py-2 text-center" style="box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);">
     <div class="row align-items-center justify-content-center"
         [ngClass]="[getScreenSize() < 1290 && getScreenSize() >= 500? 'ms-5 ps-5' : '' , getScreenSize() < 500 ? 'ms-1 ps-1' : '']"
     >
@@ -109,7 +109,7 @@
                     <ng-template #showInit>
                         <button mat-raised-button class="anotherButton  font-brand col-5">Registrarse</button>
                     </ng-template>
-                    <button mat-raised-button class="reserveButton font-brand col-6 ms-3">Reservar una hora</button>
+                    <button mat-raised-button class="reserveButton font-brand col-6 ms-3" (click)="openCalendarModal()">Reservar una hora</button>
                 </div>
             </ng-container>
         </div>
@@ -121,7 +121,7 @@
         <mat-icon>login</mat-icon>
         <span>Iniciar sesión</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="openCalendarModal()">
         <mat-icon>add_task</mat-icon>
         <span>Reservar una hora</span>
     </button>
@@ -132,7 +132,7 @@
         <mat-icon>login</mat-icon>
         <span>Iniciar sesión</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="openCalendarModal()">
         <mat-icon>add_task</mat-icon>
         <span>Reservar una hora</span>
     </button>
