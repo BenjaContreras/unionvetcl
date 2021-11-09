@@ -9,12 +9,13 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RecoverNavComponent } from './components/recover-nav/recover-nav.component';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
+import { CalendarModalComponent } from './components/calendar-modal/calendar-modal.component';
 
 const components: any = [
   NavbarComponent, FooterComponent,
   ScrollTopButtonComponent, LoginComponent, 
   LoginFormComponent, RecoverNavComponent, 
-  AlertModalComponent
+  AlertModalComponent, CalendarModalComponent
 ];
 
 @NgModule({
