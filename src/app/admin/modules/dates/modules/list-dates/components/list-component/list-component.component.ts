@@ -13,6 +13,7 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
   public displayedColumns: string[] = ['name', 'rut', 'address', 'animal', 'fecha'];
   public dataSource: MatTableDataSource<any>;
   public expandedElement: any;
+  public dateSelected: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -20,6 +21,7 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
   constructor() {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.expandedElement = null;
+    this.dateSelected = null;
   }
 
   ngOnInit(): void {
