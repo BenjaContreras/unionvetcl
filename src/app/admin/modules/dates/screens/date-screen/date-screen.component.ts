@@ -6,6 +6,7 @@ import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRA
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import 'moment/locale/es';
+import { HelperService } from '@core/services/helper/helper.service';
 moment.locale('es', {
   months: [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -64,10 +65,9 @@ export class DateScreenComponent implements OnInit {
 
   constructor(
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data?: {isVisitor: boolean},
+    private helperService: HelperService,
   ) {
-    if (data?.isVisitor) this.isAdmin = false;
-    else this.isAdmin = true;
+    this.isAdmin = this.helperService.isAdmin;
     this.clicked = false;
     this.rango = this.setRango();
     this.range = new FormGroup({
@@ -104,6 +104,7 @@ export class DateScreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isAdmin = this.helperService.isAdmin;
   }
 
   public setRango(): string {

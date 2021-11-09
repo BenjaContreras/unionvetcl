@@ -1,7 +1,7 @@
 <div class="container-fluid m-3 px-5 py-4 font-brand" style="background: rgba(242, 244, 245, 0.85); border-radius: 20px; max-width: 97.5%; z-index: 9999 !important"
     [ngClass]="isAdmin? 'p-0 m-0': ''"
 >
-    <div class="row mb-4" *ngIf="data?.isVisitor">
+    <div class="row mb-4" *ngIf="!isAdmin">
         <a class="col w-100" href="https://wa.me/56982911498">
             <button mat-flat-button class="bg-success text-white py-3 w-100" href="https://wa.me/56982911498" style="cursor: pointer; font-size: 24px;">
                 <i class="fa fa-whatsapp me-3"></i> Si desea solicitar una hora, presione aqui!
