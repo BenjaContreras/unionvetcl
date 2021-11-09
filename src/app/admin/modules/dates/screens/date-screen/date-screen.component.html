@@ -1,17 +1,29 @@
-<div class="container-fluid m-3 px-5 py-4 font-brand" style="background: rgba(242, 244, 245, 0.85); border-radius: 20px; max-width: 97.5%; z-index: 9999 !important">
+<div class="container-fluid m-3 px-5 py-4 font-brand" style="background: rgba(242, 244, 245, 0.85); border-radius: 20px; max-width: 97.5%; z-index: 9999 !important"
+    [ngClass]="isAdmin? 'p-0 m-0': ''"
+>
+    <div class="row mb-4" *ngIf="data?.isVisitor">
+        <a class="col w-100" href="https://wa.me/56982911498">
+            <button mat-flat-button class="bg-success text-white py-3 w-100" href="https://wa.me/56982911498" style="cursor: pointer; font-size: 24px;">
+                <i class="fa fa-whatsapp me-3"></i> Si desea solicitar una hora, presione aqui!
+            </button>
+        </a>
+    </div>
     <div class="row align-items-center justify-content-center mb-3">
         <div class="col text-center">
             <ng-template [ngTemplateOutlet]="actionButtons" *ngIf="clicked"></ng-template>
             <ng-template [ngTemplateOutlet]="simbologyButtons" *ngIf="!clicked"></ng-template>
         </div>
     </div>
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center"
+        [ngClass]="isAdmin? 'p-0 m-0': ''"
+    >
         <div class="container-fluid" style="background: rgba(255, 255, 255, 0.85); border-radius: 20px;">
             <div class="row justify-content-center align-items-center">
                 <div class="col text-center">
                     <admin-top-calendar
                         (selectedDateEmitter)="verifySelectedTopDate($event)"
                         [dateBottom]="dateBottomSelected"
+                        [isAdmin]="isAdmin"
                     ></admin-top-calendar>
                 </div>
             </div>
@@ -25,6 +37,7 @@
                     <admin-bottom-calendar
                         (selectedDateEmitter)="verifySelectedBottomDate($event)"
                         [dateTop]="dateTopSelected"
+                        [isAdmin]="isAdmin"
                     ></admin-bottom-calendar>
                 </div>
             </div>

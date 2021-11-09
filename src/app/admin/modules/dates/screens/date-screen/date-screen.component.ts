@@ -1,7 +1,9 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY} from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import 'moment/locale/es';
 moment.locale('es', {
@@ -58,8 +60,14 @@ export class DateScreenComponent implements OnInit {
   public rango: string;
   public dateTopSelected: any;
   public dateBottomSelected: any;
+  public isAdmin: boolean;
 
-  constructor() {
+  constructor(
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data?: {isVisitor: boolean},
+  ) {
+    if (data?.isVisitor) this.isAdmin = false;
+    else this.isAdmin = true;
     this.clicked = false;
     this.rango = this.setRango();
     this.range = new FormGroup({
