@@ -29,6 +29,7 @@ export class CreateFormDetailComponent implements OnInit {
       description: [null, Validators.required],
       stock: [0],
       sale: [false],
+      category: [null, Validators.required],
     });
   }
 
@@ -50,6 +51,7 @@ export class CreateFormDetailComponent implements OnInit {
   get description(): string { return this.createProductForm.get('description')?.value };
   get stock(): number { return this.createProductForm.get('stock')?.value };
   get sale(): boolean { return this.createProductForm.get('sale')?.value };
+  get category(): string { return this.createProductForm.get('category')?.value };
 
   async onSubmit(): Promise<any> {
     if (this.createProductForm.valid){
@@ -59,6 +61,7 @@ export class CreateFormDetailComponent implements OnInit {
         name: this.name,
         description: this.description,
         stock: this.stock,
+        category: this.category,
       };
       try {
         this.isLoading = true;
