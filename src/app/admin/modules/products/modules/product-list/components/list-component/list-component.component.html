@@ -33,9 +33,14 @@
                         <td mat-cell *matCellDef="let element"> {{element.description}} </td>
                       </ng-container>
                       <!-- ANIMAL Column -->
+                      <ng-container matColumnDef="category">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </th>
+                        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                      </ng-container>
+                      <!-- ANIMAL Column -->
                       <ng-container matColumnDef="stock">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
-                        <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.stock | stock}} </td>
                       </ng-container>
                       <!-- OFERTA Column -->
                       <ng-container matColumnDef="sale">
