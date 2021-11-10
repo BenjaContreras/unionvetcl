@@ -123,7 +123,7 @@
               <div class="col">
                 <mat-form-field class="full-width">
                   <mat-label>Nombre del dueño</mat-label>
-                  <input matInput disabled value="{{editUserForm.get('nameOwner')?.value}}" >
+                  <input matInput placeholder="{{editUserForm.get('nameOwner')?.value}}" formControlName="nameOwner">
                 </mat-form-field>
               </div>
             </div>
@@ -131,7 +131,7 @@
               <div class="col">
                 <mat-form-field class="full-width">
                   <mat-label>RUT del dueño</mat-label>
-                  <input matInput disabled value="{{editUserForm.get('rutOwner')?.value}}">
+                  <input matInput placeholder="{{editUserForm.get('rutOwner')?.value}}" formControlName="rutOwner">
                 </mat-form-field>
               </div>
             </div>
