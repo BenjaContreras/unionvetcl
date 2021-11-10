@@ -127,60 +127,54 @@
             <div class="row">
               <div class="col">
                 <mat-form-field class="full-width" disabled>
-                  <mat-label>Nombre del dueño</mat-label>
-                  <input matInput placeholder="{{editProductForm.get('nameOwner')?.value}}" formControlName="nameOwner">
+                  <mat-label>Nombre del producto</mat-label>
+                  <input matInput placeholder="{{editProductForm.get('name')?.value}}" formControlName="name">
                 </mat-form-field>
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <mat-form-field class="full-width" disabled>
-                  <mat-label>RUT del dueño</mat-label>
-                  <input matInput placeholder="{{editProductForm.get('rutOwner')?.value}}" formControlName="rutOwner">
+                  <mat-label>Marca del producto</mat-label>
+                  <input matInput placeholder="{{editProductForm.get('brand')?.value}}" formControlName="brand">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Descripción</mat-label>
+                  <textarea matInput cols="50" rows="10" placeholder="{{editProductForm.get('description')?.value}}" type="text" formControlName="description"></textarea>
                 </mat-form-field>
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <mat-form-field class="full-width">
-                  <mat-label>Dirección</mat-label>
-                  <input matInput type="text" placeholder="{{editProductForm.get('address')?.value}}" formControlName="address">
+                  <mat-label>Stock disponible</mat-label>
+                  <input matInput type="number" placeholder="{{editProductForm.get('stock')?.value}}" formControlName="stock">
                 </mat-form-field>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <mat-form-field class="full-width">
-                  <mat-label>Nombre del animal</mat-label>
-                  <input matInput type="text" placeholder="{{editProductForm.get('petName')?.value}}" formControlName="petName">
+                <mat-form-field>
+                    <mat-label>¿En oferta?</mat-label>
+                    <ng-container *ngIf="editProductForm.get('sale')?.value; else dontHaveValue">
+                        <mat-select formControlName="sale" placeholder="{{editProductForm.get('sale')?.value}}">
+                            <mat-option [value]="false">No</mat-option>
+                            <mat-option [value]="true">Si</mat-option>
+                        </mat-select>
+                    </ng-container>
+                    <ng-template #dontHaveValue>
+                        <mat-select [(value)]="inSale">
+                            <mat-option [value]="false">No</mat-option>
+                            <mat-option [value]="true">Si</mat-option>
+                        </mat-select>
+                    </ng-template>
                 </mat-form-field>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-                <mat-form-field class="full-width">
-                  <mat-label>Estado de la cita</mat-label>
-                  <input matInput [matAutocomplete]="auto" placeholder="{{editProductForm.get('state')?.value}}" formControlName="state">
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of stateOptions" [value]="option.value">
-                      {{option.type}}
-                    </mat-option>
-                  </mat-autocomplete>
-                  <mat-error *ngIf="editProductForm.controls['state'].hasError('required')">
-                    <strong>Estado requerido</strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row" *ngIf="editProductForm.get('state')?.value === 3">
-                <div class="col">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Motivo de cancelación</mat-label>
-                    <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba el motivo aquí" type="text" formControlName="motion"></textarea>
-                    <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
           </mat-card-content>
         </mat-card>
       </form>      
