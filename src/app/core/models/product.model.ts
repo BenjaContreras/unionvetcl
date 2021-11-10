@@ -1,10 +1,11 @@
 export interface Product {
   id?: string,
-  imageUrl: string,
+  imageUrl?: string,
   brand: string,
   name: string,
   description: string,
-  stock: number,
+  category: string,
+  stock?: number,
   sale?: boolean,
   createdAt?: Date,
   updatedAt?: Date
