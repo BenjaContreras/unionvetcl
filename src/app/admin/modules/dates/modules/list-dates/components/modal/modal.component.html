@@ -33,14 +33,25 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3" style="user-select: none;" *ngIf="editDateForm.get('state')?.value === 3 && !editDateForm.get('motion')?.value">
+    <div class="row mb-3" style="user-select: none;" *ngIf="(editDateForm.get('state')?.value === 3 && !editDateForm.get('motion')?.value) ||(editDateForm.get('state')?.value === 3 && !editDateForm.get('cancelationResponsable')?.value)">
         <div class="col">
             <button 
                 mat-flat-button 
                 *ngIf="event === 'edit'" 
                 class="btn-lg w-100 bg-danger text-white p-2" 
-                style="pointer-events: none; font-size: 24px;"
-            >¡El motivo debe contener información!</button>
+                style="pointer-events: none; font-size: 18px;"
+            >
+              <div class="row" *ngIf="!editDateForm.get('motion')?.value">
+                <div class="col">
+                  ¡El motivo debe contener información!
+                </div>
+              </div>
+              <div class="row" *ngIf="!editDateForm.get('cancelationResponsable')?.value">
+                <div class="col">
+                  ¡Debe existir un responsable!
+                </div>
+              </div>
+            </button>
         </div>
     </div>
     <div class="row" style="user-select: none;">
