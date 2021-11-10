@@ -36,6 +36,14 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
+            <input matInput type="text" placeholder="Categoría" formControlName="category">
+            <mat-error *ngIf="createProductForm.controls['category'].hasError('required')">
+              <strong>Categoria requerida!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
             <input matInput placeholder="Descripción" formControlName="description">
             <mat-error *ngIf="createProductForm.controls['description'].hasError('required')">
               <strong>Descripción requerida!</strong>
