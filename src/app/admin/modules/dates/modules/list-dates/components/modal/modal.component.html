@@ -186,7 +186,22 @@
                     <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
                   </mat-form-field>
                 </div>
-              </div>
+            </div>
+            <div class="row" *ngIf="editDateForm.get('state')?.value === 3">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <mat-label>Responsable de cancelación</mat-label>
+                    <input 
+                      placement="top" 
+                      ngbTooltip="Si administración canceló la cita, digite 'Administración'."
+                      matInput 
+                      type="text" 
+                      placeholder="Escriba el nombre de quien cancelo la cita" 
+                      formControlName="cancelationResponsable"
+                    >
+                  </mat-form-field>
+                </div>
+            </div>
           </mat-card-content>
         </mat-card>
       </form>      
