@@ -51,6 +51,8 @@ export class VerifyComponentComponent implements OnInit {
     console.log(element);
     this.dialog.open(VerifyModalComponent, {
       data: element
+    }).afterClosed().subscribe(result => {
+      this.elementSelected = null;
     });
     this.clicked = true;
     this.elementSelected = element;
