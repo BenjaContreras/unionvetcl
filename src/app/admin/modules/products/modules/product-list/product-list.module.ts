@@ -7,6 +7,7 @@ import { ListComponentComponent } from './components/list-component/list-compone
 import { MaterialModule } from '@core/material.module';
 import { SalePipe } from '@core/pipes/sale.pipe';
 import { ModalComponent } from './components/modal/modal.component';
+import { StockPipe } from '@core/pipes/stock.pipe';
 
 
 
@@ -15,7 +16,8 @@ import { ModalComponent } from './components/modal/modal.component';
     ListScreenComponent,
     ListComponentComponent,
     SalePipe,
-    ModalComponent
+    ModalComponent,
+    StockPipe
   ],
   imports: [
     CommonModule,
