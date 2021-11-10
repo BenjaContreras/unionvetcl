@@ -35,10 +35,13 @@ export class ForgotFormComponent {
   public async login() {
     const email: string = this.addressForm.get('email')?.value;
     if (email && this.helperService.verifyMail(email).verify) {
+      let sendEmail: any = {
+        email: email
+      };
       try {
         if (this.addressForm.valid){
           this.isLoading = true;
-          const result: ForgottenPassword = await this.recoverProvider.sendLinkToEmail(email).toPromise();
+          const result: ForgottenPassword = await this.recoverProvider.sendLinkToEmail(sendEmail).toPromise();
           if (result.status === 200) {
             this.notificationService.success('Código enviado con éxito!');
             this.isLoading = false;

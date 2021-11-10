@@ -24,7 +24,6 @@ export class RecoverNavComponent implements OnInit {
 
   public getCurrentRoute(): number | void {
     let url = this.router.url;
-    console.log(url);
     if (url.includes('olvide-contrasenia')) return 1;
     if (url.includes('recuperar-clave')) return 2;
   };
