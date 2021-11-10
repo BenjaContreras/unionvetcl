@@ -14,6 +14,10 @@ export class RecoverPasswordService {
   }
 
   public recoverPassword(password: string): Observable<any> {
+    let sendNewPassword: any = {
+      password: password,
+      token: this.token
+    };
     return this.httpService.post<{token: string, password: string}>('/auth/reset', sendNewPassword);
   };
 
