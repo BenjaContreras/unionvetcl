@@ -12,8 +12,8 @@ export class ModalComponent implements OnInit {
   public date: any;
   public event: string;
   public editProductForm: FormGroup;
-  public stateOptions: {type: string, value: number}[];
   public isLoading: boolean;
+  public inSale: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<ModalComponent>,
@@ -25,19 +25,27 @@ export class ModalComponent implements OnInit {
     };
     this.isLoading = false;
     this.event = data.type;
-    this.editProductForm = this.fb.group({
-      nameOwner: [this.date.name],
-      rutOwner: [this.date.rut],
-      address: [this.date.address],
-      petName: [this.date.animal],
-      motion: [null],
-      state: [null, Validators.required],
-    });
-    this.stateOptions = [
-      { type: 'Pendiente', value: 1 },
-      { type: 'Realizada', value: 2 },
-      { type: 'Cancelada', value: 3 },
-    ];
+    if (this.date.stock){
+      this.editProductForm = this.fb.group({
+        name: [this.date.name],
+        brand: [this.date.brand],
+        description: [this.date.description],
+        stock: [this.date.stock],
+        sale: [this.date.sale],
+      });
+    } else {
+      this.editProductForm = this.fb.group({
+        name: [this.date.name],
+        brand: [this.date.brand],
+        description: [this.date.description],
+        stock: [0],
+        sale: [this.date.sale],
+      });
+    };
+    if (this.date.sale)
+      if (this.date.sale === 'Si') this.inSale = true;
+      else this.inSale = false;
+    else this.inSale = false;
   }
 
   ngOnInit(): void {
