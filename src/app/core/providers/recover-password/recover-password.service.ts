@@ -14,11 +14,11 @@ export class RecoverPasswordService {
   }
 
   public recoverPassword(password: string): Observable<any> {
-    return this.httpService.post('/api/auth/reset', [this.token, password]);
+    return this.httpService.post<{token: string, password: string}>('/auth/reset', sendNewPassword);
   };
 
   public sendLinkToEmail(email: string): Observable<any> {
-    return this.httpService.post('/api/auth/recover', email);
+    return this.httpService.post<{email: string}>('/auth/recover', email);
   };
 
   public setToken(token: string) {
