@@ -10,8 +10,8 @@
                   </mat-form-field>
               </div>
               <div class="col-4 pt-3 text-center ps-0" *ngIf="userSelected">
-                  <button mat-raised-button class="btn-lg me-2">Editar usuario</button>
-                  <button mat-raised-button color="warn" class="btn-lg">Eliminar usuario</button>
+                  <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar usuario</button>
+                  <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('delete')">Eliminar usuario</button>
               </div>
           </div>
           <div class="row">
@@ -34,8 +34,12 @@
                       </ng-container>
                       <!-- ANIMAL Column -->
                       <ng-container matColumnDef="animal">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mascota </th>
-                        <td mat-cell *matCellDef="let element"> {{element.animal}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mascotas </th>
+                        <td mat-cell *matCellDef="let element"> 
+                          <mat-chip-list [selectable]="false">
+                            <mat-chip class="animals">{{element.animal}}</mat-chip>
+                          </mat-chip-list>
+                        </td>
                       </ng-container>
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                       <tr 

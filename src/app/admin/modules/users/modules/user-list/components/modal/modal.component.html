@@ -1,0 +1,164 @@
+<div class="container-fluid font-brand">
+    <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'delete'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡Proceso de eliminación!</button>
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 text-white p-2" 
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de edicion!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content *ngIf="event === 'delete'">
+                Usted esta apunto de eliminar un usuario con esta información:
+            </div>
+            <div mat-dialog-content *ngIf="event === 'edit'">
+                Usted esta apunto de editar un usuario con esta información:
+            </div>
+        </div>
+    </div>
+    <div class="row" [ngClass]="editUserForm.get('state')?.value === 3? '': 'mb-5'">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="dateTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="dateTableEditForm" *ngIf="event === 'edit'"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" style="user-select: none;" *ngIf="editUserForm.get('state')?.value === 3 && !editUserForm.get('motion')?.value">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡El motivo debe contener información!</button>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminar al usuario?</strong>
+            <strong *ngIf="event === 'edit'">¿Está seguro que desea actualizar con esta información?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    *ngIf="event === 'edit' && editUserForm.get('state')?.value !== 3 && !isLoading" 
+                    (click)="updateUser(false)"
+                    [disabled]="!editUserForm.valid"
+                    [ngStyle]="{'background-color': editUserForm.valid? '#0F7499' : 'grey', 'color': editUserForm.valid? 'white': ''}"
+                >Continuar</button>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    *ngIf="event === 'edit' && editUserForm.get('state')?.value === 3 && !isLoading" 
+                    (click)="updateUser(true)"
+                    [disabled]="!editUserForm.get('motion')?.value"
+                    [ngStyle]="{'background-color': editUserForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editUserForm.get('motion')?.value? 'white': ''}"
+                >Continuar</button>
+                <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #dateTable>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Nombre del dueño:</strong>
+        </div>
+        <div class="col">
+            {{date.name}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>RUT del dueño:</strong>
+        </div>
+        <div class="col">
+            {{date.rut}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Dirección:</strong>
+        </div>
+        <div class="col">
+            {{date.address}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row">
+        <div class="col mt-2">
+            <strong>Mascotas asociadas:</strong>
+        </div>
+        <div class="col">
+          <mat-chip-list>
+            <mat-chip>
+              {{date.animal}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <mat-divider class="mt-2"></mat-divider>
+    </div>
+</ng-template>
+
+<ng-template #dateTableEditForm>
+    <form [formGroup]="editUserForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Nombre del dueño</mat-label>
+                  <input matInput disabled value="{{editUserForm.get('nameOwner')?.value}}" >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>RUT del dueño</mat-label>
+                  <input matInput disabled value="{{editUserForm.get('rutOwner')?.value}}">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Dirección</mat-label>
+                  <input matInput type="text" placeholder="{{editUserForm.get('address')?.value}}" formControlName="address">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Animales asociados</mat-label>
+                  <mat-chip-list #chipList disabled>
+                    <mat-chip [selectable]="false" [removable]="false">
+                      {{date.animal}}
+                    </mat-chip>
+                    <input disabled
+                      [matChipInputFor]="chipList"
+                    >
+                  </mat-chip-list>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>      
+</ng-template>

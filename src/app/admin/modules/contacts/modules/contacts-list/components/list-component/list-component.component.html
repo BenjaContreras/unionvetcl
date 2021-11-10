@@ -10,8 +10,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col-4 pt-3 text-center ps-0" *ngIf="contactSelected">
-                  <button mat-raised-button class="btn-lg me-2">Editar solicitud</button>
-                  <button mat-raised-button color="warn" class="btn-lg">Eliminar solicitud</button>
+                  <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar solicitud</button>
+                  <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('delete')">Eliminar solicitud</button>
                 </div>
             </div>
             <div class="row">

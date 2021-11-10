@@ -10,8 +10,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col-4 pt-3 text-center ps-0" *ngIf="dateSelected">
-                    <button mat-raised-button class="btn-lg me-2">Editar cita</button>
-                    <button mat-raised-button color="warn" class="btn-lg">Eliminar cita</button>
+                    <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar cita</button>
+                    <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('remove')">Eliminar cita</button>
                 </div>
             </div>
             <div class="row">

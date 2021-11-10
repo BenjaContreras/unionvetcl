@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'list-component',
@@ -18,7 +20,7 @@ export class ListComponentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.expandedElement = null;
     this.userSelected = null;
@@ -45,6 +47,30 @@ export class ListComponentComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement)?.value;
     this.dataSource.filter = filterValue?.trim().toLowerCase();
   };
+
+  public openModal(event: string){
+    if (event === 'edit') {
+      this.dialog.open(ModalComponent, {
+        width: '700px',
+        data: {
+          appointment: this.userSelected,
+          type: 'edit',
+        }
+      }).afterClosed().subscribe(result => {
+        this.userSelected = null;
+      });
+    } else {
+      this.dialog.open(ModalComponent, {
+        width: '700px',
+        data: {
+          appointment: this.userSelected,
+          type: 'delete',
+        }
+      }).afterClosed().subscribe(result => {
+        this.userSelected = null;
+      });
+    };
+  }
 
 }
 

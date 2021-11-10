@@ -7,14 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const services = [
   HttpService,
 ]
-
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule
-
   ],
   providers: [...services]
 })
