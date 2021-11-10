@@ -33,6 +33,7 @@ export class ModalComponent implements OnInit {
       address: [this.date.address],
       petName: [this.date.animal],
       motion: [null],
+      cancelationResponsable: [null],
       state: [null, Validators.required],
     });
     this.stateOptions = [
