@@ -74,8 +74,8 @@
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
                     *ngIf="event === 'edit' && editDateForm.get('state')?.value === 3 && !isLoading" 
                     (click)="updateApointment(true)"
-                    [disabled]="!editDateForm.get('motion')?.value"
-                    [ngStyle]="{'background-color': editDateForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value? 'white': ''}"
+                    [disabled]="(editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value)? false : true"
+                    [ngStyle]="{'background-color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? 'white': ''}"
                 >Continuar</button>
                 <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
             </div>
