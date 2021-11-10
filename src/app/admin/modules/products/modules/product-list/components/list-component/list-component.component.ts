@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { HelperService } from '@core/services/helper/helper.service';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -12,7 +13,7 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class ListComponentComponent implements OnInit {
 
-  public displayedColumns: string[] = ['name', 'brand', 'description', 'stock', 'sale'];
+  public displayedColumns: string[] = ['name', 'brand', 'description', 'category', 'stock', 'sale'];
   public dataSource: MatTableDataSource<any>;
   public expandedElement: any;
   public productSelected: any;
@@ -20,8 +21,11 @@ export class ListComponentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  constructor(
+    private dialog: MatDialog,
+    private helperService: HelperService
+  ) {
+    this.dataSource = new MatTableDataSource(this.helperService.products);
     this.expandedElement = null;
     this.productSelected = null;
   }
@@ -31,14 +35,14 @@ export class ListComponentComponent implements OnInit {
 
   ngOnChanges() {
     this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    this.dataSource = new MatTableDataSource(this.helperService.products);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    this.dataSource = new MatTableDataSource(this.helperService.products);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
