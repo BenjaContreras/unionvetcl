@@ -42,6 +42,7 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-raised-button class="btn-lg btn-secundary" mat-dialog-close>Cerrar</button>
-        <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499" [mat-dialog-close]="true" cdkFocusInitial>Continuar</button>
+        <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499" (click)="openModal('edit')">Editar</button>
+        <button mat-raised-button class="btn-lg bg-danger text-white" cdkFocusInitial (click)="openModal('delete')">Eliminar</button>
     </mat-dialog-actions>
 </div>
