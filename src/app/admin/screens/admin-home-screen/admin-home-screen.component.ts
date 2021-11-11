@@ -149,10 +149,7 @@ export class AdminHomeScreenComponent implements OnInit {
   public async getLengthOfContacts(): Promise<number> {
     let length = 0;
     const resutl: Contact[] = await this.contactProvider.getAllContacts().toPromise();
-    if (resutl) {
-      this.helperService.setContacts(resutl);
-      length = resutl.filter(contact => !contact.isReaded).length;
-    };
+    if (resutl) length = resutl.filter(contact => !contact.isReaded).length;
     return length;
   };
 
