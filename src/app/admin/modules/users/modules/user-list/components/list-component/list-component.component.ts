@@ -49,27 +49,15 @@ export class ListComponentComponent implements OnInit {
   };
 
   public openModal(event: string){
-    if (event === 'edit') {
-      this.dialog.open(ModalComponent, {
-        width: '700px',
-        data: {
-          appointment: this.userSelected,
-          type: 'edit',
-        }
-      }).afterClosed().subscribe(result => {
-        this.userSelected = null;
-      });
-    } else {
-      this.dialog.open(ModalComponent, {
-        width: '700px',
-        data: {
-          appointment: this.userSelected,
-          type: 'delete',
-        }
-      }).afterClosed().subscribe(result => {
-        this.userSelected = null;
-      });
-    };
+    this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        appointment: this.userSelected,
+        type: event,
+      }
+    }).afterClosed().subscribe(result => {
+      this.userSelected = null;
+    });
   }
 
 }
