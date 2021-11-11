@@ -8,12 +8,13 @@ import { BottomCalendarComponent } from './components/bottom-calendar/bottom-cal
 import { MaterialModule } from '@core/material.module';
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
 import { InformationModalComponent } from './components/information-modal/information-modal.component';
-import { StatePipe } from '@core/pipes/state.pipe';
+import { DateBookModalComponent } from './components/date-book-modal/date-book-modal.component';
+import { StateModule } from '@core/pipes/state/state.module';
 
 const components: any = [
   DateScreenComponent, TopCalendarComponent,
   BottomCalendarComponent, PatientDetailComponent, 
-  InformationModalComponent, StatePipe
+  InformationModalComponent, DateBookModalComponent
 ]
 
 @NgModule({
@@ -22,6 +23,7 @@ const components: any = [
     CommonModule,
     DatesRoutingModule,
     MaterialModule,
+    StateModule
   ]
 })
 export class DatesModule { }
