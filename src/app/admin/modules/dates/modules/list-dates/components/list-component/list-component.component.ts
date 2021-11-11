@@ -12,7 +12,7 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'rut', 'address', 'animal', 'fecha'];
+  public displayedColumns: string[] = ['name', 'rut', 'address', 'animal', 'date'];
   public dataSource: MatTableDataSource<any>;
   public expandedElement: any;
   public dateSelected: any;
