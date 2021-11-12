@@ -10,7 +10,7 @@ import { NotificationService } from '@core/services/notification/notification.se
 })
 export class CreatePetFormDetailComponent implements OnInit {
 
-  @Input() user: any;
+  @Input() owner: any;
   @Output() cleanPetEmitter: EventEmitter<any>;
   @Output() expandOption: EventEmitter<boolean>;
   public optionSelected: any;
@@ -24,7 +24,7 @@ export class CreatePetFormDetailComponent implements OnInit {
   ) {
     this.cleanPetEmitter = new EventEmitter<any>();
     this.expandOption = new EventEmitter<boolean>();
-    this.user = null;
+    this.owner = null;
     this.optionSelected = null;
     this.isLoading = false;
     this.createPetForm = this.fb.group({
@@ -37,7 +37,7 @@ export class CreatePetFormDetailComponent implements OnInit {
       gender: [null, Validators.required],
       dateBirth: [null, Validators.required]
     });
-    if (this.user) this.cleanForm();
+    if (this.owner) this.cleanForm();
   }
 
   public cleanForm(){
@@ -48,8 +48,9 @@ export class CreatePetFormDetailComponent implements OnInit {
     this.optionSelected = null;
   };
 
-  public expandOptionFunction(){
-    this.expandOption.emit(true);
+  public cleanOwner(){
+    this.cleanPetEmitter.emit(null);
+    this.owner = null;
   };
 
   myFilter = (d: Date | null): boolean => {
@@ -106,16 +107,16 @@ export class CreatePetFormDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.user) this.cleanForm();
+    if (this.owner) this.cleanForm();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.client.currentValue === this.user) this.cleanForm();
-    if (this.user) this.cleanForm();
+    if (changes.client.currentValue === this.owner) this.cleanForm();
+    if (this.owner) this.cleanForm();
   }
 
   ngAfterViewInit(): void {
-    if (this.user) this.cleanForm();
+    if (this.owner) this.cleanForm();
   }
 
 }
