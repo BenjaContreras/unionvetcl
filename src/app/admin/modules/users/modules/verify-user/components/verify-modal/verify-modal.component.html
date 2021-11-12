@@ -1,6 +1,35 @@
-<h1 mat-dialog-title>Modal for user verification</h1>
-<div mat-dialog-content>You're now in user verification modal</div>
-<div mat-dialog-actions [align]="'end'">
-    <button mat-raised-button mat-dialog-close>Salir</button>
-    <button mat-raised-button style="background-color: #0f7499; color: white" mat-dialog-close>Continuar</button>
+<div class="container-fluid font-brand">
+    <div class="row">
+        <div class="col text-center">
+            <h1 mat-dialog-title style="font-size: 26px;">Módulo de verificación</h1>
+        </div>
+    </div>
+    <div class="row align-items-center justify-content-center mt-2 mb-4">
+        <div class="col py-5 text-white mx-2" style="height: 300px; width: 600px; background-color: gray;">
+            <div class="row my-5 align-items-center justify-content-center">
+                <div class="col my-5 h-100 text-center">
+                    Foto del carnet
+                </div>
+            </div>
+        </div>
+        <div class="col py-5 text-white mx-2" style="height: 300px; width: 600px; background-color: gray;">
+            <div class="row my-5 align-items-center justify-content-center">
+                <div class="col my-5 h-100 text-center">
+                    Foto de tarjeta Unionvet
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col text-center">
+            <div mat-dialog-content class="fw-bold">¿Lo conoce? ¿Se ha atendido en la clinica?</div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col text-center justify-content-center" mat-dialog-actions>
+            <button class="btn-lg" mat-raised-button mat-dialog-close>Cerrar</button>
+            <button class="btn-lg bg-warning" mat-raised-button mat-dialog-close>Dejar en espera</button>
+            <button class="btn-lg" mat-raised-button style="background-color: #0f7499; color: white" cdkFocusInitial>¡Si, lo conozco!</button>
+        </div>
+    </div>
 </div>
