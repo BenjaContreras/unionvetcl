@@ -50,6 +50,8 @@ export class VerifyComponentComponent implements OnInit {
   public openModal(element: any) {
     console.log(element);
     this.dialog.open(VerifyModalComponent, {
+      width: '1200px',
+      height: '550px',
       data: element
     }).afterClosed().subscribe(result => {
       this.elementSelected = null;
