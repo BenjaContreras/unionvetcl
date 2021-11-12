@@ -29,8 +29,28 @@
                 <mat-expansion-panel class="m-0 p-0">
                     <mat-expansion-panel-header class="m-0 py-5 text-white" style="color: white; background-color: #0F7499;">
                         <mat-panel-title class="font-brand">
-                            <div class="col m-3 text-white fw-bold" style="font-size: 48px;">
-                                Datos de la mascota
+                            <div class="row w-100 align-items-center">
+                                <div class="col-7 m-3 text-white fw-bold" style="font-size: 48px;">
+                                    Datos de la mascota
+                                </div>
+                                <div class="col-3 mt-2" style="font-size: 15px;">
+                                    <button mat-raised-button class="bg-white p-0 m-0 w-75" [disableRipple]="true">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-select [formControl]="ownerFrmCtrl" placeholder="Dueño" #singleSelect (selectionChange)="setSelectedClient($event)">
+                                                <mat-option>
+                                                    <ngx-mat-select-search 
+                                                        [formControl]="ownerFrmFilterCtrl"
+                                                        noEntriesFoundLabel="Sin coincidencias"
+                                                        placeholderLabel="Escriba el nombre..."
+                                                    ></ngx-mat-select-search>
+                                                </mat-option>
+                                                <mat-option *ngFor="let client of filteredClients | async" [value]="client">
+                                                    {{client}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </button>
+                                </div>
                             </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -38,7 +58,10 @@
                         <mat-card-content class="p-3 ps-5 m-0" style="color: white;">
                             <div class="row">
                                 <div class="col">
-                                    <app-create-pet-form-detail></app-create-pet-form-detail>
+                                    <app-create-pet-form-detail
+                                        [owner]="selectedClient"
+                                        (cleanPetEmitter)="emitterReciver($event)"
+                                    ></app-create-pet-form-detail>
                                 </div>
                             </div>
                         </mat-card-content>
