@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { HelperService } from '@core/services/helper/helper.service';
+import { ProductProviderService } from '@core/providers/products/product-provider.service';
+import { Product } from '@models/product.model';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -11,39 +12,48 @@ import { ModalComponent } from '../modal/modal.component';
   templateUrl: './list-component.component.html',
   styleUrls: ['./list-component.component.sass']
 })
-export class ListComponentComponent implements OnInit {
+export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit {
 
   public displayedColumns: string[] = ['name', 'brand', 'category', 'stock', 'sale', 'description'];
-  public dataSource: MatTableDataSource<any>;
-  public expandedElement: any;
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource();
   public productSelected: any;
+  public products: Product[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private dialog: MatDialog,
-    private helperService: HelperService
+    private productP: ProductProviderService
   ) {
-    this.dataSource = new MatTableDataSource(this.helperService.products);
-    this.expandedElement = null;
+    this.products = [];
     this.productSelected = null;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.setMatTable();
   }
 
+  private async setMatTable(): Promise<void> {
+    const result = await this.productP.getAllProducts().toPromise();
+    if (result){
+      this.products = result;
+      this.dataSource = new MatTableDataSource(this.products);
+      this.dataSource.paginator = this.paginator;
+      this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
+      this.dataSource.sort = this.sort;
+    }
+  };
+
   ngOnChanges() {
-    this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-    this.dataSource = new MatTableDataSource(this.helperService.products);
     this.dataSource.paginator = this.paginator;
+    this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
     this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-    this.dataSource = new MatTableDataSource(this.helperService.products);
     this.dataSource.paginator = this.paginator;
+    this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
     this.dataSource.sort = this.sort;
   }
 
