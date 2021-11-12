@@ -25,26 +25,14 @@ export class ModalComponent implements OnInit {
     };
     this.isLoading = false;
     this.event = data.type;
-    if (this.date.stock){
-      this.editProductForm = this.fb.group({
-        name: [this.date.name],
-        brand: [this.date.brand],
-        description: [this.date.description],
-        stock: [this.date.stock],
-        sale: [this.date.sale],
-      });
-    } else {
-      this.editProductForm = this.fb.group({
-        name: [this.date.name],
-        brand: [this.date.brand],
-        description: [this.date.description],
-        stock: [0],
-        sale: [this.date.sale],
-      });
-    };
-    if (this.date.sale)
-      if (this.date.sale === 'Si') this.inSale = true;
-      else this.inSale = false;
+    this.editProductForm = this.fb.group({
+      name: [this.date.name],
+      brand: [this.date.brand],
+      description: [this.date.description],
+      stock: [this.date.stock ? this.date.stock : 0],
+      sale: [this.date.sale ? this.date.sale : null],
+    });
+    if (this.date.sale) this.inSale = this.date.sale;
     else this.inSale = false;
   }
 
