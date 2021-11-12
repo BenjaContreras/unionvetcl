@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col mat-elevation-z8 p-0">
-                    <mat-table [dataSource]="dataSource" matSort class="w-100">
+                    <mat-table *ngIf="dataSource.data.length; else loading"  [dataSource]="dataSource" matSort class="w-100">
                         <!-- NAME Column -->
                         <ng-container matColumnDef="name">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
@@ -54,7 +54,7 @@
                             style="cursor: pointer;"
                         ></mat-row>
                       </mat-table>
-                      <mat-paginator [pageSizeOptions]="[10, 15, 25, 35]" showFirstLastButtons></mat-paginator>
+                      <mat-paginator *ngIf="dataSource.data.length" [pageSizeOptions]="[10, 15, 25, 35]" showFirstLastButtons></mat-paginator>
                       <ng-template #loading>
                         <div class="row w-100 justify-content-center text-center">
                           <div class="col-4"></div>
