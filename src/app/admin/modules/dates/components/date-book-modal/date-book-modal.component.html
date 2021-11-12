@@ -1,0 +1,176 @@
+<div class="container-fluid font-brand">
+    <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'delete'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡Proceso de eliminación!</button>
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 text-white p-2" 
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de edicion!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content *ngIf="event === 'delete'">
+                Usted esta apunto de eliminar una cita agendada con esta información:
+            </div>
+            <div mat-dialog-content *ngIf="event === 'edit'">
+                Usted esta apunto de editar una cita con esta información:
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="dateTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="dateTableEditForm" *ngIf="event === 'edit'"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡El motivo debe contener información!</button>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminarla?</strong>
+            <strong *ngIf="event === 'edit'">¿Está seguro que desea actualizar con esta información?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button *ngIf="event === 'edit'" class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white">Continuar</button>
+                <button *ngIf="event === 'delete'" class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #dateTable>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Nombre del dueño:</strong>
+        </div>
+        <div class="col">
+            {{apointment.date.owner}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Estado de la cita</strong>
+        </div>
+        <div class="col">
+            {{apointment.date.state | state}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Bloque:</strong>
+        </div>
+        <div class="col">
+            {{apointment.time.start | date:'HH:mm a'}} - {{apointment.time.end | date:'HH:mm a'}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Dia de realización:</strong>
+        </div>
+        <div class="col">
+            {{apointment.day}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row">
+        <div class="col">
+            <strong>Nombre de la mascota:</strong>
+        </div>
+        <div class="col">
+            {{apointment.patient}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</ng-template>
+
+<ng-template #dateTableEditForm>
+    <!-- <form [formGroup]="editDateForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Nombre del dueño</mat-label>
+                  <input matInput placeholder="{{editDateForm.get('nameOwner')?.value}}" formControlName="nameOwner">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>RUT del dueño</mat-label>
+                  <input matInput placeholder="{{editDateForm.get('rutOwner')?.value}}" formControlName="rutOwner">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Dirección</mat-label>
+                  <input matInput type="text" placeholder="{{editDateForm.get('address')?.value}}" formControlName="address">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Nombre del animal</mat-label>
+                  <input matInput type="text" placeholder="{{editDateForm.get('petName')?.value}}" formControlName="petName">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Estado de la cita</mat-label>
+                  <input matInput [matAutocomplete]="auto" placeholder="{{editDateForm.get('state')?.value}}" formControlName="state">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of stateOptions" [value]="option.value">
+                      {{option.type}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="editDateForm.controls['state'].hasError('required')">
+                    <strong>Estado requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="editDateForm.get('state')?.value === 3">
+                <div class="col">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Motivo de cancelación</mat-label>
+                    <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba el motivo aquí" type="text" formControlName="motion"></textarea>
+                    <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+          </mat-card-content>
+        </mat-card>
+    </form>       -->
+</ng-template>
