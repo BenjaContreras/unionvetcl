@@ -50,7 +50,7 @@ export class ModalComponent implements OnInit {
     };
   };
 
-  public updateApointment(message: boolean) {
+  public updateContact(message: boolean) {
     this.isLoading = true;
     if (message){
       //
