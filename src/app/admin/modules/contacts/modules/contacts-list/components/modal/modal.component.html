@@ -1,16 +1,16 @@
 <div class="container-fluid font-brand">
     <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
         <div class="col">
-            <button 
-                mat-flat-button 
-                *ngIf="event === 'delete'" 
-                class="btn-lg w-100 bg-danger text-white p-2" 
+            <button
+                mat-flat-button
+                *ngIf="event === 'delete'"
+                class="btn-lg w-100 bg-danger text-white p-2"
                 style="pointer-events: none; font-size: 24px;"
             >¡Proceso de eliminación!</button>
-            <button 
-                mat-flat-button 
-                *ngIf="event === 'edit'" 
-                class="btn-lg w-100 text-white p-2" 
+            <button
+                mat-flat-button
+                *ngIf="event === 'edit'"
+                class="btn-lg w-100 text-white p-2"
                 style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
             >¡Proceso de edicion!</button>
         </div>
@@ -35,10 +35,10 @@
     </div>
     <div class="row mb-3" style="user-select: none;" *ngIf="editDateForm.get('state')?.value === 3 && !editDateForm.get('motion')?.value">
         <div class="col">
-            <button 
-                mat-flat-button 
-                *ngIf="event === 'edit'" 
-                class="btn-lg w-100 bg-danger text-white p-2" 
+            <button
+                mat-flat-button
+                *ngIf="event === 'edit'"
+                class="btn-lg w-100 bg-danger text-white p-2"
                 style="pointer-events: none; font-size: 24px;"
             >¡El motivo debe contener información!</button>
         </div>
@@ -55,14 +55,14 @@
                 <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editDateForm.get('state')?.value !== 3 && !isLoading" 
-                    (click)="updateApointment(false)"
+                    *ngIf="event === 'edit' && editDateForm.get('state')?.value !== 3 && !isLoading"
+                    (click)="updateContact(false)"
                     [disabled]="!editDateForm.valid"
                     [ngStyle]="{'background-color': editDateForm.valid? '#0F7499' : 'grey', 'color': editDateForm.valid? 'white': ''}"
                 >Continuar</button>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editDateForm.get('state')?.value === 3 && !isLoading" 
-                    (click)="updateApointment(true)"
+                    *ngIf="event === 'edit' && editDateForm.get('state')?.value === 3 && !isLoading"
+                    (click)="updateContact(true)"
                     [disabled]="!editDateForm.get('motion')?.value"
                     [ngStyle]="{'background-color': editDateForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value? 'white': ''}"
                 >Continuar</button>
@@ -174,5 +174,5 @@
               </div>
           </mat-card-content>
         </mat-card>
-      </form>      
+      </form>
 </ng-template>
