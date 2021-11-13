@@ -55,12 +55,6 @@
                 <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editProductForm.get('state')?.value !== 3 && !isLoading" 
-                    (click)="updateProduct(false)"
-                    [disabled]="!editProductForm.valid"
-                    [ngStyle]="{'background-color': editProductForm.valid? '#0F7499' : 'grey', 'color': editProductForm.valid? 'white': ''}"
-                >Continuar</button>
-                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
                     *ngIf="event === 'edit' && editProductForm.get('state')?.value === 3 && !isLoading" 
                     (click)="updateProduct(true)"
                     [disabled]="!editProductForm.get('motion')?.value"

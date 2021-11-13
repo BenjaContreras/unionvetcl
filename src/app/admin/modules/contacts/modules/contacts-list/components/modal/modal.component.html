@@ -56,13 +56,13 @@
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
                     *ngIf="event === 'edit' && editDateForm.get('state')?.value !== 3 && !isLoading" 
-                    (click)="updateApointment(false)"
+                    (click)="updateContact(false)"
                     [disabled]="!editDateForm.valid"
                     [ngStyle]="{'background-color': editDateForm.valid? '#0F7499' : 'grey', 'color': editDateForm.valid? 'white': ''}"
                 >Continuar</button>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
                     *ngIf="event === 'edit' && editDateForm.get('state')?.value === 3 && !isLoading" 
-                    (click)="updateApointment(true)"
+                    (click)="updateContact(true)"
                     [disabled]="!editDateForm.get('motion')?.value"
                     [ngStyle]="{'background-color': editDateForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value? 'white': ''}"
                 >Continuar</button>
