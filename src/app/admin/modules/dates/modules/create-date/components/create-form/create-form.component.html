@@ -8,9 +8,21 @@
                             Datos del paciente
                         </div>
                         <div class="col-3 mt-2" style="font-size: 15px;">
-                            <button mat-button class="btn-lg bg-white" style="color: #0f7499" [matMenuTriggerFor]="menu">
-                                <span *ngIf="!selectedClient">Seleccione un cliente</span>
-                                <span *ngIf="selectedClient">{{selectedClient}}</span>
+                            <button mat-raised-button class="bg-white p-0 m-0 w-75" [disableRipple]="true">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-select [formControl]="userFrmCtrl" placeholder="Dueño" #singleSelect (selectionChange)="setSelectedClient($event)">
+                                        <mat-option>
+                                            <ngx-mat-select-search 
+                                                [formControl]="userFrmFilterCtrl"
+                                                noEntriesFoundLabel="Sin coincidencias"
+                                                placeholderLabel="Escriba el nombre..."
+                                            ></ngx-mat-select-search>
+                                        </mat-option>
+                                        <mat-option *ngFor="let client of filteredUsers | async" [value]="client">
+                                            {{client}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </button>
                         </div>
                         <div class="col-1"></div>
@@ -30,7 +42,3 @@
         </div>
     </div>
 </div>
-
-<mat-menu #menu="matMenu">
-    <button mat-menu-item *ngFor="let client of clients" (click)="setSelectedClient(client)">{{client}}</button>
-</mat-menu>
