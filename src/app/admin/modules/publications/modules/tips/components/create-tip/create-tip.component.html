@@ -40,8 +40,6 @@
                                             </mat-error>
                                           </mat-form-field>
                                         </div>
-                                      </div>
-                                      <div class="row">
                                         <div class="col">
                                           <mat-form-field class="full-width">
                                               <mat-label>URL imagen</mat-label>
@@ -54,16 +52,30 @@
                                       </div>
                                       <div class="row">
                                         <div class="col">
-                                          <mat-form-field class="full-width">
+                                          <mat-form-field class="full-width" appearance="outline">
                                             <mat-label>Contenido</mat-label>
-                                            <textarea matInput cols="50" rows="10" placeholder="Contenido del tip" type="text" formControlName="content"></textarea>
+                                            <textarea matInput cols="50" rows="10" placeholder="Escriba el contenido aquí..." type="text" formControlName="content"></textarea>
+                                            <mat-error *ngIf="createTipForm.controls['content'].hasError('required')">
+                                              <strong>Contenido necesario!</strong>
+                                            </mat-error>
                                           </mat-form-field>
                                         </div>
                                       </div>
                                     </mat-card-content>
                                     <mat-card-actions class="m-0 p-0 text-end">
-                                      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
-                                      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+                                      <div class="row align-items-center">
+                                        <div class="col">
+                                          <button mat-raised-button class="btn-lg btn-secundary me-3" type="reset">Limpiar formulario</button>
+                                          <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createTipForm.valid"
+                                              [ngClass]="createTipForm.valid? 'text-white': ''"
+                                              [ngStyle]="{'background-color': createTipForm.valid? '#0F7499' : ''}"
+                                              *ngIf="!isLoading" 
+                                          >Agendar</button>
+                                          <button mat-button class="btn-lg" disabled *ngIf="isLoading">
+                                            <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+                                          </button>
+                                        </div>
+                                      </div>
                                   </mat-card-actions>
                                   </mat-card>
                                 </form>
