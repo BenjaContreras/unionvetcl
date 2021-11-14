@@ -10,8 +10,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col-4 pt-3 text-center ps-0" *ngIf="contactSelected">
-                  <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar solicitud</button>
-                  <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('delete')">Eliminar solicitud</button>
+                  <button mat-raised-button class="me-2" (click)="openModal('edit')">Editar solicitud</button>
+                  <button mat-raised-button color="warn" (click)="openModal('delete')">Eliminar solicitud</button>
                 </div>
             </div>
             <div class="row">
@@ -19,27 +19,27 @@
                     <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" matSort class="w-100">
                         <!-- NAME Column -->
                         <ng-container matColumnDef="fullName">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.fullName || element.name}} </mat-cell>
                         </ng-container>
                         <!-- RUT Column -->
                         <ng-container matColumnDef="email">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Correo </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
                         </ng-container>
                         <!-- ADDRESS Column -->
                         <ng-container matColumnDef="phone">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
                         </ng-container>
                         <!-- ANIMAL Column -->
                         <ng-container matColumnDef="message">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Mensaje </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> Mensaje </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.message}} </mat-cell>
                         </ng-container>
                         <!-- FECHA Column -->
                         <ng-container matColumnDef="date">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de solicitud </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> Fecha de solicitud </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.createdAt | moment}} </mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
