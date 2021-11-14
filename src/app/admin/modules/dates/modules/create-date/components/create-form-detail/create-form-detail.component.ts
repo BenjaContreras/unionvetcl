@@ -95,42 +95,42 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
   get number(): string { return this.address.split(',')[1] };
 
   async onSubmit(): Promise<any> {
-    // if (this.createDateForm.valid){
-    //   if (this.helperService.verifyRut(this.rut)){
-    //     if (this.helperService.verifyName(this.fullName).verify){
-    //       let newDate: DateModel = {
-    //         day: this.day,
-    //         block: this.block,
-    //         user: {
-    //           fullName: this.fullName,
-    //           RUT: this.rut,
-    //           address: {
-    //             region: this.region,
-    //             commune: this.commune,
-    //             street: this.street,
-    //             number: this.number,
-    //           },
-    //           email: this.email,
-    //           phone: this.phone,
-    //         }
-    //       };
-    //       try {
-    //         this.isLoading = true;
-    //         // const result = await this.dateProvider.postDate(newDate).toPromise();
-    //         // if (result) this.isLoading = false;
-    //         this.notificationService.success(`Se ha creado la cita para el dia ${this.day} en el bloque ${this.block}`);
-    //         this.cleanForm();
-    //       } catch (e) {
-    //         console.log(e);
-    //         this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
-    //       }
-    //     } else {
-    //       return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
-    //     };
-    //   } else {
-    //     return this.notificationService.error('RUT invalido, intente con otro correo!');
-    //   };
-    // };
+    if (this.createDateForm.valid){
+      if (this.helperService.verifyRut(this.rut)){
+        if (this.helperService.verifyName(this.fullName).verify){
+          let newDate: DateModel = {
+            day: this.day,
+            block: this.block,
+            user: {
+              fullName: this.fullName,
+              RUT: this.rut,
+              address: {
+                region: this.region,
+                commune: this.commune,
+                street: this.street,
+                number: this.number,
+              },
+              email: this.email,
+              phone: this.phone,
+            }
+          };
+          try {
+            this.isLoading = true;
+            // const result = await this.dateProvider.postDate(newDate).toPromise();
+            // if (result) this.isLoading = false;
+            this.notificationService.success(`Se ha creado la cita para el dia ${this.day} en el bloque ${this.block}`);
+            this.cleanForm();
+          } catch (e) {
+            console.log(e);
+            this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
+          }
+        } else {
+          return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
+        };
+      } else {
+        return this.notificationService.error('RUT invalido, intente con otro correo!');
+      };
+    };
   }
 
   ngOnInit(): void {
