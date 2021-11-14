@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ProductProviderService } from '@core/providers/products/product-provider.service';
+import { NotificationService } from '@core/services/notification/notification.service';
+import { Product } from '@models/product.model';
 
 @Component({
   selector: 'app-modal',
@@ -9,7 +12,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
 
-  public date: any;
+  public product: Product | null;
   public event: string;
   public editProductForm: FormGroup;
   public isLoading: boolean;
@@ -18,21 +21,22 @@ export class ModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ModalComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) data: { appointment: any, type: string }
+    private notificationS: NotificationService,
+    private productP: ProductProviderService,
+    @Inject(MAT_DIALOG_DATA) data: { product: Product, type: string }
   ) { 
-    if (data.appointment) {
-      this.date = data.appointment;
-    };
+    if (data.product) this.product = data.product;
+    else this.product = null;
     this.isLoading = false;
     this.event = data.type;
     this.editProductForm = this.fb.group({
-      name: [this.date.name],
-      brand: [this.date.brand],
-      description: [this.date.description],
-      stock: [this.date.stock ? this.date.stock : 0],
-      sale: [this.date.sale ? this.date.sale : null],
+      name: [this.product?.name],
+      brand: [this.product?.brand],
+      description: [this.product?.description],
+      stock: [this.product?.stock ? this.product.stock : 0],
+      sale: [this.product?.sale ? this.product.sale : null, Validators.required],
     });
-    if (this.date.sale) this.inSale = this.date.sale;
+    if (this.product?.sale) this.inSale = this.product.sale;
     else this.inSale = false;
   }
 
@@ -46,12 +50,31 @@ export class ModalComponent implements OnInit {
     };
   };
 
-  public updateProduct(message: boolean) {
+  public async updateProduct() {
     this.isLoading = true;
-    if (message){
-      //
+    if (this.editProductForm.valid) {
+      try {
+        let product: Partial<Product> = {
+          name: this.editProductForm.value.name,
+          brand: this.editProductForm.value.brand,
+          description: this.editProductForm.value.description,
+          stock: this.editProductForm.value.stock,
+          sale: this.editProductForm.value.sale,
+          updatedAt: new Date()
+        };
+        const result = await this.productP.updateProduct(this.product?._id!, product).toPromise();
+        if (result) this.isLoading = false;
+        this.notificationS.success('Producto actualizado con éxito!');
+        this.cleanForm();
+        this.dialogRef.close();
+      } catch (e) {
+        console.log(e);
+        this.notificationS.error('No pudimos actualizar el producto, intente otra vez');
+        this.isLoading = false;
+      }
     } else {
-      //
-    };
+      this.notificationS.error('Algo ocurrió con el formulario, pruebe otra vez');
+      this.isLoading = false;
+    }
   };
 }

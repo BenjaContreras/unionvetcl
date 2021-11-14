@@ -28,8 +28,8 @@
     <div class="row" [ngClass]="editProductForm.get('state')?.value === 3? '': 'mb-5'">
         <div class="col">
             <div mat-dialog-content>
-                <ng-template [ngTemplateOutlet]="dateTable" *ngIf="event === 'delete'"></ng-template>
-                <ng-template [ngTemplateOutlet]="dateTableEditForm" *ngIf="event === 'edit'"></ng-template>
+                <ng-template [ngTemplateOutlet]="productTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="productTableEditForm" *ngIf="event === 'edit'"></ng-template>
             </div>
         </div>
     </div>
@@ -55,24 +55,24 @@
                 <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editProductForm.get('state')?.value === 3 && !isLoading" 
-                    (click)="updateProduct(true)"
-                    [disabled]="!editProductForm.get('motion')?.value"
-                    [ngStyle]="{'background-color': editProductForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editProductForm.get('motion')?.value? 'white': ''}"
-                >Continuar</button>
+                    (click)="updateProduct()"
+                    [disabled]="!editProductForm.valid"
+                    *ngIf="!isLoading"
+                    [ngStyle]="{'background-color': editProductForm.valid? '#0F7499' : 'grey', 'color': editProductForm.valid? 'white': ''}"
+                >Actualizar</button>
                 <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
             </div>
         </div>
     </div>
 </div>
 
-<ng-template #dateTable>
+<ng-template #productTable>
     <div class="row mb-3">
         <div class="col">
             <strong>Nombre del producto:</strong>
         </div>
         <div class="col">
-            {{date.name}}
+            {{product?.name}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -81,7 +81,7 @@
             <strong>Marca del producto:</strong>
         </div>
         <div class="col">
-            {{date.brand}}
+            {{product?.brand}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -90,7 +90,7 @@
             <strong>Descripción:</strong>
         </div>
         <div class="col">
-            {{date.description}}
+            {{product?.description}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -99,7 +99,7 @@
             <strong>Stock:</strong>
         </div>
         <div class="col">
-            {{date.stock}}
+            {{product?.stock}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -108,13 +108,13 @@
             <strong>¿En oferta?</strong>
         </div>
         <div class="col">
-            {{date.sale | sale}}
+            {{product?.sale | sale}}
         </div>
         <mat-divider></mat-divider>
     </div>
 </ng-template>
 
-<ng-template #dateTableEditForm>
+<ng-template #productTableEditForm>
     <form [formGroup]="editProductForm" novalidate style="user-select: none;">
         <mat-card class="shipping-card">
           <mat-card-content>
@@ -154,18 +154,10 @@
               <div class="col">
                 <mat-form-field>
                     <mat-label>¿En oferta?</mat-label>
-                    <ng-container *ngIf="editProductForm.get('sale')?.value; else dontHaveValue">
-                        <mat-select formControlName="sale" placeholder="{{editProductForm.get('sale')?.value}}">
-                            <mat-option [value]="false">No</mat-option>
-                            <mat-option [value]="true">Si</mat-option>
-                        </mat-select>
-                    </ng-container>
-                    <ng-template #dontHaveValue>
-                        <mat-select [(value)]="inSale">
-                            <mat-option [value]="false">No</mat-option>
-                            <mat-option [value]="true">Si</mat-option>
-                        </mat-select>
-                    </ng-template>
+                    <mat-select formControlName="sale" placeholder="{{editProductForm.get('sale')?.value}}">
+                        <mat-option [value]="false">No</mat-option>
+                        <mat-option [value]="true">Si</mat-option>
+                    </mat-select>
                 </mat-form-field>
               </div>
             </div>
