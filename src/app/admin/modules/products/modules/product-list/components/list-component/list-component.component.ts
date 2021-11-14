@@ -20,7 +20,6 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
   public products: Product[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private dialog: MatDialog,
@@ -41,20 +40,17 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
       this.dataSource = new MatTableDataSource(this.products);
       this.dataSource.paginator = this.paginator;
       this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-      this.dataSource.sort = this.sort;
     }
   };
 
   ngOnChanges() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Productos a mostrar: ';
-    this.dataSource.sort = this.sort;
   }
 
   onKey(event: Event){
@@ -66,11 +62,12 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
     this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
-        appointment: this.productSelected,
+        product: this.productSelected,
         type: event,
       }
     }).afterClosed().subscribe(result => {
       this.productSelected = null;
+      this.setMatTable();
     });
   }
 

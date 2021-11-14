@@ -10,41 +10,41 @@
                   </mat-form-field>
               </div>
               <div class="col-4 pt-3 text-center ps-0" *ngIf="productSelected">
-                <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar producto</button>
-                <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('delete')">Eliminar producto</button>
+                <button mat-raised-button class="me-2" (click)="openModal('edit')">Editar producto</button>
+                <button mat-raised-button color="warn" (click)="openModal('delete')">Eliminar producto</button>
               </div>
           </div>
           <div class="row">
               <div class="col mat-elevation-z8 p-0">
-                <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" matSort class="w-100">
+                <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" class="w-100">
                   <!-- NAME Column -->
                   <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre del producto </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Nombre del producto </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                   </ng-container>
                   <!-- RUT Column -->
                   <ng-container matColumnDef="brand">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Marca del producto </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Marca del producto </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.brand}} </mat-cell>
                   </ng-container>
                   <!-- ADDRESS Column -->
                   <ng-container matColumnDef="category">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Categoría </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
                   </ng-container>
                   <!-- ANIMAL Column -->
                   <ng-container matColumnDef="stock">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Stock disponible </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Stock disponible </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.stock | stock}} </mat-cell>
                   </ng-container>
                   <!-- FECHA Column -->
                   <ng-container matColumnDef="sale">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> ¿En oferta? </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> ¿En oferta? </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.sale | sale}} </mat-cell>
                   </ng-container>
                   <!-- FECHA Column -->
                   <ng-container matColumnDef="description">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
                   </ng-container>
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
