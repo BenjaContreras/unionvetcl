@@ -10,21 +10,21 @@
                   </mat-form-field>
               </div>
               <div class="col-4 pt-3 text-center ps-0" *ngIf="tipSelected">
-                <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar tip</button>
-                <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('delete')">Eliminar tip</button>
+                <button mat-raised-button class="me-2" (click)="openModal('edit')">Editar tip</button>
+                <button mat-raised-button color="warn" (click)="openModal('delete')">Eliminar tip</button>
               </div>
           </div>
           <div class="row">
               <div class="col mat-elevation-z8 p-0">
-                <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" matSort class="w-100">
+                <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" class="w-100">
                   <!-- NAME Column -->
                   <ng-container matColumnDef="title">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Título </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
                   </ng-container>
                   <!-- ADDRESS Column -->
                   <ng-container matColumnDef="content">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Contenido </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.content}} </mat-cell>
                   </ng-container>
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

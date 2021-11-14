@@ -22,7 +22,6 @@ export class TipListComponent implements OnInit {
   public tips: Tip[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private dialog: MatDialog,
@@ -43,20 +42,17 @@ export class TipListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.tips);
       this.dataSource.paginator = this.paginator;
       this.paginator._intl.itemsPerPageLabel = 'Tips a mostrar: ';
-      this.dataSource.sort = this.sort;
     }
   };
 
   ngOnChanges() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Tips a mostrar: ';
-    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Tips a mostrar: ';
-    this.dataSource.sort = this.sort;
   }
 
   onKey(event: Event){
