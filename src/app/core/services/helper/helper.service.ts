@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ProductProviderService } from '@core/providers/products/product-provider.service';
+import { Contact } from '@models/contact.model';
 import { Product } from '@models/product.model';
 import { rutTools, phoneTools } from 'prettyutils'
 
@@ -13,10 +15,30 @@ export class HelperService {
   public validMails: string[] = VALIDMAILS;
   public products: Product[] = PRODUCTS;
   public isAdmin: boolean;
+  public recentEditedContacts: Contact[];
 
-  constructor() {
+  constructor(
+    private productP: ProductProviderService
+  ) {
     this.isAdmin = true;
+    this.recentEditedContacts = [];
   }
+
+  public setEditedContacts(contact: Contact) {
+    this.recentEditedContacts.push(contact);
+  };
+
+  public refreshEditedContacts() {
+    this.recentEditedContacts = [];
+  };
+
+  public async getCategories(): Promise<string[]> {
+    const result: Product[] = await this.productP.getAllProducts().toPromise();
+    let categories: string[] = result.map((product: Product) => product.category);
+    categories = categories.filter((category: string, index: number) => categories.indexOf(category) === index);
+    categories.unshift('Crear categoria');
+    return categories;
+  };
 
   public hendleRoutes(route: string): string {
     if (route === 'Crear cita') {
