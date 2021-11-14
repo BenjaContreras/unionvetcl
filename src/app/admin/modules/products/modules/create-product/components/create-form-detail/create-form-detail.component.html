@@ -1,4 +1,4 @@
-<form [formGroup]="createProductForm" novalidate >
+<form [formGroup]="createProductForm" novalidate>
   <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
     <mat-card-content>
       <div class="row">
@@ -36,10 +36,27 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput type="text" placeholder="Categoría" formControlName="category">
-            <mat-error *ngIf="createProductForm.controls['category'].hasError('required')">
+              <mat-select *ngIf="!newCategory" [formControl]="categoryFrmCtrl" placeholder="Categoría" #singleSelect (selectionChange)="setSelectedCategory($event)">
+                <mat-option>
+                    <ngx-mat-select-search 
+                        [formControl]="categoryFrmFilterCtrl"
+                        noEntriesFoundLabel="Sin coincidencias"
+                        placeholderLabel="Escriba la categoría..."
+                    ></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                    <span [ngClass]="category === 'Crear categoria'? 'fw-bold': ''">{{category}}</span>
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="categoryFrmCtrl.hasError('required') && categoryFrmCtrl.touched">
               <strong>Categoria requerida!</strong>
             </mat-error>
+            <ng-container *ngIf="newCategory">
+              <input matInput type="text" placeholder="Categoría" formControlName="category">
+              <mat-error *ngIf="createProductForm.controls['category'].hasError('required') && createProductForm.controls['category'].touched">
+                <strong>Categoria requerida!</strong>
+              </mat-error>
+            </ng-container>
           </mat-form-field>
         </div>
         <div class="col">
@@ -51,10 +68,28 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>¿En oferta?</mat-label>
+            <mat-select formControlName="sale" placeholder="{{createProductForm.get('sale')?.value | sale}}">
+              <mat-option [value]="false">No</mat-option>
+              <mat-option [value]="true">Si</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </mat-card-content>
     <mat-card-actions class="m-0 p-0 text-end">
-      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
-      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+      <button mat-raised-button class="btn-lg btn-secundary me-3" type="reset" (click)="newCategory = false; categoryFrmCtrl.setValue(null); categoryFrmCtrl.reset()">Limpiar formulario</button>
+      <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createProductForm.valid"
+          [ngClass]="createProductForm.valid? 'text-white': ''"
+          [ngStyle]="{'background-color': createProductForm.valid? '#0F7499' : ''}"
+          *ngIf="!isLoading" 
+      >Agregar</button>
+      <button mat-button class="btn-lg" *ngIf="isLoading" style="pointer-events: none; user-select: none;">
+        <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+      </button>
   </mat-card-actions>
   </mat-card>
 </form>
