@@ -18,7 +18,6 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
   public dateSelected: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -33,14 +32,12 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
     this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   onKey(event: Event){
