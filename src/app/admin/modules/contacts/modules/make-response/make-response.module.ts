@@ -7,7 +7,8 @@ import { ResponseComponentComponent } from './components/response-component/resp
 import { MaterialModule } from '@core/material.module';
 import { ResponseHeaderComponent } from './components/response-header/response-header.component';
 import { ResponseModalComponent } from './components/response-modal/response-modal.component';
-import { RutModule } from '@core/pipes/rut/rut.module';
+import { MomentModule } from '@core/pipes/moment/moment.module';
+import { RecentEditedModalComponent } from './components/recent-edited-modal/recent-edited-modal.component';
 
 
 @NgModule({
@@ -15,13 +16,14 @@ import { RutModule } from '@core/pipes/rut/rut.module';
     ResponseScreenComponent,
     ResponseComponentComponent,
     ResponseHeaderComponent,
-    ResponseModalComponent
+    ResponseModalComponent,
+    RecentEditedModalComponent
   ],
   imports: [
     CommonModule,
     MakeResponseRoutingModule,
     MaterialModule,
-    RutModule
+    MomentModule
   ]
 })
 export class MakeResponseModule { }
