@@ -5,39 +5,32 @@
         </div>
     </div>
     <div *ngSwitchCase="1">
-        <div class="col p-2 text-white" style="background: rgba(255, 153, 0, 0.7); font-weight: 500;"
-            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px', 'cursor': !isAdminInput? '': 'pointer'}"
+        <div *ngIf="isAdminInput; else isVisitor" class="col p-2 text-white" style="background: rgba(255, 153, 0, 0.7); font-weight: 500; cursor: pointer;"
+            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
         >
-            <span *ngIf="!isAdminInput; else isAdmin">
-                Pendiente
-            </span>
-            <ng-template #isAdmin>
-                {{patient.fullName}}
-            </ng-template>
+            {{patient.fullName}}
         </div>
     </div>
     <div *ngSwitchCase="2">
-        <div class="col p-2 text-white" style="background: rgba(43, 131, 11, 0.787); font-weight: 500;"
-            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px', 'cursor': !isAdminInput? '': 'pointer'}"
+        <div *ngIf="isAdminInput; else isVisitor" class="col p-2 text-white" style="background: rgba(43, 131, 11, 0.787); font-weight: 500; cursor: pointer;"
+            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
         >
-            <span *ngIf="!isAdminInput; else isAdmin">
-                Realizada
-            </span>
-            <ng-template #isAdmin>
-                {{patient.fullName}}
-            </ng-template>
+            {{patient.fullName}}
         </div>
     </div>
     <div *ngSwitchCase="3">
-        <div class="col p-2 text-white" style="background: rgba(247, 36, 36, 0.7); font-weight: 500; cursor: pointer;"
-            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px', 'cursor': !isAdminInput? '': 'pointer'}"
+        <div *ngIf="isAdminInput; else isVisitor" class="col p-2 text-white" style="background: rgba(247, 36, 36, 0.7); font-weight: 500; cursor: pointer;"
+            [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
         >
-            <span *ngIf="!isAdminInput; else isAdmin">
-                Cancelada
-            </span>
-            <ng-template #isAdmin>
-                {{patient.fullName}}
-            </ng-template>
+            {{patient.fullName}}
         </div>
     </div>
 </div>
+
+<ng-template #isVisitor>
+    <div class="col p-2 bg-danger text-white" style="font-weight: 500; opacity: 0.9;"
+        [ngStyle]="{'font-size': patient.fullName.length > 18? '12px': '14px'}"
+    >
+        No disponible
+    </div>
+</ng-template>
