@@ -1,6 +1,88 @@
-<h1 mat-dialog-title>Modal for contact response</h1>
-<div mat-dialog-content>You're now in contact response modal</div>
-<div mat-dialog-actions [align]="'end'">
-    <button mat-raised-button mat-dialog-close>Salir</button>
-    <button mat-raised-button style="background-color: #0f7499; color: white" mat-dialog-close>Continuar</button>
+<div class="container-fluid font-brand">
+    <div class="row mb-5" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                class="btn-lg w-100 text-white p-2" 
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de respuesta!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content>
+                Usted esta apunto de responder a esta consulta:
+            </div>
+        </div>
+    </div>
+    <div class="row" [ngClass]="editContactForm.get('state')?.value === 3? '': 'mb-5'">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="productTableEditForm"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong>¿Está seguro que desea enviar esa respuesta?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    (click)="updateContact()"
+                    [disabled]="!editContactForm.valid"
+                    *ngIf="!isLoading"
+                    [ngStyle]="{'background-color': editContactForm.valid? '#0F7499' : 'grey', 'color': editContactForm.valid? 'white': ''}"
+                >Actualizar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<ng-template #productTableEditForm>
+    <form [formGroup]="editContactForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Nombre del solicitante</mat-label>
+                  <input matInput value="{{editContactForm.get('name')?.value}}" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Teléfono</mat-label>
+                  <input matInput value="{{editContactForm.get('phone')?.value}}" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Mensaje</mat-label>
+                  <textarea matInput cols="50" rows="10" value="{{editContactForm.get('message')?.value}}" type="text" disabled></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Respuesta</mat-label>
+                  <textarea matInput cols="50" rows="10" placeholder="Escriba su respuesta aquí..." type="text" formControlName="response"></textarea>
+                  <mat-error *ngIf="editContactForm.controls['response'].hasError('required')">
+                      <strong>La respuesta es necesaria!</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>      
+</ng-template>
