@@ -7,6 +7,8 @@ import { CreateFormComponent } from './components/create-form/create-form.compon
 import { CreateFormDetailComponent } from './components/create-form-detail/create-form-detail.component';
 import { CreateHeaderComponent } from './components/create-header/create-header.component';
 import { MaterialModule } from '@core/material.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { SaleModule } from '@core/pipes/sale/sale.module';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { MaterialModule } from '@core/material.module';
     CommonModule,
     CreateProductRoutingModule,
     MaterialModule,
+    NgxMatSelectSearchModule,
+    SaleModule
   ]
 })
 export class CreateProductModule { }
