@@ -10,8 +10,7 @@
     </div>
     <div class="row align-items-center justify-content-center mb-3">
         <div class="col text-center">
-            <ng-template [ngTemplateOutlet]="actionButtons" *ngIf="clicked"></ng-template>
-            <ng-template [ngTemplateOutlet]="simbologyButtons" *ngIf="!clicked"></ng-template>
+            <ng-template [ngTemplateOutlet]="simbologyButtons"></ng-template>
         </div>
     </div>
     <div class="row align-items-center justify-content-center"
@@ -27,9 +26,9 @@
                     ></admin-top-calendar>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-center">
+            <div class="row align-items-center justify-content-center" [ngClass]="!isAdmin? 'my-2': ''">
                 <div class="col text-center" style="color: #0F7499; font-weight: 800; font-size: 56px;">
-                    ALMUERZO
+                    <span *ngIf="isAdmin">ALMUERZO</span>
                 </div>
             </div>
             <div class="row justify-content-center align-items-center">
@@ -44,24 +43,6 @@
         </div>
     </div>
 </div>
-
-<ng-template #actionButtons>
-    <div class="row align-items-center justify-content-center">
-        <div class="col">
-            <button mat-raised-button disabled
-                style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto'; font-size: 20px;"
-            >
-                {{'Semana: ' + rango}}
-            </button>
-        </div>
-        <div class="col">
-            <button mat-raised-button disabled style="background-color: #0F7499; color: white; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px; font-weight: 300;">Mes: <span style="font-weight: 500;">{{mes}}</span></button>
-        </div>
-        <div class="col">
-            <button mat-raised-button [matMenuTriggerFor]="actionMenu" style="background-color: #0F7499; color: white; font-weight: 400; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px;">Acciones</button>
-        </div>
-    </div>
-</ng-template>
 
 <mat-menu #actionMenu="matMenu">
     <button mat-menu-item>Editar</button>
@@ -80,7 +61,7 @@
         <div class="col">
             <button mat-raised-button disabled style="background-color: #0F7499; color: white; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px; font-weight: 300;">Mes: <span style="font-weight: 500;">{{mes}}</span></button>
         </div>
-        <div class="col">
+        <div class="col" *ngIf="isAdmin">
             <button mat-raised-button [matMenuTriggerFor]="simbologyMenu" style="background-color: #0F7499; color: white; font-weight: 400; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px;">Simbología</button>
         </div>
     </div>
