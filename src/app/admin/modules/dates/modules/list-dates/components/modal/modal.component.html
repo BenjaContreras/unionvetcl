@@ -168,8 +168,8 @@
                   <mat-label>Estado de la cita</mat-label>
                   <input matInput [matAutocomplete]="auto" placeholder="{{editDateForm.get('state')?.value}}" formControlName="state">
                   <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of stateOptions" [value]="option.value">
-                      {{option.type}}
+                    <mat-option *ngFor="let option of stateOptions" [value]="option">
+                      {{option}}
                     </mat-option>
                   </mat-autocomplete>
                   <mat-error *ngIf="editDateForm.controls['state'].hasError('required')">
@@ -178,7 +178,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="row" *ngIf="editDateForm.get('state')?.value === 3">
+            <div class="row" *ngIf="editDateForm.get('state')?.value === 'Rechazada'">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Motivo de cancelación</mat-label>

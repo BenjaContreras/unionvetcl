@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-modal',
@@ -14,7 +12,7 @@ export class ModalComponent implements OnInit {
   public date: any;
   public event: string;
   public editDateForm: FormGroup;
-  public stateOptions: {type: string, value: number}[];
+  public stateOptions: string[];
   public isLoading: boolean;
 
   constructor(
@@ -36,11 +34,7 @@ export class ModalComponent implements OnInit {
       cancelationResponsable: [null],
       state: [null, Validators.required],
     });
-    this.stateOptions = [
-      { type: 'Pendiente', value: 1 },
-      { type: 'Realizada', value: 2 },
-      { type: 'Cancelada', value: 3 },
-    ];
+    this.stateOptions = ['Pendiente', 'Realizada', 'Rechazada'];
   }
 
   ngOnInit(): void {
