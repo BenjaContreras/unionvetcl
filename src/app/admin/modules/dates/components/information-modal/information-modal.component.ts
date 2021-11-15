@@ -7,12 +7,12 @@ export interface Apointment {
     owner: string,
     state: number
   },
-  time: {
-    start: Date,
-    end: Date
-  },
+  block: number
   patient: string,
-  day: string
+  day: number,
+  month: string,
+  motion: string | null
+  week: {init: number, end: number }
 };
 
 @Component({
@@ -27,32 +27,29 @@ export class InformationModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<InformationModalComponent>,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: {date: any, patient: string, day: string, time: {inicio: Date, fin: Date}},
+    @Inject(MAT_DIALOG_DATA) public data: {date: any, patient: string, day: number, week: {init: number, end: number}, time: number, month: string},
   ) {
     this.apointment = {
       date: {
         owner: this.data.date.fullName,
         state: this.data.date.state
       },
-      time: {
-        start: data.time.inicio,
-        end: data.time.fin
-      },
+      block: this.data.time,
       patient: data.patient,
-      day: data.day
+      day: data.day,
+      week: { init: data.week.init, end: data.week.end },
+      month: data.month,
+      motion: null
     };
   }
 
   ngOnInit(): void {
   }
 
-  close() {
-    this.dialogRef.close();
-  }
-
   public openModal(event: string){
-    this.close();
+    this.dialogRef.close();
     this.dialog.open(DateBookModalComponent,{
+      width: '600px',
       data: {
         event: event,
         apointment: this.apointment

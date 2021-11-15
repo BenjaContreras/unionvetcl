@@ -10,31 +10,36 @@
     </div>
     <mat-dialog-content class="align-items-center justify-content-center">
         <div class="row my-3">
-            <div class="col fw-bold"> Nombre del dueño: </div>
+            <div class="col fw-bold" style="user-select: none;"> Nombre del dueño: </div>
             <div class="col"> {{data.date.fullName}} </div>
             <mat-divider></mat-divider>
         </div>
         <div class="row my-3">
-            <div class="col fw-bold"> Nombre del paciente: </div>
+            <div class="col fw-bold" style="user-select: none;"> Nombre del paciente: </div>
             <div class="col"> {{data.patient}} </div>
             <mat-divider></mat-divider>
         </div>
         <div class="row my-3">
-            <div class="col fw-bold"> Estado de la cita: </div>
+            <div class="col fw-bold" style="user-select: none;"> Estado de la cita: </div>
             <div class="col"> {{data.date.state | state}} </div>
             <mat-divider></mat-divider>
         </div>
         <div class="row my-3">
-            <div class="col fw-bold"> Dia de realización: </div>
-            <div class="col"> {{data.day}} </div>
+            <div class="col fw-bold" style="user-select: none;"> Dia de realización: </div>
+            <div class="col"> {{data.day | day}} </div>
             <mat-divider></mat-divider>
         </div>
         <div class="row my-3">
-            <div class="col fw-bold"> Bloque de realización: </div>
-            <div class="col"> {{data.time.inicio | date:'HH:mm a'}} - {{data.time.fin | date:'HH:mm a'}} </div>
+            <div class="col fw-bold" style="user-select: none;"> Mes de realización: </div>
+            <div class="col"> {{data.month}} </div>
             <mat-divider></mat-divider>
         </div>
         <div class="row my-3">
+            <div class="col fw-bold" style="user-select: none;"> Bloque de realización: </div>
+            <div class="col"> {{data.time | block}} </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="row my-3" style="user-select: none;">
             <div class="col fw-bold"> Observaciones: </div>
             <div class="col"> No presenta observaciones </div>
             <mat-divider></mat-divider>
