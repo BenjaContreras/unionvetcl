@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HelperService } from '@core/services/helper/helper.service';
+import { UploadPublicationComponent } from '../upload-publication/upload-publication.component';
 
 @Component({
   selector: 'app-redirect-component',
@@ -13,7 +15,8 @@ export class RedirectComponentComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private dialog: MatDialog
   ) {
     this.categories = ['Lista de publicaciones', 'Subir publicación'];
   }
@@ -22,6 +25,10 @@ export class RedirectComponentComponent implements OnInit {
   }
 
   public goTo(url: string): void {
-    this.router.navigate([`admin/${this.helperService.hendleRoutes(url)}`]);
+    if (url === 'Subir publicación'){
+      this.dialog.open(UploadPublicationComponent, {
+        width: '600px',
+      });
+    } else this.router.navigate([`admin/${this.helperService.hendleRoutes(url)}`]);
   };
 }
