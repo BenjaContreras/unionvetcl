@@ -43,9 +43,9 @@
                                         <div class="col">
                                           <mat-form-field class="full-width">
                                               <mat-label>URL imagen</mat-label>
-                                            <input matInput type="text" placeholder="ingrese el url de la imagen" formControlName="imageUrl">
+                                            <input matInput type="text" placeholder="Ingrese el link aquí..." formControlName="imageUrl">
                                             <mat-error *ngIf="createTipForm.controls['imageUrl'].hasError('required')">
-                                              <strong>Título requerido!</strong>
+                                              <strong>El url también es necesario!</strong>
                                             </mat-error>
                                           </mat-form-field>
                                         </div>
@@ -56,7 +56,7 @@
                                             <mat-label>Contenido</mat-label>
                                             <textarea matInput cols="50" rows="10" placeholder="Escriba el contenido aquí..." type="text" formControlName="content"></textarea>
                                             <mat-error *ngIf="createTipForm.controls['content'].hasError('required')">
-                                              <strong>Contenido necesario!</strong>
+                                              <strong>El contenido también!</strong>
                                             </mat-error>
                                           </mat-form-field>
                                         </div>
