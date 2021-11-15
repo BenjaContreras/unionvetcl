@@ -23,6 +23,10 @@
                         (selectedDateEmitter)="verifySelectedTopDate($event)"
                         [dateBottom]="dateBottomSelected"
                         [isAdmin]="isAdmin"
+                        [month]="mes"
+                        [weekInit]="weekInit"
+                        [weekEnd]="weekEnd"
+                        [isAfter]="isAfter"
                     ></admin-top-calendar>
                 </div>
             </div>
@@ -37,6 +41,9 @@
                         (selectedDateEmitter)="verifySelectedBottomDate($event)"
                         [dateTop]="dateTopSelected"
                         [isAdmin]="isAdmin"
+                        [month]="mes"
+                        [weekInit]="weekInit"
+                        [weekEnd]="weekEnd"
                     ></admin-bottom-calendar>
                 </div>
             </div>
@@ -52,11 +59,11 @@
 <ng-template #simbologyButtons>
     <div class="row align-items-center justify-content-center">
         <div class="col">
-            <button mat-raised-button disabled
-                style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto'; font-size: 20px;"
-            >
-                {{'Semana: ' + rango}}
-            </button>
+                <button mat-raised-button disabled
+                        style="background-color: #0F7499; color: white; font-weight: 200; font-family: 'Roboto'; font-size: 20px;"
+                >
+                    {{'Semana: ' + rango}}
+                </button>
         </div>
         <div class="col">
             <button mat-raised-button disabled style="background-color: #0F7499; color: white; font-family: 'Roboto'; z-index: 3000 !important; font-size: 22px; font-weight: 300;">Mes: <span style="font-weight: 500;">{{mes}}</span></button>
