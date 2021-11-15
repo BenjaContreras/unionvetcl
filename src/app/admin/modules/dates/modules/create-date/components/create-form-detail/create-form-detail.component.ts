@@ -88,8 +88,8 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
   get region(): string { return this.createDateForm.get('region')?.value };
   get commune(): string { return this.createDateForm.get('commune')?.value };
   get email(): string { return this.createDateForm.get('email')?.value };
-  get day(): string { return this.createDateForm.get('day')?.value };
-  get block(): string { return this.createDateForm.get('block')?.value };
+  get day(): Date { return this.createDateForm.get('day')?.value };
+  get block(): number { return this.createDateForm.get('block')?.value };
   get phone(): string { return this.createDateForm.get('phone')?.value };
   get street(): string { return this.address.split(',')[0] };
   get number(): string { return this.address.split(',')[1] };
@@ -99,7 +99,11 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
       if (this.helperService.verifyRut(this.rut)){
         if (this.helperService.verifyName(this.fullName).verify){
           let newDate: DateModel = {
-            day: this.day,
+            date: {
+              day: this.day.getDate(), 
+              month: this.day.getMonth() + 1, 
+              year: this.day.getFullYear()
+            },
             block: this.block,
             user: {
               fullName: this.fullName,
