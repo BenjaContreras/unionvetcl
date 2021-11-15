@@ -10,6 +10,8 @@ import { PatientDetailComponent } from './components/patient-detail/patient-deta
 import { InformationModalComponent } from './components/information-modal/information-modal.component';
 import { DateBookModalComponent } from './components/date-book-modal/date-book-modal.component';
 import { StateModule } from '@core/pipes/state/state.module';
+import { BlockModule } from '@core/pipes/block/block.module';
+import { DayModule } from '@core/pipes/day/day.module';
 
 const components: any = [
   DateScreenComponent, TopCalendarComponent,
@@ -23,7 +25,9 @@ const components: any = [
     CommonModule,
     DatesRoutingModule,
     MaterialModule,
-    StateModule
+    StateModule,
+    BlockModule,
+    DayModule,
   ]
 })
 export class DatesModule { }
