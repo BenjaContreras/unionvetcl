@@ -38,6 +38,9 @@
             <mat-label>Teléfono</mat-label>
             <span matPrefix class="me-2">+56</span>
             <input type="tel" matInput placeholder="9XXXXXXXX" formControlName="phone">
+            <mat-error *ngIf="contactForm.controls['phone'].hasError('required')">
+              <strong>Teléfono requerido!</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -47,6 +50,9 @@
             <mat-label>Mensaje</mat-label>
             <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba su mensaje aquí" type="text" formControlName="message"></textarea>
             <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
+            <mat-error *ngIf="contactForm.controls['message'].hasError('required')">
+              <strong>¡El mensaje es necesario para la consulta!</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
