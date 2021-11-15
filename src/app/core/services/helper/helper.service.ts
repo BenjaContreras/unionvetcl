@@ -133,17 +133,22 @@ export class HelperService {
   };
 
   public verifyLink(link: string): {message: string, verify: boolean} {
-    this.specialCharactersLink.forEach(car => {
-      if (!link.includes(car)) return {
-        message: 'El mensaje contiene caracteres invalidos',
-        verify: false
+    if (link.includes('http://') || link.includes('https://')) {
+      this.specialCharactersLink.forEach(car => {
+        if (!link.includes(car)) return {
+          message: 'El mensaje contiene caracteres invalidos',
+          verify: false
+        };
+        return;
+      });
+      return {
+        message: 'Todo en orden',
+        verify: true 
       };
-      return;
-    });
-    return {
-      message: 'Todo en orden',
-      verify: true 
-    };
+    } else return {
+      message: 'El link debe comenzar con http:// o https://',
+      verify: false
+    }
   };
 
   public verifyRut(rut: string): boolean {
