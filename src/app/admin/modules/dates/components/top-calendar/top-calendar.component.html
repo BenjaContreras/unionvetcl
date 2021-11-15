@@ -1,6 +1,16 @@
 <div class="container-fluid" *ngIf="isAdmin; else isVisitor">
     <div class="row align-items-center my-2" style="font-weight: 600; font-size: 24px; color: #0F7499">
-        <div class="col p-0"></div>
+        <div class="col p-0">
+            <mat-icon 
+                *ngIf="isAfter" 
+                color="warn" 
+                class="pt-2"
+                [matTooltipPosition]="'right'" 
+                matTooltip="¡Cuidado, esta agenda representa a la semana anterior!" 
+                style="user-select: none; font-size: 30px;"
+                matTooltipClass="example-tooltip-red"
+            >warning</mat-icon>
+        </div>
         <div class="col p-0">Lunes</div>
         <div class="col p-0">Martes</div>
         <div class="col p-0">Miercoles</div>
@@ -16,7 +26,7 @@
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pL.state !== 0 ? 'dateHover': '', time.pL === dateSelected && !dateBottom && time.pL.state !== 0? 'clickedDate': '']"
-            (click)="setSelectedDate(time.pL, 'Lunes', time.hora, 'Rocky')"
+            (click)="setSelectedDate(time.pL, 1, time.hora, time.pL.animal)"
         >
             <admin-patient-detail 
                 [patient]="time.pL"
@@ -25,7 +35,7 @@
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pMa.state !== 0 ? 'dateHover': '', time.pMa === dateSelected && !dateBottom && time.pMa.state !== 0? 'clickedDate': '']"
-            (click)="setSelectedDate(time.pMa, 'Martes', time.hora, 'Jhonny')"
+            (click)="setSelectedDate(time.pMa, 2, time.hora, time.pMa.animal)"
         >
             <admin-patient-detail 
                 [patient]="time.pMa"
@@ -34,7 +44,7 @@
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pMi.state !== 0 ? 'dateHover': '', time.pMi === dateSelected && !dateBottom && time.pMi.state !== 0? 'clickedDate': '']"
-            (click)="setSelectedDate(time.pMi, 'Miercoles', time.hora, 'Cachupin')"
+            (click)="setSelectedDate(time.pMi, 3, time.hora, time.pMi.animal)"
         >
             <admin-patient-detail 
                 [patient]="time.pMi"
@@ -43,7 +53,7 @@
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pJ.state !== 0 ? 'dateHover': '', time.pJ === dateSelected && !dateBottom && time.pJ.state !== 0? 'clickedDate': '']"
-            (click)="setSelectedDate(time.pJ, 'Jueves', time.hora, 'Lunita')"
+            (click)="setSelectedDate(time.pJ, 4, time.hora, time.pJ.animal)"
         >
             <admin-patient-detail 
                 [patient]="time.pJ"
@@ -52,7 +62,7 @@
         </div>
         <div class="col p-0" style="border: 1px solid white;"
             [ngClass]="[time.pV.state !== 0 ? 'dateHover': '', time.pV === dateSelected && !dateBottom && time.pV.state !== 0? 'clickedDate': '']"
-            (click)="setSelectedDate(time.pV, 'Viernes', time.hora, 'Flopi')"
+            (click)="setSelectedDate(time.pV, 5, time.hora, time.pV.animal)"
         >
             <admin-patient-detail 
                 [patient]="time.pV"
