@@ -12,6 +12,7 @@ export class HelperService {
   public communes: {name: string, communes: string[]}[] = COMMUNES;
   public blocks: Block[] = BLOCKS;
   public specialCharacters: string[] = SPECIALCHARACTERS;
+  public specialCharactersLink: string[] = SPECIALCHARACTERS;
   public validMails: string[] = VALIDMAILS;
   public products: Product[] = PRODUCTS;
   public isAdmin: boolean;
@@ -120,6 +121,20 @@ export class HelperService {
   public verifyMessage(message: string): {message: string, verify: boolean} {
     this.specialCharacters.forEach(car => {
       if (!message.includes(car)) return {
+        message: 'El mensaje contiene caracteres invalidos',
+        verify: false
+      };
+      return;
+    });
+    return {
+      message: 'Todo en orden',
+      verify: true 
+    };
+  };
+
+  public verifyLink(link: string): {message: string, verify: boolean} {
+    this.specialCharactersLink.forEach(car => {
+      if (!link.includes(car)) return {
         message: 'El mensaje contiene caracteres invalidos',
         verify: false
       };
@@ -263,6 +278,11 @@ const COMMUNES = [
 const SPECIALCHARACTERS = [
   '"', "'", '&', '%', '?', '¿', '#', ',', '{', '}', '[', ']', '^', '`', 
   '´', '~', '¡', '!', "$", '/', '(', ")", '=', '¨', '°', '¬', '<', '>', 'script'
+];
+
+const SPECIALCHARACTERSLINK = [
+  '"', "'", '?', '¿', '#', ',', '{', '}', '[', ']', '^', '`', 
+  '´', '¡', '!', "$", '(', ")", '=', '¨', '°', '¬', '<', '>', 'script'
 ];
 
 const VALIDMAILS = [
