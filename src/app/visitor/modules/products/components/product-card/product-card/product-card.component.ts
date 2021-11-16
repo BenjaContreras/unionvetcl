@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { HelperService } from '@core/services/helper/helper.service';
-import { Product } from '@models/product.model';
+import { Product } from '@models/product.models';
 
 @Component({
   selector: 'product-card',

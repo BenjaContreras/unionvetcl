@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, HostListener } from '@angular/core';
 import { SrviceService } from '@core/providers/service/srvice.service';
-import { Service } from '@models/service.model';
+import { Service } from '@models/service.models';
 import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
 SwiperCore.use([Pagination, Navigation, Scrollbar, A11y, Autoplay, EffectFade]);
 

@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { Publication } from '@models/publication.model';
+import { Publication } from '@models/publication.models';
 
 
 @Component({

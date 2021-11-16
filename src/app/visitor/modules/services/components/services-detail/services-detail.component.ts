@@ -1,6 +1,6 @@
 import SwiperCore, { Pagination, FreeMode } from 'swiper';
 import { Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
-import { Service } from '@models/service.model';
+import { Service } from '@models/service.models';
 SwiperCore.use([Pagination, FreeMode]);
 @Component({
   selector: 'services-detail',

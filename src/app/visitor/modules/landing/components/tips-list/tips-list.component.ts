@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnInit, ViewChild, NgModule, OnChanges } from '@angular/core';
 import SwiperCore, { Autoplay, Swiper } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { Tip } from '@models/tip.model'
+import { Tip } from '@models/tip.models'
 SwiperCore.use([Autoplay]);
 
 @Component({

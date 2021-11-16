@@ -1,6 +1,6 @@
 
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
-import { Product } from '@models/product.model';
+import { Product } from '@models/product.models';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
