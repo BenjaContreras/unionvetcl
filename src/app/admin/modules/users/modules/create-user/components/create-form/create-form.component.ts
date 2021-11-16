@@ -12,8 +12,11 @@ import { take, takeUntil } from 'rxjs/operators';
 })
 export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public selectedClient: any;
+  public selectedClient: User | null;
+  public selectedClientLocal: User | null;
   public clients: any[];
+  public isOutput: boolean;
+
   public ownerFrmCtrl: FormControl = new FormControl(null);
   public ownerFrmFilterCtrl: FormControl = new FormControl(null);
   public filteredClients: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
@@ -22,7 +25,9 @@ export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleSelect') singleSelect!: MatSelect;
 
   constructor() {
+    this.isOutput = false;
     this.selectedClient = null;
+    this.selectedClientLocal = null;
     this.clients = ['Jose', 'Pedro', 'Juan', 'Roberto', 'Alexis'];
   }
 
@@ -59,14 +64,16 @@ export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   };
 
+  public confirmClient(): User | null {
+      return this.isOutput ? (this.selectedClient ? this.selectedClient : null) : (this.selectedClientLocal ? this.selectedClientLocal : null);
+  };
 
   public setSelectedClient(client: any): void {
-    this.selectedClient = client.value;
+    this.selectedClientLocal = client.value;
   };
 
   public emitterReciver(event: any): void {
     this.selectedClient = event;
-    this.ownerFrmCtrl.setValue(this.selectedClient);
   };
 
   ngOnDestroy(): void {
