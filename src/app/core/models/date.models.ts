@@ -1,4 +1,4 @@
-import { User } from "./user.models";
+import { Pet } from "./pet.models";
 
 export interface Time {
     day: number;
@@ -9,7 +9,7 @@ export interface DateModel {
     _id?: string,
     date: Time,
     block: number,
-    user: User,
+    patient: Pet | string,
     createdAt?: Date,
     updatedAt?: Date
 };
