@@ -14,7 +14,9 @@
                         <mat-card-content class="p-3 ps-5 m-0" style="color: white;">
                             <div class="row">
                                 <div class="col">
-                                    <app-create-form-detail></app-create-form-detail>
+                                    <app-create-form-detail
+                                        (cleanUserEmitter)="emitterReciver($event); isOutput = true;"
+                                    ></app-create-form-detail>
                                 </div>
                             </div>
                         </mat-card-content>
