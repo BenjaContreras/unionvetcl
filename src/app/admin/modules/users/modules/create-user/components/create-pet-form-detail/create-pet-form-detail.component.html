@@ -23,7 +23,7 @@
           <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Especie</mat-label>
-              <input matInput placeholder="Especie" formControlName="species">
+              <input matInput formControlName="species">
               <mat-error *ngIf="createPetForm.controls['species'].hasError('required')">
                 <strong>Especie requerida!</strong>
               </mat-error>
@@ -32,7 +32,7 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>Sexo</mat-label>
-              <input matInput placeholder="Sexo" formControlName="gender">
+              <input matInput formControlName="gender">
               <mat-error *ngIf="createPetForm.controls['gender'].hasError('required')">
                 <strong>Sexo requerido!</strong>
               </mat-error>
@@ -43,7 +43,7 @@
         <div class="col">
           <mat-form-field class="full-width">
               <mat-label>Raza</mat-label>
-            <input matInput placeholder="Raza" formControlName="breed">
+            <input matInput formControlName="breed">
             <mat-error *ngIf="createPetForm.controls['breed'].hasError('required')">
               <strong>Raza requerida!</strong>
             </mat-error>
@@ -52,7 +52,7 @@
         <div class="col">
           <mat-form-field class="full-width">
               <mat-label>Color</mat-label>
-            <input matInput placeholder="Color" formControlName="color">
+            <input matInput formControlName="color">
             <mat-error *ngIf="createPetForm.controls['color'].hasError('required')">
               <strong>Color requerido!</strong>
             </mat-error>
