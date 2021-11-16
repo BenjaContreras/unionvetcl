@@ -51,6 +51,14 @@ export class CreatePetFormDetailComponent implements OnInit {
     this.optionSelected = null;
   };
 
+  public setValidator(know: boolean): void {
+    if (know) {
+      this.createPetForm.controls['dateBirth'].setValidators(Validators.required); 
+    } else {
+      this.createPetForm.controls['age'].setValidators(Validators.required);
+    };
+  };
+
   public cleanOwner(){
     this.cleanPetEmitter.emit(null);
     this.owner = null;

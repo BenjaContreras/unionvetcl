@@ -69,8 +69,7 @@
             </div>
             <div class="col">
               <mat-radio-group>
-                <mat-radio-button class="me-4" [value]="'si'" (click)="optionSelected = 'si'" [checked]="optionSelected === 'si'? true : false">Si</mat-radio-button>
-                <mat-radio-button [value]="'no'" (click)="optionSelected = 'no'" [checked]="optionSelected === 'no'? true : false">No</mat-radio-button>
+                <mat-radio-button [value]="'no'" (click)="optionSelected = 'no'; setValidator(false)" [checked]="optionSelected === 'no'? true : false">No</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
