@@ -92,7 +92,7 @@
           <div class="col m-0">
             <mat-form-field class="full-width">
               <mat-label>Edad</mat-label>
-              <input type="tel" matInput placeholder="Edad" formControlName="age">
+              <input type="tel" matInput type="number" formControlName="age">
               <mat-error *ngIf="createPetForm.controls['age'].hasError('required')">
                 <strong>Edad requerido!</strong>
               </mat-error>
@@ -103,8 +103,15 @@
     </mat-card-content>
     <mat-card-actions class="m-0 p-0 text-end">
       <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanOwner()">Cancelar</button>
-      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
-      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+      <button mat-raised-button class="btn-lg btn-secundary me-3" type="reset">Limpiar formulario</button>
+      <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createPetForm.valid"
+          [ngClass]="createPetForm.valid? 'text-white': ''"
+          [ngStyle]="{'background-color': createPetForm.valid? '#0F7499' : ''}"
+          *ngIf="!isLoading" 
+      >Asociar mascota</button>
+      <button mat-button class="btn-lg" disabled *ngIf="isLoading">
+        <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+      </button>
   </mat-card-actions>
   </mat-card>
   <ng-template #dontHaveOwner>
