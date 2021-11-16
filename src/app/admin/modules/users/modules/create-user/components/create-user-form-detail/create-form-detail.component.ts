@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserProviderService } from '@core/providers/user/user-provider.service';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { APIResponse } from '@models/result.models';
@@ -23,7 +24,7 @@ export class CreateFormDetailComponent implements OnInit {
     private fb: FormBuilder,
     private helperService: HelperService,
     private notificationService: NotificationService,
-    // private userProvider: UserProviderService,
+    private userProvider: UserProviderService,
   ) {
     this.cleanUserEmitter = new EventEmitter<any>();
     this.isLoading = false;
@@ -79,7 +80,6 @@ export class CreateFormDetailComponent implements OnInit {
   get firstName(): string { return this.createUserForm.get('firstName')?.value };
   get lastName(): string { return this.createUserForm.get('lastName')?.value };
   get email(): string { return this.createUserForm.get('email')?.value };
-  get password(): string { return this.createUserForm.get('password')?.value };
   get address(): string { return this.createUserForm.get('address')?.value };
   get phone(): string { return this.createUserForm.get('phone')?.value };
   get rut(): string { return this.createUserForm.get('rut')?.value };
@@ -87,43 +87,47 @@ export class CreateFormDetailComponent implements OnInit {
   get region(): string { return this.createUserForm.get('region')?.value }
 
   async onSubmit(): Promise<any> {
-    // if (this.createDateForm.valid){
-    //   if (this.helperService.verifyRut(this.rut)){
-    //     if (this.helperService.verifyName(this.fullName).verify){
-    //       let newDate: DateModel = {
-    //         day: this.day,
-    //         block: this.block,
-    //         user: {
-    //           fullName: this.fullName,
-    //           RUT: this.rut,
-    //           address: {
-    //             region: this.region,
-    //             commune: this.commune,
-    //             street: this.street,
-    //             number: this.number,
-    //           },
-    //           email: this.email,
-    //           phone: this.phone,
-    //         }
-    //       };
-    //       try {
-    //         this.isLoading = true;
-    //         // const result = await this.dateProvider.postDate(newDate).toPromise();
-    //         // this.emitUser(result);
-    //         // if (result) this.isLoading = false;
-    //         this.notificationService.success(`Se ha creado la cita para el dia ${this.day} en el bloque ${this.block}`);
-    //         this.cleanForm();
-    //       } catch (e) {
-    //         console.log(e);
-    //         this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
-    //       }
-    //     } else {
-    //       return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
-    //     };
-    //   } else {
-    //     return this.notificationService.error('RUT invalido, intente con otro correo!');
-    //   };
-    // };
+    this.isLoading = true;
+    if (this.createUserForm.valid){
+      if (this.helperService.verifyRut(this.rut)){
+        if (this.helperService.verifyName(this.firstName).verify && this.helperService.verifyName(this.lastName).verify){
+          let newUser: User = {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            rut: this.rut,
+            email: this.email,
+            address: {
+              street: this.address,
+              commune: this.commune,
+              region: this.region,
+            },
+            phone: this.phone,
+          };
+          try {
+            const result: APIResponse = await this.userProvider.postUser(newUser).toPromise() as any;
+            if (result){
+              this.emitUser(result?.user);
+              this.isLoading = false;
+            } ;
+            this.notificationService.success(`Se ha creado el dueño con éxito!`);
+            this.cleanForm();
+          } catch (e) {
+            console.log(e);
+            this.isLoading = false;
+            this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
+          }
+        } else {
+          this.isLoading = false;
+          return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
+        };
+      } else {
+        this.isLoading = false;
+        return this.notificationService.error('RUT invalido, intente con otro correo!');
+      };
+    } else {
+      this.isLoading = false;
+      return this.notificationService.error('El formulario no es valido, por favor revise los campos asociados!');
+    };
   }
 
   ngOnInit(): void {

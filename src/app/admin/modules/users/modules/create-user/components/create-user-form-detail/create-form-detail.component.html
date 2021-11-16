@@ -89,8 +89,15 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="m-0 p-0 text-end">
-      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
-      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+      <button mat-raised-button class="btn-lg btn-secundary me-3" type="reset">Limpiar formulario</button>
+      <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createUserForm.valid"
+          [ngClass]="createUserForm.valid? 'text-white': ''"
+          [ngStyle]="{'background-color': createUserForm.valid? '#0F7499' : ''}"
+          *ngIf="!isLoading" 
+      >Crear dueño</button>
+      <button mat-button class="btn-lg" disabled *ngIf="isLoading">
+        <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+      </button>
   </mat-card-actions>
   </mat-card>
 </form>
