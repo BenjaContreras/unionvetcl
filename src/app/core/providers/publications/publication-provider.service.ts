@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Publication } from '@core/models/publication.model';
+import { Publication } from '@models/publication.models';
 import { HttpService } from '@core/services/http/http.service';
 import { Observable } from 'rxjs';
 

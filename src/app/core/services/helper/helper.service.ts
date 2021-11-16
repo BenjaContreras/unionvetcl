@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
-import { Contact } from '@models/contact.model';
-import { Product } from '@models/product.model';
+import { Contact } from '@models/contact.models';
+import { Product } from '@models/product.models';
 import { rutTools, phoneTools } from 'prettyutils'
 
 @Injectable({

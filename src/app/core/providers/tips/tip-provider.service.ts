@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '@core/services/http/http.service';
-import { Tip } from '@models/tip.model';
+import { Tip } from '@models/tip.models';
 import { Observable } from 'rxjs';
 
 @Injectable({
