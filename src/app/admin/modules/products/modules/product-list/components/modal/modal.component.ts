@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Product } from '@models/product.model';
+import { Product } from '@models/product.models';
 
 @Component({
   selector: 'app-modal',

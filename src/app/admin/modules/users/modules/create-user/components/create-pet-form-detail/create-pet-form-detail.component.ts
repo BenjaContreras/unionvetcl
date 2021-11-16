@@ -2,6 +2,9 @@ import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Outpu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatesProviderService } from '@core/providers/dates/dates.service';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { Pet } from '@models/pet.models';
+import { APIResponse } from '@models/result.models';
+import { User } from '@models/user.models';
 
 @Component({
   selector: 'app-create-pet-form-detail',

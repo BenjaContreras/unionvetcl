@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 
 @Component({
   selector: 'app-response-modal',

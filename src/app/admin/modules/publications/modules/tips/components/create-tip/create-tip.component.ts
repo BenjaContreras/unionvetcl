@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TipProviderService } from '@core/providers/tips/tip-provider.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Tip } from '@models/tip.model';
+import { Tip } from '@models/tip.models';
 
 @Component({
   selector: 'app-create-tip',

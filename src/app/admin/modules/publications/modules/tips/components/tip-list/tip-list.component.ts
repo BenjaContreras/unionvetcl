@@ -5,8 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
 import { TipProviderService } from '@core/providers/tips/tip-provider.service';
-import { Product } from '@models/product.model';
-import { Tip } from '@models/tip.model';
+import { Product } from '@models/product.models';
+import { Tip } from '@models/tip.models';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({

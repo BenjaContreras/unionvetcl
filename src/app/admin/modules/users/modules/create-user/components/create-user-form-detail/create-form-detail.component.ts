@@ -2,6 +2,8 @@ import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Outpu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { APIResponse } from '@models/result.models';
+import { User } from '@models/user.models';
 
 @Component({
   selector: 'app-create-form-detail',

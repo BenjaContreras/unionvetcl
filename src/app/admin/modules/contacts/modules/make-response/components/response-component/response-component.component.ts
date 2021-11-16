@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
 import { HelperService } from '@core/services/helper/helper.service';
 

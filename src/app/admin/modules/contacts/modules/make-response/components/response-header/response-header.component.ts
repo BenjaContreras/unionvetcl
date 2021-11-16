@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HelperService } from '@core/services/helper/helper.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 import { RecentEditedModalComponent } from '../recent-edited-modal/recent-edited-modal.component';
 
 @Component({

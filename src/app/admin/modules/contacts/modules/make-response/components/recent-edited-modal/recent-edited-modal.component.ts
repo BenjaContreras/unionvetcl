@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HelperService } from '@core/services/helper/helper.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 
 @Component({
   selector: 'app-recent-edited-modal',

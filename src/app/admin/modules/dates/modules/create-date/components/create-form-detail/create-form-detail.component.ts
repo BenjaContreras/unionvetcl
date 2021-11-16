@@ -105,19 +105,8 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
               year: this.day.getFullYear()
             },
             block: this.block,
-            user: {
-              fullName: this.fullName,
-              RUT: this.rut,
-              address: {
-                region: this.region,
-                commune: this.commune,
-                street: this.street,
-                number: this.number,
-              },
-              email: this.email,
-              phone: this.phone,
-            }
-          };
+            patient: 'patientId'
+          };  
           try {
             this.isLoading = true;
             // const result = await this.dateProvider.postDate(newDate).toPromise();

@@ -7,7 +7,7 @@ import { ContactProviderService } from '@core/providers/contacts/contact-provide
 import { DatesProviderService } from '@core/providers/dates/dates.service';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 import { Observable } from 'rxjs';
 
 @Component({

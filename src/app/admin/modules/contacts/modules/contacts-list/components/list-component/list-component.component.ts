@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({

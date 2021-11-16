@@ -4,7 +4,7 @@ import { MatSelect } from '@angular/material/select';
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
 import { Block, HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Product } from '@models/product.model';
+import { Product } from '@models/product.models';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
