@@ -37,7 +37,7 @@ export class ServicesListComponent implements OnInit {
     'Aplicación de microchip',
     'Controles preventivos',
     'Consultas veterinarias',
-    'Cirugias',
+    'Cirugías',
     'Farmacia',
     'Destartraje'
   ];
