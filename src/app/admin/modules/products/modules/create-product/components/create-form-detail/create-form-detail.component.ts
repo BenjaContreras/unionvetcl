@@ -53,13 +53,13 @@ export class CreateFormDetailComponent implements OnInit, AfterViewInit, OnChang
   };
 
   public cleanForm(){
+    this.newCategory = false;
+    this.categoryFrmCtrl.setValue(null);
+    this.categoryFrmCtrl.setErrors(null);
     for(let data in this.createProductForm.controls) {
       (<FormControl>this.createProductForm.controls[data]).setValue(null);
       this.createProductForm.controls[data].setErrors(null);
     };
-    this.categoryFrmCtrl.setValue(null);
-    this.categoryFrmCtrl.setErrors(null);
-    this.newCategory = false;
     this.validForm = false;
   };
 
