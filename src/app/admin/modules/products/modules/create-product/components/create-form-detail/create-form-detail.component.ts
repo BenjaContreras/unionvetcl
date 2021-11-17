@@ -59,6 +59,7 @@ export class CreateFormDetailComponent implements OnInit, AfterViewInit, OnChang
     };
     this.categoryFrmCtrl.setValue(null);
     this.categoryFrmCtrl.setErrors(null);
+    this.newCategory = false;
     this.validForm = false;
   };
 
@@ -91,6 +92,8 @@ export class CreateFormDetailComponent implements OnInit, AfterViewInit, OnChang
         if (result) this.isLoading = false;
         this.notificationService.success(`Se ha creado el producto con exito!`);
         this.cleanForm();
+        await this.ngOnInit();
+        this.ngAfterViewInit();
       } catch (e) {
         this.isLoading = false;
         console.log(e);
