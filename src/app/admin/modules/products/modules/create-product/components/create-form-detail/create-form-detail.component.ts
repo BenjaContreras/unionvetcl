@@ -38,7 +38,7 @@ export class CreateFormDetailComponent implements OnInit, AfterViewInit, OnChang
     this.newCategory = false;
     this.isLoading = false;
     this.createProductForm = this.fb.group({
-      imageUrl: [""],
+      imageUrl: [null],
       brand: [null, Validators.required],
       name: [null, Validators.required],
       description: [null, Validators.required],

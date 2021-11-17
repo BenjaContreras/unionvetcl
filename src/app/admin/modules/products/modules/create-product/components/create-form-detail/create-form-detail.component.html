@@ -28,8 +28,8 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-              <mat-label>URL imagen</mat-label>
-            <input matInput type="text" placeholder="ingrese el url de la imagen" formControlName="imageUrl">
+              <mat-label>Link de la imagen</mat-label>
+            <input matInput type="text" formControlName="imageUrl">
           </mat-form-field>
         </div>
       </div>
@@ -85,7 +85,8 @@
       <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createProductForm.valid"
           [ngClass]="createProductForm.valid? 'text-white': ''"
           [ngStyle]="{'background-color': createProductForm.valid? '#0F7499' : ''}"
-          *ngIf="!isLoading" 
+          *ngIf="!isLoading"
+          (click)="onSubmit()"
       >Agregar</button>
       <button mat-button class="btn-lg" *ngIf="isLoading" style="pointer-events: none; user-select: none;">
         <mat-spinner color="accent" [diameter]="40"></mat-spinner>
