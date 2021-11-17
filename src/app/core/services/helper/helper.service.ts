@@ -12,7 +12,7 @@ export class HelperService {
   public communes: {name: string, communes: string[]}[] = COMMUNES;
   public blocks: Block[] = BLOCKS;
   public specialCharacters: string[] = SPECIALCHARACTERS;
-  public specialCharactersLink: string[] = SPECIALCHARACTERS;
+  public specialCharactersLink: string[] = SPECIALCHARACTERSLINK;
   public validMails: string[] = VALIDMAILS;
   public products: Product[] = PRODUCTS;
   public isAdmin: boolean;
