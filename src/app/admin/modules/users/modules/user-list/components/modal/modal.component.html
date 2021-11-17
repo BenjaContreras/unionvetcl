@@ -33,16 +33,6 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3" style="user-select: none;" *ngIf="editUserForm.get('state')?.value === 3 && !editUserForm.get('motion')?.value">
-        <div class="col">
-            <button 
-                mat-flat-button 
-                *ngIf="event === 'edit'" 
-                class="btn-lg w-100 bg-danger text-white p-2" 
-                style="pointer-events: none; font-size: 24px;"
-            >¡El motivo debe contener información!</button>
-        </div>
-    </div>
     <div class="row" style="user-select: none;">
         <div class="col text-center">
             <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminar al usuario?</strong>
@@ -55,10 +45,10 @@
                 <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editUserForm.get('state')?.value === 3 && !isLoading" 
+                    *ngIf="event === 'edit' && !isLoading" 
                     (click)="updateUser(true)"
-                    [disabled]="!editUserForm.get('motion')?.value"
-                    [ngStyle]="{'background-color': editUserForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editUserForm.get('motion')?.value? 'white': ''}"
+                    [disabled]="!editUserForm.valid"
+                    [ngStyle]="{'background-color': editUserForm.valid? '#0F7499' : 'grey', 'color': editUserForm.valid? 'white': ''}"
                 >Continuar</button>
                 <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
             </div>

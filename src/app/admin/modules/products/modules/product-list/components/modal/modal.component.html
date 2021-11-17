@@ -57,7 +57,7 @@
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
                     (click)="updateProduct()"
                     [disabled]="!editProductForm.valid"
-                    *ngIf="!isLoading"
+                    *ngIf="!isLoading && event === 'edit'"
                     [ngStyle]="{'background-color': editProductForm.valid? '#0F7499' : 'grey', 'color': editProductForm.valid? 'white': ''}"
                 >Actualizar</button>
                 <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>

@@ -10,8 +10,8 @@
                   </mat-form-field>
               </div>
               <div class="col-4 pt-3 text-center ps-0" *ngIf="userSelected">
-                  <button mat-raised-button class="btn-lg me-2" (click)="openModal('edit')">Editar usuario</button>
-                  <button mat-raised-button color="warn" class="btn-lg" (click)="openModal('delete')">Eliminar usuario</button>
+                  <button mat-raised-button class="me-2" (click)="openModal('edit')">Editar usuario</button>
+                  <button mat-raised-button color="warn" (click)="openModal('delete')">Eliminar usuario</button>
               </div>
           </div>
           <div class="row">
