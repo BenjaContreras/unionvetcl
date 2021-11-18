@@ -48,8 +48,8 @@ export class CreateTipComponent implements OnInit {
     if (this.createTipForm.valid){
       let newTip: Tip = {
         imageUrl: this.imageUrl,
-        content: this.content,
-        title: this.title,
+        content: this.content.trim(),
+        title: this.title.trim(),
       };
       try {
         this.isLoading = true;

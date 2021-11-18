@@ -48,7 +48,7 @@ export class ResponseModalComponent implements OnInit {
     if (this.editContactForm.valid) {
       try {
         let product: Partial<Contact> = {
-          response: this.editContactForm.controls.response.value,
+          response: (this.editContactForm.value.response as string).trim(),
           isReaded: true,
           updatedAt: new Date()
         };

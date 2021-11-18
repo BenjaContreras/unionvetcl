@@ -92,16 +92,16 @@ export class CreateFormDetailComponent implements OnInit {
       if (this.helperService.verifyRut(this.rut)){
         if (this.helperService.verifyName(this.firstName).verify && this.helperService.verifyName(this.lastName).verify){
           let newUser: User = {
-            firstName: this.firstName,
-            lastName: this.lastName,
+            firstName: this.firstName.trim(),
+            lastName: this.lastName.trim(),
             rut: this.rut,
-            email: this.email,
+            email: this.email.trim(),
             address: {
-              street: this.address,
-              commune: this.commune,
-              region: this.region,
+              street: this.address.trim(),
+              commune: this.commune.trim(),
+              region: this.region.trim(),
             },
-            phone: this.phone,
+            phone: this.phone.trim(),
           };
           try {
             const result: APIResponse = await this.userProvider.postUser(newUser).toPromise() as any;

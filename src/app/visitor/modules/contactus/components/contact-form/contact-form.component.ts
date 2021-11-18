@@ -58,10 +58,10 @@ export class ContactFormComponent {
         if (this.helperService.verifyMail(this.email).verify){
           if (this.helperService.verifyName(this.fullName).verify){
             let contact: Contact = {
-              fullName: this.fullName,
-              phone: this.phone,
-              email: this.email,
-              message: this.message
+              fullName: this.fullName.trim(),
+              phone: this.phone.trim(),
+              email: this.email.trim(),
+              message: this.message.trim()
             };
             try {
               this.isLoading = true;

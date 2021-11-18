@@ -87,12 +87,12 @@ export class CreatePetFormDetailComponent implements OnInit {
     if (this.createPetForm.valid){
       if (this.helperService.verifyName(this.name).verify){
         let newPet: Pet = {
-          name: this.name,
-          breed: this.breed,
-          species: this.species,
-          color: this.color,
+          name: this.name.trim(),
+          breed: this.breed.trim(),
+          species: this.species.trim(),
+          color: this.color.trim(),
           chipNumber: this.chipNumber,
-          gender: this.gender
+          gender: this.gender.trim()
         };
         if (this.age) newPet.age = this.age;
         else newPet.dateBirth = this.dateBirth;

@@ -53,11 +53,11 @@ export class ModalComponent implements OnInit {
     if (this.editContactForm.valid) {
       try {
         let contact: Partial<Contact> = {
-          fullName: this.editContactForm.value.name,
-          phone: this.editContactForm.value.phone,
-          email: this.editContactForm.value.email,
-          message: this.editContactForm.value.message,
-          response: this.editContactForm.value.response,
+          fullName: (this.editContactForm.value.name as string).trim(),
+          phone: (this.editContactForm.value.phone as string).trim(),
+          email: (this.editContactForm.value.email as string).trim(),
+          message: (this.editContactForm.value.message as string).trim(),
+          response: (this.editContactForm.value.response as string).trim(),
           isReaded: this.editContactForm.value.isReaded,
           updatedAt: new Date()
         };
