@@ -156,6 +156,7 @@ export class AdminHomeScreenComponent implements OnInit {
   public logOut(): void {
     this.authProvider.logout();
     this.helperService.refreshEditedContacts();
+    this.helperService.refreshVerifiedUsers();
   };
 
   public goTo(route: string | null, subcategory?: string): any {
