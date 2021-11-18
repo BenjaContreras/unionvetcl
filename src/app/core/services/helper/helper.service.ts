@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductProviderService } from '@core/providers/products/product-provider.service';
 import { Contact } from '@models/contact.models';
 import { Product } from '@models/product.models';
+import { User } from '@models/user.models';
 import { rutTools, phoneTools } from 'prettyutils'
 
 @Injectable({
@@ -17,12 +18,14 @@ export class HelperService {
   public products: Product[] = PRODUCTS;
   public isAdmin: boolean;
   public recentEditedContacts: Contact[];
+  public recentVerifiedUsers: User[];
 
   constructor(
     private productP: ProductProviderService
   ) {
     this.isAdmin = true;
     this.recentEditedContacts = [];
+    this.recentVerifiedUsers = [];
   }
 
   public setEditedContacts(contact: Contact) {
@@ -31,6 +34,10 @@ export class HelperService {
 
   public refreshEditedContacts() {
     this.recentEditedContacts = [];
+  };
+
+  public refreshVerifiedUsers() {
+    this.recentVerifiedUsers = [];
   };
 
   public async getCategories(): Promise<string[]> {
