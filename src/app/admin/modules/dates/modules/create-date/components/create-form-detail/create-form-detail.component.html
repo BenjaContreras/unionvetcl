@@ -2,111 +2,143 @@
     <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;" *ngIf="client; else dontHaveClient">
       <mat-card-content>
         <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Nombre completo" formControlName="fullName">
-              <mat-error *ngIf="createDateForm.controls['fullName'].hasError('required')">
-                <strong>Nombre completo requerido!</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Rut" formControlName="RUT">
-              <mat-error *ngIf="createDateForm.controls['RUT'].hasError('required')">
-                <strong>Rut requerido!</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-select placeholder="Región" formControlName="region">
-                <mat-option *ngFor="let region of regiones" [value]="region" (click)="setRegionSelected(region)">
-                  {{ region }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="createDateForm.controls['region'].hasError('required')">
-                State is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-                <mat-select placeholder="Comuna" formControlName="commune">
-                    <mat-option *ngFor="let commune of communes" [value]="commune">
-                    {{ commune }}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="createDateForm.controls['commune'].hasError('required')">
-                    State is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-            <div class="col">
-              <mat-form-field class="full-width">
-                  <mat-label>Dirección</mat-label>
-                <input matInput type="text" placeholder="Calle, numero" formControlName="address">
-                <mat-error *ngIf="createDateForm.controls['address'].hasError('required')">
-                  Address is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-              <mat-form-field class="full-width">
-                  <mat-label>Correo electrónico</mat-label>
-                <input matInput type="email" placeholder="ejemplo@gmail.com" formControlName="email">
-                <mat-error *ngIf="createDateForm.controls['email'].hasError('required')">
-                  <strong>Correo electrónico requerido!</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field class="full-width">
-                <mat-label>Teléfono</mat-label>
-                <span matPrefix class="me-2">+56</span>
-                <input type="tel" matInput placeholder="9XXXXXXXX" formControlName="phone">
-                <mat-error *ngIf="createDateForm.controls['phone'].hasError('required')">
-                  <strong>Teléfono requerido!</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Fecha de realización</mat-label>
-              <input matInput [matDatepicker]="picker" placeholder="Selecione una fecha" [matDatepickerFilter]="myFilter" formControlName="day">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker>
-                <mat-datepicker-actions>
-                  <button mat-button matDatepickerCancel>Cancelar</button>
-                  <button mat-raised-button style="color: white; background-color: #0f7499;" matDatepickerApply>Seleccionar</button>
-                </mat-datepicker-actions>
-              </mat-datepicker>
-              <mat-error *ngIf="createDateForm.controls['day'].hasError('required')">
-                  <strong>Seleccione una fecha valida!</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-select placeholder="Bloque" formControlName="block">
-                  <mat-option *ngFor="let block of blocks" [value]="block.value">
-                  {{ block.name }}
+          <div class="col" [ngClass]="selectedPatient? 'mb-2': 'mb-3'">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select [formControl]="petFrmCtrl" placeholder="Paciente" #singleSelect (selectionChange)="setSelectedPet($event)">
+                  <mat-option>
+                      <ngx-mat-select-search 
+                          [formControl]="petFrmFilterCtrl"
+                          noEntriesFoundLabel="Sin coincidencias"
+                          placeholderLabel="Escriba el nombre..."
+                      ></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let pet of filteredPets | async" [value]="pet">
+                      {{pet.name}}
                   </mat-option>
               </mat-select>
-              <mat-error *ngIf="createDateForm.controls['block'].hasError('required')">
-                  <strong>Seleccione un bloque!</strong>
-              </mat-error>
-            </mat-form-field>
+          </mat-form-field>
           </div>
         </div>
+        <ng-container *ngIf="selectedPatient; else showMessage">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <ng-container *ngIf="!createDateForm.value.region; else weHaveInfoR">
+                  <mat-select placeholder="Región" formControlName="region">
+                    <mat-option *ngFor="let region of regiones" [value]="region" (click)="setRegionSelected(region)">
+                      {{ region }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="createDateForm.controls['region'].hasError('required')">
+                    State is <strong>required</strong>
+                  </mat-error>
+                </ng-container>
+                <ng-template #weHaveInfoR>
+                  <input matInput type="text" [value]="'Región: ' + createDateForm.value.region" disabled>
+                </ng-template>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <ng-container *ngIf="!createDateForm.value.commune; else weHaveInfoC">
+                  <mat-select placeholder="Comuna" formControlName="commune">
+                      <mat-option *ngFor="let commune of communes" [value]="commune">
+                      {{ commune }}
+                      </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="createDateForm.controls['commune'].hasError('required')">
+                      State is <strong>required</strong>
+                  </mat-error>
+                </ng-container>
+                <ng-template #weHaveInfoC>
+                  <input matInput type="text" [value]="'Comuna: ' + createDateForm.value.commune" disabled>
+                </ng-template>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <ng-container *ngIf="!createDateForm.value.address; else weHaveInfoA">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput type="text" placeholder="Calle, numero" formControlName="address">
+                    <mat-error *ngIf="createDateForm.controls['address'].hasError('required')">
+                      Address is <strong>required</strong>
+                    </mat-error>
+                  </ng-container>
+                  <ng-template #weHaveInfoA>
+                    <input matInput type="text" [value]="'Calle: ' + createDateForm.value.address" disabled>
+                  </ng-template>
+                </mat-form-field>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <ng-container *ngIf="!createDateForm.value.address; else weHaveInfoCo">
+                    <mat-label>Correo electrónico del dueño</mat-label>
+                    <input matInput type="email" placeholder="ejemplo@gmail.com" formControlName="email">
+                    <mat-error *ngIf="createDateForm.controls['email'].hasError('required')">
+                      <strong>Correo electrónico requerido!</strong>
+                    </mat-error>
+                  </ng-container>
+                  <ng-template #weHaveInfoCo>
+                    <input matInput type="text" [value]="'Correo: ' + createDateForm.value.email" disabled>
+                  </ng-template>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <ng-container *ngIf="!createDateForm.value.address; else weHaveInfoP">
+                    <mat-label>Teléfono del dueño</mat-label>
+                    <span matPrefix class="me-2">+56</span>
+                    <input type="tel" matInput placeholder="9XXXXXXXX" formControlName="phone">
+                    <mat-error *ngIf="createDateForm.controls['phone'].hasError('required')">
+                      <strong>Teléfono requerido!</strong>
+                    </mat-error>
+                  </ng-container>
+                  <ng-template #weHaveInfoP>
+                    <input matInput type="text" [value]="'Cel: ' + createDateForm.value.phone" disabled>
+                  </ng-template>
+                </mat-form-field>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-label>Fecha de realización</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Selecione una fecha" [matDatepickerFilter]="myFilter" formControlName="day">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker>
+                  <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Cancelar</button>
+                    <button mat-raised-button style="color: white; background-color: #0f7499;" matDatepickerApply>Seleccionar</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+                <mat-error *ngIf="createDateForm.controls['day'].hasError('required')">
+                    <strong>Seleccione una fecha valida!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Bloque" formControlName="block">
+                    <mat-option *ngFor="let block of blocks" [value]="block.value">
+                    {{ block.name }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="createDateForm.controls['block'].hasError('required')">
+                    <strong>Seleccione un bloque!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #showMessage>
+          <button mat-button disables class="btn-lg w-100 bg-danger text-white py-2">
+            <span style="font-size: 22px;">Debe seleccionar un paciente para poder asociarle la cita</span>
+          </button>
+        </ng-template>
       </mat-card-content>
       <mat-card-actions class="m-0 p-0 text-end">
         <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanClient()">Cancelar</button>
