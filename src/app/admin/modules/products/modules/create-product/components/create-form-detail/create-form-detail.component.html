@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Nombre" formControlName="name">
+            <input matInput placeholder="Nombre del producto" formControlName="name">
             <mat-error *ngIf="createProductForm.controls['name'].hasError('required')">
               <strong>Nombre requerido!</strong>
             </mat-error>
@@ -61,7 +61,7 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Descripción" formControlName="description">
+            <input matInput placeholder="Descripción del producto" formControlName="description">
             <mat-error *ngIf="createProductForm.controls['description'].hasError('required')">
               <strong>Descripción requerida!</strong>
             </mat-error>
