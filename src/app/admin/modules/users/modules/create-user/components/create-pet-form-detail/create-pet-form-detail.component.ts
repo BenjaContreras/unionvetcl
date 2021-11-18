@@ -21,6 +21,7 @@ export class CreatePetFormDetailComponent implements OnInit {
   @Output() expandOption: EventEmitter<boolean>;
   public optionSelected: any;
   public createPetForm: FormGroup;
+  public genderControl: FormControl;
   public isLoading: boolean;
 
   constructor(
@@ -35,13 +36,14 @@ export class CreatePetFormDetailComponent implements OnInit {
     this.owner = null;
     this.optionSelected = null;
     this.isLoading = false;
+    this.genderControl = new FormControl(null, Validators.required);
     this.createPetForm = this.fb.group({
       name: [null, Validators.required],
       breed: [null, Validators.required],
       species: [null, Validators.required],
       color: [null, Validators.required],
       chipNumber: [null, Validators.required],
-      gender: [null, Validators.required],
+      gender: this.genderControl,
       age: [null], dateBirth: [null]
     });
     if (this.owner) this.cleanForm();
@@ -52,7 +54,6 @@ export class CreatePetFormDetailComponent implements OnInit {
       (<FormControl>this.createPetForm.controls[data]).setValue(null);
       this.createPetForm.controls[data].setErrors(null);
     };
-    this.optionSelected = null;
   };
 
   public setValidator(know: boolean): void {
@@ -99,7 +100,8 @@ export class CreatePetFormDetailComponent implements OnInit {
         try {
           const result: APIResponse = await this.petProvider.postPet(newPet).toPromise() as any;
           if (result) {
-            const resultUpdate = await this.userP.updateUserPets(this.owner?._id!, result?.pet?._id!).toPromise();
+            let pets: Pet[] = (await this.userP.getUserById(this.owner?._id!).toPromise())?.pets as Pet[];
+            const resultUpdate = await this.userP.updateUserPets(this.owner?._id!, result?.pet?._id!, pets).toPromise();
             if (resultUpdate) {
               this.isLoading = false;
               this.notificationService.success(`Se ha asociado su mascota con éxito a ${this.owner?.firstName} ${this.owner?.lastName}`);
@@ -126,8 +128,9 @@ export class CreatePetFormDetailComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.client.currentValue === this.owner) this.cleanForm();
-    if (this.owner) this.cleanForm();
+    if (changes.owner) {
+      this.owner = changes.owner.currentValue;
+    }
   }
 
   ngAfterViewInit(): void {
