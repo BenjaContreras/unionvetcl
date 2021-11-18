@@ -1,9 +1,14 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
 import { DatesProviderService } from '@core/providers/dates/dates.service';
+import { PetProviderService } from '@core/providers/pet/pet-provider.service';
 import { Block, HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { DateModel } from '@models/date.models';
+import { Pet } from '@models/pet.models';
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-form-detail',
@@ -20,31 +25,39 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
   public regiones: string[];
   public blocks: Block[];
   public isLoading: boolean;
+  public patients: Pet[];
+  public selectedPatient: Pet | null;
+
+  public petFrmCtrl: FormControl = new FormControl(null);
+  public petFrmFilterCtrl: FormControl = new FormControl(null);
+  public filteredPets: ReplaySubject<Pet[]> = new ReplaySubject<Pet[]>(1);
+  protected onDestroy = new Subject<void>();
+
+  @ViewChild('singleSelect') singleSelect!: MatSelect;
 
   constructor(
     private fb: FormBuilder, 
     private helperService: HelperService,
     private notificationService: NotificationService,
     private dateProvider: DatesProviderService,
+    private petP: PetProviderService
   ) {
     this.cleanClientEmitter = new EventEmitter<any>();
     this.client = null;
     this.isLoading = false;
+    this.patients = [];
     this.createDateForm = this.fb.group({
-      fullName: [null, Validators.required],
-      RUT: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
-      ],
+      pet: [null, Validators.required],
       address: [null, Validators.required],
       region: [null, Validators.required],
       commune: [null, Validators.required],
-      email: [null, Validators.compose([
-        Validators.required, Validators.email])
+      email: [
+        null, Validators.compose([Validators.required, Validators.email]),
       ],
       day: [null, Validators.required],
       block: [null, Validators.required],
-      phone: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
+      phone: [
+        null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
       ],
     });
     this.regionSelected = '';
@@ -52,6 +65,7 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
     this.communes = [];
     this.regiones = this.helperService.communes.map(commune => commune.name);
     if (this.client) this.cleanForm();
+    this.selectedPatient = null;
   }
 
   public setRegionSelected(region: string): void {
@@ -126,16 +140,62 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
     };
   }
 
-  ngOnInit(): void {
-    if (this.client) this.cleanForm();
+  async ngOnInit(): Promise<void> {
+    this.patients = this.client?.value.pets as Pet[];
+    this.setFormAgain();
+    this.petFrmCtrl.setValue(null);
+    this.filteredPets.next(this.patients?.slice());
+    this.petFrmFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterPets();
+      });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.client.currentValue === this.client) this.cleanForm();
-    if (this.client) this.cleanForm();
+  private setFormAgain(){
+    this.createDateForm.setValue({
+      pet: null,
+      region: this.client?.value.address?.region,
+      commune: this.client?.value.address?.commune,
+      address: this.client?.value.address?.street,
+      email: this.client?.value.email,
+      phone: this.client?.value.phone,
+      day: null,
+      block: null,
+    });
+  };
+
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    if (changes.client) await this.ngOnInit();
   }
 
   ngAfterViewInit(): void {
-    if (this.client) this.cleanForm();
+    this.setInitialValue();
   }
+
+  protected setInitialValue(): void {
+    this.filteredPets
+    .pipe(take(1), takeUntil(this.onDestroy)).subscribe(() => {
+      this.singleSelect.compareWith = (a: any, b: any) => a && b && a === b;
+    });
+  };
+
+  protected filterPets(): void {
+    if (!this.patients) return;
+    let search = this.petFrmFilterCtrl.value;
+    if (!search) {
+      this.filteredPets.next(this.patients.slice());
+      return;
+    } else search = search.toLowerCase();
+    this.filteredPets.next(
+      this.patients.filter(patient => patient.name.toLowerCase().includes(search))
+    );
+  };
+
+  public setSelectedPet(client: any): void {
+    this.selectedPatient = client.value;
+    this.createDateForm.patchValue({
+      pet: this.selectedPatient
+    });
+  };
 }
