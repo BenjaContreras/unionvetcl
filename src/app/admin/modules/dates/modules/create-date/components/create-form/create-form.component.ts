@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
+import { UserProviderService } from '@core/providers/user/user-provider.service';
+import { User } from '@models/user.models';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -12,22 +14,26 @@ import { take, takeUntil } from 'rxjs/operators';
 export class CreateFormComponent implements OnInit, AfterViewInit {
 
   public selectedClient: any;
-  public clients: any[];
+  public users: User[];
   public userFrmCtrl: FormControl = new FormControl(null);
   public userFrmFilterCtrl: FormControl = new FormControl(null);
-  public filteredUsers: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
+  public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1);
   protected onDestroy = new Subject<void>();
 
   @ViewChild('singleSelect') singleSelect!: MatSelect;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(
+    private fb: FormBuilder,
+    private userP: UserProviderService
+  ) { 
     this.selectedClient = null;
-    this.clients = ['Jose', 'Pedro', 'Juan', 'Roberto', 'Alexis'];
+    this.users = [];
   }
 
-  ngOnInit(): void {
-    this.userFrmCtrl.setValue(this.selectedClient);
-    this.filteredUsers.next(this.clients.slice());
+  async ngOnInit(): Promise<void> {
+    this.users = await this.userP.getAllUsers().toPromise();
+    this.userFrmCtrl.setValue(null);
+    this.filteredUsers.next(this.users.slice());
     this.userFrmFilterCtrl.valueChanges
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
@@ -47,14 +53,14 @@ export class CreateFormComponent implements OnInit, AfterViewInit {
   };
 
   protected filterUsers(): void {
-    if (!this.clients) return;
+    if (!this.users) return;
     let search = this.userFrmFilterCtrl.value;
     if (!search) {
-      this.filteredUsers.next(this.clients.slice());
+      this.filteredUsers.next(this.users.slice());
       return;
     } else search = search.toLowerCase();
     this.filteredUsers.next(
-      this.clients.filter(client => client.toLowerCase().includes(search))
+      this.users.filter(user => (user.firstName.toLowerCase().includes(search) || user.lastName.toLowerCase().includes(search)))
     );
   };
 
