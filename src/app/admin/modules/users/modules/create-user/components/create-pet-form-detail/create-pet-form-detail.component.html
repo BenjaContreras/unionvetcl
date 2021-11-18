@@ -32,7 +32,10 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>Sexo</mat-label>
-              <input matInput formControlName="gender">
+              <mat-select [formControl]="genderControl">
+                <mat-option [value]="'Macho'">Macho</mat-option>
+                <mat-option [value]="'Hembra'">Hembra</mat-option>
+              </mat-select>
               <mat-error *ngIf="createPetForm.controls['gender'].hasError('required')">
                 <strong>Sexo requerido!</strong>
               </mat-error>
@@ -108,6 +111,7 @@
           [ngClass]="createPetForm.valid? 'text-white': ''"
           [ngStyle]="{'background-color': createPetForm.valid? '#0F7499' : ''}"
           *ngIf="!isLoading" 
+          (click)="onSubmit()"
       >Asociar mascota</button>
       <button mat-button class="btn-lg" disabled *ngIf="isLoading">
         <mat-spinner color="accent" [diameter]="40"></mat-spinner>
@@ -118,7 +122,7 @@
     <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
       <mat-card-content style="font-size: 22px; text-align: center;">
         <p class="mb-4">Es necesario que seleccione un cliente, para asociarlo a la mascota a crear.</p>
-        Si el usuario no se encuentra, entonces creelo en la sección superior primero y luego cree la mascota.
+        Si el usuario no se encuentra, entonces creelo en la sección superior y luego cree la mascota.
       </mat-card-content>
     </mat-card>
   </ng-template>
