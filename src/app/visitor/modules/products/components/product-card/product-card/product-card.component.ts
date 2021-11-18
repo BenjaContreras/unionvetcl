@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HelperService } from '@core/services/helper/helper.service';
 import { Product } from '@models/product.models';
 
@@ -7,62 +7,26 @@ import { Product } from '@models/product.models';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.sass']
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent implements OnInit, OnChanges {
 
-  public testLength: Product[];
-  @Output() lengthOfProducts: EventEmitter<number>;
-  @Output() lengthOfCategories: EventEmitter<{name: string, length: number}[]>;
-  @Output() lengthOfBrands: EventEmitter<{name: string, length: number}[]>;
-  private categories: {name: string, length: number}[];
-  private brands: {name: string, length: number}[];
+  @Input() products: Product[];
   public isLoading: boolean;
 
-  constructor(private helperService: HelperService) { 
-    this.categories = [];
+  constructor(private helperService: HelperService) {
     this.isLoading = true;
-    this.brands = [];
-    this.testLength = this.helperService.products;
-    if (this.testLength) this.isLoading = false;
-    this.lengthOfProducts = new EventEmitter<number>();
-    this.lengthOfCategories = new EventEmitter<{name: string, length: number}[]>();
-    this.lengthOfBrands = new EventEmitter<{name: string, length: number}[]>();
+    this.products = [];
+    if (this.products) this.isLoading = false;
   }
 
   async ngOnInit(): Promise<void> {
-    if (this.testLength) this.isLoading = false;
-    this.lengthOfProducts.emit(this.testLength.length);
-    this.searchByCategory();
-    this.searchByBrand();
+    if (this.products) this.isLoading = false;
   }
 
-  private searchByCategory() {
-    const categoriesArray: string[] = ['Antiparasitario', 'Medicamento', 'Suplemento', 'Shampoo']
-    let categoriesAux: string[] = [];
-    categoriesArray.forEach(category => {
-      this.testLength.forEach(product => {
-        if (product.category === category) {
-          categoriesAux.push(category);
-        };
-      });
-      this.categories.push({name: category, length: categoriesAux.length});
-      categoriesAux = [];
-    });
-    this.lengthOfCategories.emit(this.categories);
-  };
-
-  private searchByBrand() {
-    const categoriesArray: string[] = ['Dragpharma', 'Traper', 'Bayer', 'Frontline Labs', 'Microsules']
-    let categoriesAux: string[] = [];
-    categoriesArray.forEach(category => {
-      this.testLength.forEach(product => {
-        if (product.brand === category) {
-          categoriesAux.push(category);
-        };
-      });
-      this.brands.push({name: category, length: categoriesAux.length});
-      categoriesAux = [];
-    });
-    this.lengthOfBrands.emit(this.brands);
+  async ngOnChanges(changes: SimpleChanges) {
+    if (changes.products) {
+      this.products = changes.products.currentValue;
+      this.isLoading = false;
+    };
   };
 
   @HostListener('window:resize', ['$event'])
