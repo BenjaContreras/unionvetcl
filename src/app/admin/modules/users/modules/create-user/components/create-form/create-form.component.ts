@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
+import { UserProviderService } from '@core/providers/user/user-provider.service';
 import { User } from '@models/user.models';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
@@ -10,34 +11,35 @@ import { take, takeUntil } from 'rxjs/operators';
   templateUrl: './create-form.component.html',
   styleUrls: ['./create-form.component.sass']
 })
-export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
   public selectedClient: User | null;
   public selectedClientLocal: User | null;
-  public clients: any[];
   public isOutput: boolean;
+  public users: User[];
 
   public ownerFrmCtrl: FormControl = new FormControl(null);
   public ownerFrmFilterCtrl: FormControl = new FormControl(null);
-  public filteredClients: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
+  public filteredUsers: ReplaySubject<User[]> = new ReplaySubject<User[]>(1);
   protected onDestroy = new Subject<void>();
 
   @ViewChild('singleSelect') singleSelect!: MatSelect;
 
-  constructor() {
+  constructor(private userP: UserProviderService) {
     this.isOutput = false;
     this.selectedClient = null;
     this.selectedClientLocal = null;
-    this.clients = ['Jose', 'Pedro', 'Juan', 'Roberto', 'Alexis'];
+    this.users = [];
   }
 
-  ngOnInit(): void {
-    this.ownerFrmCtrl.setValue(this.selectedClient);
-    this.filteredClients.next(this.clients.slice());
+  async ngOnInit(): Promise<void> {
+    this.users = await this.userP.getAllUsers().toPromise();
+    this.ownerFrmCtrl.setValue(null);
+    this.filteredUsers.next(this.users.slice());
     this.ownerFrmFilterCtrl.valueChanges
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
-        this.filterClients();
+        this.filterUsers();
       });
   }
 
@@ -45,22 +47,28 @@ export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.setInitialValue();
   };
 
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    if (changes.isOutput) {
+      await this.ngOnInit();
+    }
+  }
+
   protected setInitialValue(): void {
-    this.filteredClients
+    this.filteredUsers
     .pipe(take(1), takeUntil(this.onDestroy)).subscribe(() => {
       this.singleSelect.compareWith = (a: any, b: any) => a && b && a === b;
     });
   };
 
-  protected filterClients(): void {
-    if (!this.clients) return;
+  protected filterUsers(): void {
+    if (!this.users) return;
     let search = this.ownerFrmFilterCtrl.value;
     if (!search) {
-      this.filteredClients.next(this.clients.slice());
+      this.filteredUsers.next(this.users.slice());
       return;
     } else search = search.toLowerCase();
-    this.filteredClients.next(
-      this.clients.filter(client => client.toLowerCase().includes(search))
+    this.filteredUsers.next(
+      this.users.filter(user => (user.firstName.toLowerCase().includes(search) || user.lastName.toLowerCase().includes(search) || user.rut.toLowerCase().includes(search)))
     );
   };
 
