@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { HelperService } from '@core/services/helper/helper.service';
+import { RecentVerifiedModalComponent } from '../recent-verified-modal/recent-verified-modal.component';
 
 @Component({
   selector: 'app-verify-header',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerifyHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public helper: HelperService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
 
+  public openModal(): void {
+    this.dialog.open(RecentVerifiedModalComponent, {
+      width: '800px',
+      data: {
+        usersVerified: this.helper.recentEditedContacts,
+      }
+    });
+  };
 }
