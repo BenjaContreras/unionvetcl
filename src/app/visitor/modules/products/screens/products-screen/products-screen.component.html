@@ -7,25 +7,60 @@
             <img *ngIf="getScreenSize() < 430" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg" width="300">
         </div>
     </div>
-    <div class="row justify-content-center h-100 mt-3" *ngIf="getScreenSize() < 1100">
+    <div class="row my-3 align-items-center">
+        <div class="col-2 ms-5">
+            <button disabled
+                mat-raised-button 
+                matTooltip="Presione sobre el botón obtener más o menos productos" 
+                matTooltipPosition="above"
+                matTooltipClass="tooltip-red"
+                class="btn-lg py-2 px-5 mt-0" 
+                style="color: white; background-color: #0f7499"
+                [matMenuTriggerFor]="menu" 
+            >Total de productos: {{products.length}}</button>
+        </div>
+        <div class="col">
+            <app-filters-inline
+                [categories]="categories"
+                [brands]="brands"
+                (brandsSelected)="brandsReciver($event)"
+                (categoriesSelected)="categoriesReciver($event)"
+                (cleanData)="cleanReciver($event)"
+                [brandSelected]="eventBrands"
+                [categorySelected]="eventCategories"
+            ></app-filters-inline>
+        </div>
+    </div>
+    <div class="row" *ngIf="showAlertCategories || showAlertBrands">
+        <div class="col">
+            <button disabled mat-button class="btn-lg w-100 bg-danger text-white">
+                No se encontraron coincidencias
+            </button>
+        </div>
+    </div>
+    <!-- <div class="row justify-content-center h-100 mt-3" *ngIf="getScreenSize() < 1100">
         <div class="col">
             <ng-template [ngTemplateOutlet]="filtersInLine"></ng-template>
         </div>
-    </div>
+    </div> -->
     <div class="row justify-content-center h-100">
-        <div class="col-2" *ngIf="getScreenSize() >= 1100">
+        <!-- <div class="col-2" *ngIf="getScreenSize() >= 1100">
             <products-side-filters
                 [length]="length"
                 [categories]="lengthOfCategories"
                 [brands]="lengthOfBrands"
             ></products-side-filters>
-        </div>
-        <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']">
+        </div> -->
+        <!-- <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']"> -->
+        <div class="col-12">
             <product-card 
-                (lengthOfProducts)="lengthReciver($event)"
-                (lengthOfCategories)="lengthOfCategoriesReciver($event)"
-                (lengthOfBrands)="lengthOfBrandsReciver($event)"
+                [products]="products"
             ></product-card>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <ng-template [ngTemplateOutlet]="pagination"></ng-template>
         </div>
     </div>
 </div>
@@ -33,7 +68,7 @@
 <scroll-top-button></scroll-top-button>
 
 <ng-template #filtersInLine>
-    <div class="row">
+    <!-- <div class="row">
         <div class="my-1"
             [ngClass]="[getScreenSize() >= 485 ? 'col' : 'col-12']"
         >
@@ -53,7 +88,6 @@
                             class="example-section font-brand ms-3"
                             *ngFor="let category of lengthOfCategories"
                             [multiple]="true" 
-                            (selectionChange)="changeValue($event)"
                         >
                             <mat-list-option 
                                 class="example-margin text-white p-0 m-0" 
@@ -83,7 +117,6 @@
                             class="example-section font-brand ms-3"
                             *ngFor="let brand of lengthOfBrands"
                             [multiple]="true" 
-                            (selectionChange)="changeValue($event)"
                         >
                             <mat-list-option 
                                 class="example-margin text-white p-0 m-0" 
@@ -136,5 +169,32 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
-    </div>
+    </div> -->
+</ng-template>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="getProducts(15)">Traer 15 productos</button>
+    <button mat-menu-item (click)="getProducts(20)">Traer 20 productos</button>
+    <button mat-menu-item (click)="getProducts(40)">Traer 40 productos</button>
+    <button mat-menu-item (click)="getProducts('all')">Ver todos los productos</button>
+</mat-menu>
+
+<ng-template #pagination>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-lg">
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Previous" (click)="previousPage()">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" [ngClass]="pageSelected === page? 'active': ''" *ngFor="let page of totalPages" aria-current="page" style="cursor: pointer;">
+                <a class="page-link" (click)="goToPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Next" (click)="nextPage()">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </ng-template>
