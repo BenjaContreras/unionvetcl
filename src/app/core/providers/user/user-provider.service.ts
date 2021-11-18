@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '@core/services/http/http.service';
+import { Pet } from '@models/pet.models';
 import { User } from '@models/user.models';
 import { Observable } from 'rxjs';
 
@@ -22,12 +23,14 @@ export class UserProviderService {
     return this.httpService.put<User>(`/user/${UserId}`, body);
   };
 
-  public updateUserPets(UserId: string, petId: string): Observable<Partial<User>>{
+  public updateUserPets(userId: string, petId: string, pets: Pet[]): Observable<Partial<User>>{
+    let petsAux: string[] = pets.map(pet => pet._id!);
+    petsAux.push(petId);
     let partialUser: Partial<User> = {
-      pets: [petId],
+      pets: petsAux,
       updatedAt: new Date()
     };
-    return this.httpService.put<User>(`/user/${UserId}`, partialUser);
+    return this.httpService.put<User>(`/user/${userId}`, partialUser);
   };
 
   public deleteUser(UserId: string): Observable<User>{
