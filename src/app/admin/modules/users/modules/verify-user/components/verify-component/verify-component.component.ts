@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { HelperService } from '@core/services/helper/helper.service';
 import { VerifyModalComponent } from '../verify-modal/verify-modal.component';
 
 @Component({
@@ -20,7 +21,10 @@ export class VerifyComponentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private dialog: MatDialog,
+    private herlper: HelperService
+  ) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.clicked = false;
   }
@@ -29,6 +33,7 @@ export class VerifyComponentComponent implements OnInit {
   }
 
   ngOnChanges() {
+    // Hacer uso de la API
     this.paginator._intl.itemsPerPageLabel = 'Usuarios a mostrar: ';
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
@@ -52,9 +57,12 @@ export class VerifyComponentComponent implements OnInit {
     this.dialog.open(VerifyModalComponent, {
       width: '1200px',
       height: '550px',
-      data: element
+      data: {
+        user: element
+      }
     }).afterClosed().subscribe(result => {
       this.elementSelected = null;
+      // actualizar tabla
     });
     this.clicked = true;
     this.elementSelected = element;
