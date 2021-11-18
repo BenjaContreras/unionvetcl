@@ -36,8 +36,10 @@
                                     Datos de la mascota
                                 </div>
                                 <div class="col-3 mt-2" style="font-size: 15px;">
-                                    <button mat-raised-button class="bg-white p-0 m-0 w-75" [disableRipple]="true">
-                                        <mat-form-field appearance="outline" class="w-100">
+                                    <button mat-raised-button class="bg-white p-0 m-0 w-75" [disableRipple]="true" 
+                                        [disabled]="isOutput && selectedClient !== null"
+                                    >
+                                        <mat-form-field appearance="outline" class="w-100" *ngIf="!isOutput && !selectedClient">
                                             <mat-select [formControl]="ownerFrmCtrl" placeholder="Dueño" #singleSelect (selectionChange)="setSelectedClient($event)">
                                                 <mat-option>
                                                     <ngx-mat-select-search 
@@ -46,11 +48,13 @@
                                                         placeholderLabel="Escriba el nombre..."
                                                     ></ngx-mat-select-search>
                                                 </mat-option>
-                                                <mat-option *ngFor="let client of filteredClients | async" [value]="client">
-                                                    {{client}}
-                                                </mat-option>
+                                                <mat-option  
+                                                    *ngFor="let client of filteredUsers | async" 
+                                                    [value]="client"
+                                                >{{client.firstName}} {{client.lastName}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <span *ngIf="isOutput && selectedClient">{{selectedClient?.firstName}} {{selectedClient?.lastName}}</span>
                                     </button>
                                 </div>
                             </div>
