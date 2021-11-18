@@ -61,6 +61,7 @@ export class CreateFormDetailComponent implements OnInit, AfterViewInit, OnChang
       this.createProductForm.controls[data].setErrors(null);
     };
     this.validForm = false;
+    this.createProductForm.controls['stock'].setValue(0);
   };
 
   myFilter = (d: Date | null): boolean => {
@@ -78,27 +79,29 @@ export class CreateFormDetailComponent implements OnInit, AfterViewInit, OnChang
 
   async onSubmit(): Promise<any> {
     if (this.createProductForm.valid){
-      let newProduct: Product = {
-        imageUrl: this.imageUrl,
-        brand: this.brand,
-        name: this.name,
-        description: this.description,
-        stock: this.stock,
-        category: this.category,
+      if (this.stock >= 0) {
+        let newProduct: Product = {
+          imageUrl: this.imageUrl,
+          brand: this.brand.trim(),
+          name: this.name.trim(),
+          description: this.description.trim(),
+          stock: this.stock,
+          category: this.category.trim(),
+        };
+        try {
+          this.isLoading = true;
+          const result = await this.productProvider.postProduct(newProduct).toPromise();
+          if (result) this.isLoading = false;
+          this.notificationService.success(`Se ha creado el producto con exito!`);
+          this.cleanForm();
+          await this.ngOnInit();
+          this.ngAfterViewInit();
+        } catch (e) {
+          this.isLoading = false;
+          console.log(e);
+          this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
+        }
       };
-      try {
-        this.isLoading = true;
-        const result = await this.productProvider.postProduct(newProduct).toPromise();
-        if (result) this.isLoading = false;
-        this.notificationService.success(`Se ha creado el producto con exito!`);
-        this.cleanForm();
-        await this.ngOnInit();
-        this.ngAfterViewInit();
-      } catch (e) {
-        this.isLoading = false;
-        console.log(e);
-        this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
-      }
     };
   }
 
