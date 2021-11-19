@@ -3,7 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DatesProviderService } from '@core/providers/dates/dates.service';
+import { Appointment, Time } from '@models/date.models';
 import { ModalComponent } from '../modal/modal.component';
+import * as moment from 'moment';
+import { HelperService } from '@core/services/helper/helper.service';
 
 @Component({
   selector: 'list-component',
@@ -12,32 +16,46 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'rut', 'address', 'animal', 'date'];
-  public dataSource: MatTableDataSource<any>;
+  public displayedColumns: string[] = ['name', 'state', 'date', 'time', 'animal'];
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource();
   public expandedElement: any;
   public dateSelected: any;
+  public dates: Appointment[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  constructor(
+    private dialog: MatDialog,
+    private dateP: DatesProviderService,
+    private helper: HelperService,
+  ) {
     this.expandedElement = null;
     this.dateSelected = null;
+    this.dates = [];
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.setMatTable();
   }
   
+  private async setMatTable(): Promise<void> {
+    const result = await this.dateP.getAllAppointments().toPromise();
+    if (result){
+      this.dates = result;
+      this.dataSource = new MatTableDataSource(this.dates);
+      this.dataSource.paginator = this.paginator;
+      this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
+    }
+  };
+
   ngOnChanges() {
-    this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
+    this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
   }
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
+    this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
   }
 
   onKey(event: Event){
@@ -54,23 +72,16 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
       }
     }).afterClosed().subscribe(result => {
       this.dateSelected = null;
+      this.setMatTable();
     });
   }
-}
 
-const ELEMENT_DATA: {name: string, rut: string, address: string, animal: string, fecha: string}[] = [
-  { name: 'Juan Jose', rut: '20.360.152-9', address: 'Federico Araneda, 1809', animal: 'Kira', fecha: '10 de Junio, 2021'},
-  { name: 'Pedro Carcuro', rut: '20.370.152-9', address: 'Federico Estrada, 1839', animal: 'Cuchurrumin', fecha: '10 de Julio, 2018'},
-  { name: 'Jose de la Masa', rut: '5.370.522-7', address: 'Eleuterio ramirez, 1839', animal: 'Casper', fecha: '5 de Marzo, 2020'},
-  { name: 'Patricio Knopeln', rut: '9.370.365-9', address: 'Eleuterio ramirez, 929', animal: 'Rocky', fecha: '15 de Abril, 2017'},
-  { name: 'Eduardo Araneda', rut: '19.002.987-1', address: 'Comercio, 997', animal: 'Bobby', fecha: '14 de Mayo, 2020'},
-  { name: 'Joel Lespai', rut: '12.702.982-K', address: 'Pje Alcantara, 95', animal: 'Pedrito', fecha: '30 de Agosto, 2021'},
-  { name: 'Guillermo Oporto', rut: '13.123.951-8', address: 'Pje Alcantara, 99', animal: 'Chimuelo', fecha: '4 de Septiembre, 2020'},
-  { name: 'Juan Jose', rut: '20.360.152-9', address: 'Federico Araneda, 1809', animal: 'Kira', fecha: '10 de Junio, 2021'},
-  { name: 'Pedro Carcuro', rut: '20.370.152-9', address: 'Federico Estrada, 1839', animal: 'Cuchurrumin', fecha: '10 de Julio, 2018'},
-  { name: 'Jose de la Masa', rut: '5.370.522-7', address: 'Eleuterio ramirez, 1839', animal: 'Casper', fecha: '5 de Marzo, 2020'},
-  { name: 'Patricio Knopeln', rut: '9.370.365-9', address: 'Eleuterio ramirez, 929', animal: 'Rocky', fecha: '15 de Abril, 2017'},
-  { name: 'Eduardo Araneda', rut: '19.002.987-1', address: 'Comercio, 997', animal: 'Bobby', fecha: '14 de Mayo, 2020'},
-  { name: 'Joel Lespai', rut: '12.702.982-K', address: 'Pje Alcantara, 95', animal: 'Pedrito', fecha: '30 de Agosto, 2021'},
-  { name: 'Guillermo Oporto', rut: '13.123.951-8', address: 'Pje Alcantara, 99', animal: 'Chimuelo', fecha: '4 de Septiembre, 2020'},
-];
+  public setDate(date: Time) {
+    return new Date(date?.year, date?.month, date?.day);
+  }
+
+  public getTime(block: number) {
+    let blocks = this.helper.blocks;
+    return blocks.find(blockAux => blockAux.value === block)?.name;
+  };
+}

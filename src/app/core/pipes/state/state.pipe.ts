@@ -14,7 +14,7 @@ export class StatePipe implements PipeTransform {
             case 3:
                 return 'Cancelada';
             default:
-                return null;
+                return 'Sin estado';
         }
     }
 }

@@ -102,7 +102,7 @@ export class HelperService {
     this.validMails.forEach(mail => {
       if (email.includes(mail)) array.push(mail);
     });
-    if (array.length > 0) return {
+    if (array.length === 0) return {
       message: 'El correo no es valido',
       verify: false
     };
@@ -129,6 +129,7 @@ export class HelperService {
 
   public verifyMessage(message: string): {message: string, verify: boolean} {
     let array= [];
+    console.log(message);
     this.specialCharacters.forEach(car => {
       if (message.includes(car)) array.push(car);;
     });

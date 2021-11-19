@@ -7,6 +7,9 @@ import { ListComponentComponent } from './components/list-component/list-compone
 import { MaterialModule } from '@core/material.module';
 import { ModalComponent } from './components/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from '@core/pipes/moment/moment.module';
+import { RutModule } from '@core/pipes/rut/rut.module';
+import { StateModule } from '@core/pipes/state/state.module';
 
 const components: any = [
   ListScreenComponent,
@@ -20,7 +23,10 @@ const components: any = [
     CommonModule,
     ListDatesRoutingModule,
     MaterialModule,
-    NgbModule
+    NgbModule,
+    MomentModule,
+    RutModule,
+    StateModule
   ]
 })
 export class ListDatesModule { }

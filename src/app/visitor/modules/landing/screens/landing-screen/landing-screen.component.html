@@ -5,7 +5,7 @@
             <landing-header></landing-header>
         </div>
     </div>
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center" *ngIf="getScreenSize() >= 670">
         <div class="col text-center p-3 m-5">
             <images-carousel></images-carousel>
         </div>

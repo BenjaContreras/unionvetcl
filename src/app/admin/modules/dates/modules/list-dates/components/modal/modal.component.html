@@ -66,17 +66,11 @@
                 <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editDateForm.get('state')?.value !== 3 && !isLoading" 
-                    (click)="updateApointment(false)"
-                    [disabled]="!editDateForm.valid"
-                    [ngStyle]="{'background-color': editDateForm.valid? '#0F7499' : 'grey', 'color': editDateForm.valid? 'white': ''}"
-                >Continuar</button>
-                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editDateForm.get('state')?.value === 3 && !isLoading" 
+                    *ngIf="event === 'edit' && !isLoading" 
                     (click)="updateApointment(true)"
-                    [disabled]="(editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value)? false : true"
-                    [ngStyle]="{'background-color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? 'white': ''}"
-                >Continuar</button>
+                    [disabled]="!editDateForm.valid || (editDateForm.value.state === 'Rechazada' && !motion.value) || (editDateForm.value.state === 'Rechazada' && !cancelationResponsable.value)"
+                    [ngStyle]="{'background-color': editDateForm.valid? '#0F7499' : 'grey', 'color': editDateForm.valid? 'white': ''}"
+                >Editar</button>
                 <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
                   (click)="deleteAppointment()"
                 >Eliminar</button>
@@ -100,7 +94,7 @@
             <strong>RUT del dueño:</strong>
         </div>
         <div class="col">
-            {{asociatedUser?.rut}}
+            {{asociatedUser?.rut | rut}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -118,11 +112,12 @@
             <strong>Nombre de la mascota:</strong>
         </div>
         <div class="col">
-          <mat-chip-list>
+          <mat-chip-list *ngIf="patient">
             <mat-chip>
               {{patient?.name}}
             </mat-chip>
           </mat-chip-list>
+          <span *ngIf="!patient">No posee mascotas registradas</span>
         </div>
         <mat-divider class="mt-2"></mat-divider>
     </div>
@@ -136,15 +131,7 @@
               <div class="col">
                 <mat-form-field class="full-width" disabled>
                   <mat-label>Nombre del dueño</mat-label>
-                  <input matInput value="{{editDateForm.get('nameOwner')?.value}}" disabled>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <mat-form-field class="full-width" disabled>
-                  <mat-label>RUT del dueño</mat-label>
-                  <input matInput value="{{editDateForm.get('rutOwner')?.value}}" disabled>
+                  <input matInput value="{{editDateForm.get('name')?.value + ' ' + editDateForm.get('lastName')?.value}}" disabled>
                 </mat-form-field>
               </div>
             </div>
@@ -160,7 +147,7 @@
               <div class="col">
                 <mat-form-field class="full-width">
                   <mat-label>Nombre del animal</mat-label>
-                  <input matInput type="text" value="{{editDateForm.get('petName')?.value}}" disabled>
+                  <input matInput type="text" value="{{editDateForm.get('pet')?.value}}" disabled>
                 </mat-form-field>
               </div>
             </div>
@@ -184,7 +171,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Motivo de cancelación</mat-label>
-                    <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba el motivo aquí" type="text" formControlName="motion"></textarea>
+                    <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba el motivo aquí" type="text" [formControl]="motion"></textarea>
                     <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
                   </mat-form-field>
                 </div>
@@ -199,7 +186,7 @@
                       matInput 
                       type="text" 
                       placeholder="Escriba el nombre de quien cancelo la cita" 
-                      formControlName="cancelationResponsable"
+                      [formControl]="cancelationResponsable"
                     >
                   </mat-form-field>
                 </div>

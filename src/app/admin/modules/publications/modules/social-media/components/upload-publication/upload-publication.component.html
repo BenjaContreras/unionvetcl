@@ -23,12 +23,21 @@
                 <button *ngIf="description?.length" matSuffix mat-icon-button aria-label="Clear" (click)="description = ''">
                     <mat-icon>close</mat-icon>
                 </button>
+                <mat-hint [align]="'end'"><strong>(Opcional)</strong></mat-hint>
             </mat-form-field>
         </div>
     </div>
     <mat-dialog-actions align="end">
         <button mat-raised-button class="btn-lg" mat-dialog-close>Cancelar</button>
-        <button *ngIf="!isLoading"  mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="uploadLink()" cdkFocusInitial>Subir</button>
+        <button 
+            *ngIf="!isLoading"  
+            mat-raised-button 
+            class="btn-lg" 
+            style="color: white; background-color: #0f7499;" 
+            (click)="uploadLink()" cdkFocusInitial
+            [disabled]="!link.length"
+            [ngStyle]="{'background-color': link.length? '#0F7499' : 'grey', 'color': link.length? 'white': ''}"
+        >Subir</button>
         <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
     </mat-dialog-actions>
 </div>

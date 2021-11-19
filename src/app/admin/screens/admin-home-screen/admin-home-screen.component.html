@@ -72,6 +72,10 @@
                                                             <mat-icon *ngIf="lengthPublications > 0"  matBadge="{{lengthPublications}}" matBadgeColor="warn">{{getIcon(option.name)}}</mat-icon>
                                                             <mat-icon *ngIf="lengthPublications <= 0">{{getIcon(option.name)}}</mat-icon>
                                                         </div>
+                                                        <div *ngSwitchCase="'person'">
+                                                            <mat-icon *ngIf="leengthUsersNot > 0"  matBadge="{{leengthUsersNot}}" matBadgeColor="warn">{{getIcon(option.name)}}</mat-icon>
+                                                            <mat-icon *ngIf="leengthUsersNot <= 0">{{getIcon(option.name)}}</mat-icon>
+                                                        </div>
                                                         <div *ngSwitchDefault>
                                                             <mat-icon>{{getIcon(option.name)}}</mat-icon>
                                                         </div>
