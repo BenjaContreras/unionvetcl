@@ -54,7 +54,7 @@ export class ProductsScreenComponent implements OnInit {
 
   public async getAllPublications(): Promise<PaginateResponse | null> {
     try {
-      const paginateResponse: PaginateResponse = await this.productProviderService.getAllProductsPaginated(13, 1).toPromise();
+      const paginateResponse: PaginateResponse = await this.productProviderService.getAllProductsPaginated(12, 1).toPromise();
       if (paginateResponse && paginateResponse.products) {
         return paginateResponse;
       } else return null;
@@ -141,7 +141,7 @@ export class ProductsScreenComponent implements OnInit {
 
   public async goToPage(pageNumber: number){
     this.pageSelected = pageNumber;
-    this.products = (await this.productProviderService.getAllProductsPaginated(13, pageNumber - 1).toPromise()).products;
+    this.products = (await this.productProviderService.getAllProductsPaginated(12, pageNumber - 1).toPromise()).products;
     this.productsSlice = this.products;
     this.setCategories();
     this.setBrands();
