@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserProviderService } from '@core/providers/user/user-provider.service';
 import { HelperService } from '@core/services/helper/helper.service';
+import { User } from '@models/user.models';
 import { VerifyModalComponent } from '../verify-modal/verify-modal.component';
 
 @Component({
@@ -11,40 +12,48 @@ import { VerifyModalComponent } from '../verify-modal/verify-modal.component';
   templateUrl: './verify-component.component.html',
   styleUrls: ['./verify-component.component.sass']
 })
-export class VerifyComponentComponent implements OnInit {
+export class VerifyComponentComponent implements OnInit, OnChanges, AfterViewInit {
 
   public displayedColumns: string[] = ['name', 'rut', 'address', 'animal'];
-  public dataSource: MatTableDataSource<any>;
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource();
   public clicked: boolean;
-  public elementSelected: any;
+  public elementSelected: User | null;
+  public users: User[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private dialog: MatDialog,
-    private herlper: HelperService
+    private herlper: HelperService,
+    private userP: UserProviderService
   ) {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.clicked = false;
+    this.users = [];
+    this.elementSelected = null;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.setMatTable();
   }
+
+  private async setMatTable(): Promise<void> {
+    const result = await this.userP.getAllUsers().toPromise();
+    if (result){
+      this.users = result;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.paginator = this.paginator;
+      this.paginator._intl.itemsPerPageLabel = 'Usuarios a mostrar: ';
+    }
+  };
 
   ngOnChanges() {
-    // Hacer uso de la API
-    this.paginator._intl.itemsPerPageLabel = 'Usuarios a mostrar: ';
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.paginator._intl.itemsPerPageLabel = 'Usuarios a mostrar: ';
   }
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Usuarios a mostrar: ';
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.paginator._intl.itemsPerPageLabel = 'Usuarios a mostrar: ';
   }
 
   onKey(event: Event){
@@ -62,26 +71,8 @@ export class VerifyComponentComponent implements OnInit {
       }
     }).afterClosed().subscribe(result => {
       this.elementSelected = null;
-      // actualizar tabla
+      this.setMatTable();
     });
     this.clicked = true;
-    this.elementSelected = element;
   }
 }
-
-const ELEMENT_DATA: {name: string, rut: string, address: string, animal: string}[] = [
-  { name: 'Juan Jose', rut: '20.360.152-9', address: 'Federico Araneda, 1809', animal: 'Kira'},
-  { name: 'Pedro Carcuro', rut: '20.370.152-9', address: 'Federico Estrada, 1839', animal: 'Cuchurrumin'},
-  { name: 'Jose de la Masa', rut: '5.370.522-7', address: 'Eleuterio ramirez, 1839', animal: 'Casper'},
-  { name: 'Patricio Knopeln', rut: '9.370.365-9', address: 'Eleuterio ramirez, 929', animal: 'Rocky'},
-  { name: 'Eduardo Araneda', rut: '19.002.987-1', address: 'Comercio, 997', animal: 'Bobby'},
-  { name: 'Joel Lespai', rut: '12.702.982-K', address: 'Pje Alcantara, 95', animal: 'Pedrito'},
-  { name: 'Guillermo Oporto', rut: '13.123.951-8', address: 'Pje Alcantara, 99', animal: 'Chimuelo'},
-  { name: 'Juan Jose', rut: '20.360.152-9', address: 'Federico Araneda, 1809', animal: 'Kira'},
-  { name: 'Pedro Carcuro', rut: '20.370.152-9', address: 'Federico Estrada, 1839', animal: 'Cuchurrumin'},
-  { name: 'Jose de la Masa', rut: '5.370.522-7', address: 'Eleuterio ramirez, 1839', animal: 'Casper'},
-  { name: 'Patricio Knopeln', rut: '9.370.365-9', address: 'Eleuterio ramirez, 929', animal: 'Rocky'},
-  { name: 'Eduardo Araneda', rut: '19.002.987-1', address: 'Comercio, 997', animal: 'Bobby'},
-  { name: 'Joel Lespai', rut: '12.702.982-K', address: 'Pje Alcantara, 95', animal: 'Pedrito'},
-  { name: 'Guillermo Oporto', rut: '13.123.951-8', address: 'Pje Alcantara, 99', animal: 'Chimuelo'},
-];
