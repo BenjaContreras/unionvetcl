@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-3 mt-2" style="font-size: 15px;">
                                     <button mat-raised-button class="bg-white p-0 m-0 w-75" [disableRipple]="true" 
-                                        [disabled]="isOutput && selectedClient !== null"
+                                        [ngStyle]="{'pointer-events': isOutput && selectedClient !== null? 'none': '', 'cursor': isOutput && selectedClient !== null? 'default': ''}"
                                     >
                                         <mat-form-field appearance="outline" class="w-100" *ngIf="!isOutput && !selectedClient">
                                             <mat-select [formControl]="ownerFrmCtrl" placeholder="Dueño" #singleSelect (selectionChange)="setSelectedClient($event)">

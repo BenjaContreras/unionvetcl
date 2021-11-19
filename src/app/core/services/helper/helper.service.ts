@@ -98,27 +98,29 @@ export class HelperService {
   };
 
   public verifyMail(email: string): {message: string, verify: boolean} {
+    let array = [];
     this.validMails.forEach(mail => {
-      if (!email.includes(mail)) return {
-        message: 'El correo es invalido',
-        verify: false
-      };
-      return;
+      if (email.includes(mail)) array.push(mail);
     });
-    return {
-      message: 'Todo en orden',
-      verify: true 
+    if (array.length > 0) return {
+      message: 'El correo no es valido',
+      verify: false
+    };
+    else return {
+      message: 'Correo valido',
+      verify: true
     };
   };
 
   public verifyName(name: string): {message: string, verify: boolean} {
+    let array= [];
     this.specialCharacters.forEach(car => {
-      if (!name.includes(car)) return {
-        message: 'El nombre contiene caracteres invalidos',
-        verify: false
-      };
-      return;
+      if (name.includes(car)) array.push(car);;
     });
+    if (array.length > 0) return {
+      message: 'El mensaje contiene caracteres invalidos',
+      verify: false
+    };
     return {
       message: 'Todo en orden',
       verify: true 
@@ -126,13 +128,14 @@ export class HelperService {
   };
 
   public verifyMessage(message: string): {message: string, verify: boolean} {
+    let array= [];
     this.specialCharacters.forEach(car => {
-      if (!message.includes(car)) return {
-        message: 'El mensaje contiene caracteres invalidos',
-        verify: false
-      };
-      return;
+      if (message.includes(car)) array.push(car);;
     });
+    if (array.length > 0) return {
+      message: 'El mensaje contiene caracteres invalidos',
+      verify: false
+    };
     return {
       message: 'Todo en orden',
       verify: true 
@@ -141,13 +144,14 @@ export class HelperService {
 
   public verifyLink(link: string): {message: string, verify: boolean} {
     if (link.includes('http://') || link.includes('https://')) {
-      this.specialCharactersLink.forEach(car => {
-        if (!link.includes(car)) return {
-          message: 'El mensaje contiene caracteres invalidos',
-          verify: false
-        };
-        return;
+      let array= [];
+      this.specialCharacters.forEach(car => {
+        if (link.includes(car)) array.push(car);;
       });
+      if (array.length > 0) return {
+        message: 'El mensaje contiene caracteres invalidos',
+        verify: false
+      };
       return {
         message: 'Todo en orden',
         verify: true 

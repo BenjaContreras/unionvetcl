@@ -1,5 +1,5 @@
 export interface Tip {
-  id?: string,
+  _id?: string,
   title: string,
   imageUrl: string,
   content: string,

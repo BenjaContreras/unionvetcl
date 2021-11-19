@@ -32,7 +32,7 @@ export class CreateFormDetailComponent implements OnInit {
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       rut: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
+        Validators.required, Validators.minLength(8), Validators.maxLength(9)])
       ],
       address: [null, Validators.required],
       region: [null, Validators.required],
@@ -122,7 +122,7 @@ export class CreateFormDetailComponent implements OnInit {
         };
       } else {
         this.isLoading = false;
-        return this.notificationService.error('RUT invalido, intente con otro correo!');
+        return this.notificationService.error('RUT invalido, intente con otro rut!');
       };
     } else {
       this.isLoading = false;
@@ -131,12 +131,6 @@ export class CreateFormDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  ngAfterViewInit(): void {
   }
 
 }

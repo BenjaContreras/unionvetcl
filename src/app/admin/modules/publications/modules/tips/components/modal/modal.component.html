@@ -33,16 +33,6 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3" style="user-select: none;" *ngIf="editTipForm.get('state')?.value === 3 && !editTipForm.get('motion')?.value">
-        <div class="col">
-            <button
-                mat-flat-button
-                *ngIf="event === 'edit'"
-                class="btn-lg w-100 bg-danger text-white p-2"
-                style="pointer-events: none; font-size: 24px;"
-            >¡El motivo debe contener información!</button>
-        </div>
-    </div>
     <div class="row" style="user-select: none;">
         <div class="col text-center">
             <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminarlo?</strong>
@@ -55,18 +45,14 @@
                 <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
                 <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
                 <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editTipForm.get('state')?.value !== 3 && !isLoading"
-                    (click)="updateTip(false)"
+                    *ngIf="event === 'edit' && !isLoading"
+                    (click)="updateTip()"
                     [disabled]="!editTipForm.valid"
                     [ngStyle]="{'background-color': editTipForm.valid? '#0F7499' : 'grey', 'color': editTipForm.valid? 'white': ''}"
-                >Continuar</button>
-                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
-                    *ngIf="event === 'edit' && editTipForm.get('state')?.value === 3 && !isLoading"
-                    (click)="updateTip(true)"
-                    [disabled]="!editTipForm.get('motion')?.value"
-                    [ngStyle]="{'background-color': editTipForm.get('motion')?.value? '#0F7499' : 'grey', 'color': editTipForm.get('motion')?.value? 'white': ''}"
-                >Continuar</button>
-                <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
+                >Editar tip</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                    (click)="deleteTip()"
+                >Eliminar</button>
             </div>
         </div>
     </div>
@@ -78,7 +64,7 @@
             <strong>Título:</strong>
         </div>
         <div class="col">
-            {{date.title}}
+            {{tip.title}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -87,16 +73,7 @@
             <strong>Contenido:</strong>
         </div>
         <div class="col">
-            {{date.content}}
-        </div>
-        <mat-divider></mat-divider>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <strong>URL imagen:</strong>
-        </div>
-        <div class="col">
-            {{date.imageUrl}}
+            {{tip.content}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -111,6 +88,9 @@
                 <mat-form-field class="full-width" disabled>
                   <mat-label>Título</mat-label>
                   <input matInput placeholder="{{editTipForm.get('title')?.value}}" formControlName="title">
+                  <mat-error *ngIf="editTipForm.controls['title'].hasError('required')">
+                      <strong>El titulo es necesario!</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -127,6 +107,9 @@
                 <mat-form-field class="full-width" appearance="outline">
                   <mat-label>Contenido</mat-label>
                   <textarea matInput cols="50" rows="10" placeholder="{{editTipForm.get('content')?.value}}" type="text" formControlName="content"></textarea>
+                  <mat-error *ngIf="editTipForm.controls['content'].hasError('required')">
+                      <strong>El contenido también es necesario!</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>

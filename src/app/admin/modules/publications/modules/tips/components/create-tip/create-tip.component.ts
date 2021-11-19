@@ -65,15 +65,6 @@ export class CreateTipComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
 }

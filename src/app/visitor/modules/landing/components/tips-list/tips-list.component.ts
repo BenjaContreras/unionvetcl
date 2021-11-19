@@ -1,8 +1,8 @@
-import { Component, HostListener, Input, OnInit, ViewChild, NgModule, OnChanges } from '@angular/core';
-import SwiperCore, { Autoplay, Swiper } from 'swiper';
+import { Component, HostListener, Input, OnInit, ViewChild, NgModule, OnChanges, SimpleChanges } from '@angular/core';
+import SwiperCore, { Autoplay, Swiper, Lazy } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { Tip } from '@models/tip.models'
-SwiperCore.use([Autoplay]);
+SwiperCore.use([Autoplay, Lazy]);
 
 @Component({
   selector: 'tips-list',
@@ -11,7 +11,6 @@ SwiperCore.use([Autoplay]);
 })
 export class TipsListComponent implements OnInit, OnChanges {
 
-  public tipsAux: any[];
   public center: boolean;
   public breakpoints: any = {
     1220: {
@@ -27,11 +26,10 @@ export class TipsListComponent implements OnInit, OnChanges {
       spaceBetween: 30
     },
   }
-  @Input() tips! : Tip[];
+  @Input() tips : Tip[];
 
   constructor() {
-    this.tipsAux = [];
-    models.forEach((tip: any) => this.tipsAux.push(tip));
+    this.tips = [];
     this.center = false;
     if (this.getScreenSize() >= 1230) this.center = true;
   }
@@ -40,7 +38,7 @@ export class TipsListComponent implements OnInit, OnChanges {
     this.getScreenSize();
   }
 
-  ngOnChanges() {
+  async ngOnChanges(changes: SimpleChanges) {
     this.getScreenSize();
   }
 
@@ -59,41 +57,3 @@ export class TipsListComponent implements OnInit, OnChanges {
     this.swiper?.swiperRef.slideNext(100);
   };
 }
-
-const models: any = [
-  {
-    img: '../../../../../../assets/visitor/png/Image.png',
-    title: 'Parvovirosis',
-    content: 'Si observa fecas con sangre o vomitos, acuda urgente a una clinica para una revisión de su mascota.'
-  },
-  {
-    img: '../../../../../../assets/visitor/png/Image2.png',
-    title: 'Calendario de vacuna',
-    content: 'Recuerde que la aplicación de vacunas en sus mascotas debe ser anual, asi evitaremos contagio de enfermedades!'
-  },
-  {
-    img: '../../../../../../assets/visitor/png/Image3.png',
-    title: 'Temporada de calor',
-    content: 'Recuerde mantener un recambio constante del agua de su mascota. Considerando un lugar fresco!'
-  },
-  {
-    img: '../../../../../../assets/visitor/png/Image2.png',
-    title: 'Área de recreo',
-    content: 'Siempre estimular con juguetes y juegos, eso mantendrá una buena actividad mental y física en sus mascotas, facilitando una mejor salud.'
-  },
-  {
-    img: '../../../../../../assets/visitor/png/Image.png',
-    title: 'Descanso',
-    content: 'Ellos igual necesitan tiempo para recargar energías. No interrumpas sus momentos de relajo, podrías estresarlos y generar conductas inapropiadas.'
-  },
-  {
-    img: '../../../../../../assets/visitor/png/Image2.png',
-    title: 'Alimentación',
-    content: 'Comer dará salud, y una dieta completa y balanceada entrega mayores beneficios para su inmunidad y defensas. Los excesos son peligrosos.'
-  },
-  {
-    img: '../../../../../../assets/visitor/png/Image3.png',
-    title: 'Compañia',
-    content: 'Más que una mascota, son familia. No los descuides, mantén al día sus controles y podrán acompañarte por muchos años.'
-  },
-]

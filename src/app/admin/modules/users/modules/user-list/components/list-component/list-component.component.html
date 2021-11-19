@@ -16,25 +16,25 @@
           </div>
           <div class="row">
             <div class="col mat-elevation-z8 p-0">
-              <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" matSort class="w-100">
+              <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" class="w-100">
                 <!-- NAME Column -->
                 <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}}</mat-cell>
                 </ng-container>
                 <!-- RUT Column -->
                 <ng-container matColumnDef="rut">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Rut </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Rut </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.rut | rut}} </mat-cell>
                 </ng-container>
                 <!-- ADDRESS Column -->
                 <ng-container matColumnDef="address">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.address || element.address?.street | street}} </mat-cell>
                 </ng-container>
                 <!-- ANIMAL Column -->
                 <ng-container matColumnDef="animal">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Mascotas </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Mascotas </mat-header-cell>
                   <mat-cell *matCellDef="let element" [ngClass]="element.pets.length > 3? 'my-2' : ''"> 
                     <mat-chip-list [selectable]="false" *ngIf="element.pets.length">
                       <mat-chip class="animals" *ngFor="let pet of element.pets" [disableRipple]="true">{{pet.name}}</mat-chip>

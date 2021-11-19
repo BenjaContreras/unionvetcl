@@ -54,6 +54,8 @@ export class CreatePetFormDetailComponent implements OnInit {
       (<FormControl>this.createPetForm.controls[data]).setValue(null);
       this.createPetForm.controls[data].setErrors(null);
     };
+    this.createPetForm.controls['dateBirth'].setValidators(null); 
+    this.createPetForm.controls['age'].setValidators(null); 
   };
 
   public setValidator(know: boolean): void {
@@ -108,6 +110,7 @@ export class CreatePetFormDetailComponent implements OnInit {
             };
           }
           this.cleanForm();
+          this.cleanOwner();
         } catch (e) {
           console.log(e);
           this.isLoading = false;

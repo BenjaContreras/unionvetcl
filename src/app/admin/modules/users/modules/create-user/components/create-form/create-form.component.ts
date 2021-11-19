@@ -68,7 +68,7 @@ export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit, On
       return;
     } else search = search.toLowerCase();
     this.filteredUsers.next(
-      this.users.filter(user => (user.firstName.toLowerCase().includes(search) || user.lastName.toLowerCase().includes(search) || user.rut.toLowerCase().includes(search)))
+      this.users.filter(user => (user.firstName.toLowerCase().includes(search) || user.lastName.toLowerCase().includes(search)))
     );
   };
 
@@ -82,6 +82,8 @@ export class CreateFormComponent implements OnInit, OnDestroy, AfterViewInit, On
 
   public emitterReciver(event: any): void {
     this.selectedClient = event;
+    this.isOutput = false;
+    this.ngOnInit();
   };
 
   ngOnDestroy(): void {

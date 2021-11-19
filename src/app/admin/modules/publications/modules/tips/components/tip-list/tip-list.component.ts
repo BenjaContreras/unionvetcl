@@ -64,11 +64,12 @@ export class TipListComponent implements OnInit {
     this.dialog.open(ModalComponent, {
       width: '700px',
       data: {
-        appointment: this.tipSelected,
+        tip: this.tipSelected,
         type: event,
       }
     }).afterClosed().subscribe(result => {
       this.tipSelected = null;
+      this.setMatTable();
     });
   }
 

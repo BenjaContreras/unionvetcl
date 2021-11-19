@@ -70,7 +70,8 @@
                                               [ngClass]="createTipForm.valid? 'text-white': ''"
                                               [ngStyle]="{'background-color': createTipForm.valid? '#0F7499' : ''}"
                                               *ngIf="!isLoading" 
-                                          >Agendar</button>
+                                              (click)="onSubmit()"
+                                          >Crear tip</button>
                                           <button mat-button class="btn-lg" disabled *ngIf="isLoading">
                                             <mat-spinner color="accent" [diameter]="40"></mat-spinner>
                                           </button>
