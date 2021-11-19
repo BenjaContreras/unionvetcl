@@ -47,10 +47,12 @@
                 <button mat-raised-button type="submit" class="btn-lg" [disabled]="!editDateForm.valid"
                     [ngClass]="editDateForm.valid? 'text-white': ''"
                     [ngStyle]="{'background-color': editDateForm.valid? '#0F7499' : ''}"
-                    *ngIf="!isLoading" 
-                    (click)="editApointment()"
+                    *ngIf="!isLoading && event === 'edit'" 
+                    (click)="editAppointment()"
                 >Editar</button>
-                <button *ngIf="event === 'delete'" class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
+                <button *ngIf="event === 'delete' && !isLoading" class="btn-lg bg-danger text-white" mat-raised-button
+                  (click)="deleteAppointment()"
+                >Eliminar</button>
             </div>
         </div>
     </div>
