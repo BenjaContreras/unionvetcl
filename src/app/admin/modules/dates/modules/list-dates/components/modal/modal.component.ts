@@ -26,6 +26,9 @@ export class ModalComponent implements OnInit {
   public patient: Pet | null;
   public asociatedUser: User | null;
 
+  public motion: FormControl;
+  public cancelationResponsable: FormControl;
+
   constructor(
     private dialogRef: MatDialogRef<ModalComponent>,
     private fb: FormBuilder,
@@ -36,22 +39,24 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: { appointment: Appointment, type: string }
   ) {
     this.asociatedUser = null;
-    if (data.appointment) {
-      this.date = data.appointment;
-    } else this.date = null;
+    this.date = data.appointment;
     this.isLoading = false;
     this.event = data.type;
-    if (data.appointment.patient) this.patient = data.appointment.patient as Pet;
-    else this.patient = null;
+    this.patient = this.date.patient as Pet;
     this.editDateForm = this.fb.group({
-      name: [data.appointment.userName],
-      lastName: [data.appointment.userLastName],
+      name: [this.date.userName],
+      lastName: [this.date.userLastName],
       address: [null],
-      pet: [this.patient ? this.patient.name : null],
-      motion: [data.appointment.state === 3 && data.appointment.motiveCancellation? data.appointment.motiveCancellation : null],
-      cancelationResponsable: [data.appointment.state === 3 && data.appointment.responsableCancellation? data.appointment.responsableCancellation : null],
-      state: [data.appointment.state, Validators.required],
+      pet: [this.patient.name],
+      state: [this.transformState(this.date.state, 'go')],
     });
+    if (this.date.motiveCancellation && this.date.responsableCancellation) {
+      this.motion = new FormControl(this.date.motiveCancellation);
+      this.cancelationResponsable = new FormControl(this.date.responsableCancellation);
+    } else {
+      this.motion = new FormControl(null);
+      this.cancelationResponsable = new FormControl(null);
+    };
     this.stateOptions = ['Pendiente', 'Realizada', 'Rechazada'];
     this.address = null;
   }
@@ -60,7 +65,7 @@ export class ModalComponent implements OnInit {
     this.asociatedUser = await this.userP.getUserById(this.date?.userId!).toPromise();
     this.address = this.asociatedUser.address;
     this.editDateForm.patchValue({
-      address: this.address,
+      address: this.address.street,
       pet: this.patient?.name,
     });
   }
@@ -77,44 +82,38 @@ export class ModalComponent implements OnInit {
   get petName(): string { return this.editDateForm.get('pet')?.value; }
   get motive(): string { return this.editDateForm.get('motion')?.value; }
   get responsable(): string { return this.editDateForm.get('cancelationResponsable')?.value; }
-  get state(): number { return this.editDateForm.get('state')?.value; }
+  get state(): string { return this.editDateForm.get('state')?.value; }
 
   public async updateApointment(message: boolean) {
     this.isLoading = true;
-    if (message){
-      // State === 3
       if (this.editDateForm.valid){
-      if (this.helper.verifyName(this.name).verify){
+        if (this.helper.verifyName(this.name).verify){
           if (this.helper.verifyName(this.petName).verify){
-            if (this.helper.verifyName(this.motive).verify){
-              if (this.helper.verifyName(this.responsable).verify){
-                let appointment: Partial<Appointment> = {
-                  patient: this.patient?._id as string,
-                  userName: this.name.trim(),
-                  userLastName: this.lastName.trim(),
-                  state: this.state,
-                };
-                if (this.state === 3) {
-                  appointment.motiveCancellation = this.motive.trim();
-                  appointment.responsableCancellation = this.responsable.trim();
-                };
-                try {
-                  const result = await this.dateP.updateAppointment(this.date?._id!, appointment).toPromise();
-                  if (result) this.isLoading = false;
-                  this.notifications.success('Cita actualizada con éxito!');
-                  this.dialogRef.close();
-                  this.cleanForm();
-                } catch (e) {
-                  console.log(e);
-                  this.notifications.error('Error al actualizar cita');
-                  this.isLoading = false;
-                }
+            let appointment: Partial<Appointment> = {
+              patient: this.patient?._id as string,
+              userName: this.name.trim(),
+              userLastName: this.lastName.trim(),
+              state: this.transformState(this.state, 'back'),
+            };
+            if (this.state === 'Rechazada') {
+              if (this.helper.verifyName(this.motive).verify && this.helper.verifyName(this.responsable).verify) {
+                appointment.motiveCancellation = this.motion.value.trim();
+                appointment.responsableCancellation = this.cancelationResponsable.value.trim();
               } else {
+                this.notifications.error('Los motivos y el responsable contienen caracteres invalidos');
                 this.isLoading = false;
-                this.notifications.error('Responsable contiene caracteres invalidos');
+                return;
               }
-            } else {
-              this.notifications.error('El motivo tiene caracteres especiales que no están permitidos');
+            };
+            try {
+              const result = await this.dateP.updateAppointment(this.date?._id!, appointment).toPromise();
+              if (result) this.isLoading = false;
+              this.notifications.success('Cita actualizada con éxito!');
+              this.dialogRef.close();
+              this.cleanForm();
+            } catch (e) {
+              console.log(e);
+              this.notifications.error('Error al actualizar cita');
               this.isLoading = false;
             }
           } else {
@@ -129,9 +128,6 @@ export class ModalComponent implements OnInit {
         this.notifications.error('Formulario invalido, revise los campos asociados');
         this.isLoading = false;
       }
-    } else {
-      //
-    };
   };
 
   public async deleteAppointment() {
@@ -146,5 +142,32 @@ export class ModalComponent implements OnInit {
       this.notifications.error('Error al eliminar cita');
       this.isLoading = false;
     }
+  };
+
+  private transformState(state: any, event: string): any {
+    if (event === 'go') {
+      switch (state) {
+        case 1:
+          return 'Pendiente';
+        case 2:
+          return 'Realizada';
+        case 3:
+          return 'Rechazada';
+        default:
+          return '';
+      };
+    };
+    if (event === 'back') {
+      switch (state) {
+        case 'Pendiente':
+          return 1;
+        case 'Realizada':
+          return 2;
+        case 'Rechazada':
+          return 3;
+        default:
+          return 0;
+      };
+    };
   };
 }

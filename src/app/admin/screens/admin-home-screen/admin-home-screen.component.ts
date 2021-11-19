@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthProviderService } from '@core/providers/auth/auth-provider.service';
 import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
 import { DatesProviderService } from '@core/providers/dates/dates.service';
+import { UserProviderService } from '@core/providers/user/user-provider.service';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Contact } from '@models/contact.models';
@@ -21,6 +22,7 @@ export class AdminHomeScreenComponent implements OnInit {
   public lengthContact: number;
   public lengthDates: number;
   public lengthPublications: number;
+  public leengthUsersNot: number;
   public optionSelected: string;
 
   public mobileQuery: MediaQueryList;
@@ -36,11 +38,13 @@ export class AdminHomeScreenComponent implements OnInit {
     private notificationService: NotificationService,
     private contactProvider: ContactProviderService,
     private dateProvider: DatesProviderService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private userP: UserProviderService
   ) {
     this.lengthContact = 0;
     this.lengthDates = 0;
     this.lengthPublications = 0;
+    this.leengthUsersNot = 0;
     this.optionSelected = this.getCurrentRoute();
     this.options = [
       { name: 'Resumen', subcategories: [] },
@@ -60,6 +64,7 @@ export class AdminHomeScreenComponent implements OnInit {
     this.lengthContact = await this.getLengthOfContacts();
     this.lengthDates = await this.getLengthOfDates();
     this.lengthPublications = await this.getLengthOfPublications();
+    this.leengthUsersNot = await this.getLengthOfUsers();
   }
 
   public getCurrentRoute(): string {
@@ -143,6 +148,13 @@ export class AdminHomeScreenComponent implements OnInit {
     let length = 0;
     // const result = await this.dateProvider.getAllDates().toPromise();
     // if (result) length = result.length;
+    return length;
+  };
+
+  public async getLengthOfUsers(): Promise<number>{
+    let length = 0;
+    const result = await this.userP.getAllUsers().toPromise();
+    if (result) length = result.filter(user => !user.isVerified).length;
     return length;
   };
 

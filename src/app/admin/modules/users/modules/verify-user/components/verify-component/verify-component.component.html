@@ -33,7 +33,6 @@
                   <mat-row
                     *matRowDef="let element; columns: displayedColumns;" 
                     [ngClass]="[!element.isVerified? 'fw-bold' : '', clicked && element === elementSelected? 'clickedClass' : '']"
-                    (click)="openModal(element)"
                     style="cursor: pointer;"
                   ></mat-row>
                 </mat-table>

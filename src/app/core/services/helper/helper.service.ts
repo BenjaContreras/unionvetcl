@@ -129,6 +129,7 @@ export class HelperService {
 
   public verifyMessage(message: string): {message: string, verify: boolean} {
     let array= [];
+    console.log(message);
     this.specialCharacters.forEach(car => {
       if (message.includes(car)) array.push(car);;
     });
