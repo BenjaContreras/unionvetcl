@@ -145,6 +145,7 @@ export class ProductsScreenComponent implements OnInit {
     this.productsSlice = this.products;
     this.setCategories();
     this.setBrands();
+    window.scrollTo(0, 0);
   };
 
   @HostListener('window:resize', ['$event'])
