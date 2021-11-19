@@ -1,0 +1,98 @@
+<div class="container-fluid font-brand">
+    <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'delete'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡Proceso de eliminación!</button>
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 text-white p-2" 
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de edicion!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content *ngIf="event === 'delete'">
+                Usted esta apunto de eliminar un producto con esta información:
+            </div>
+            <div mat-dialog-content *ngIf="event === 'edit'">
+                Usted esta apunto de editar un producto con esta información:
+            </div>
+        </div>
+    </div>
+    <div class="row" [ngClass]="editPublicationForm.get('state')?.value === 3? '': 'mb-5'">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="productTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="productTableEditForm" *ngIf="event === 'edit'"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" style="user-select: none;" *ngIf="editPublicationForm.get('state')?.value === 3 && !editPublicationForm.get('motion')?.value">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡El motivo debe contener información!</button>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminarlo?</strong>
+            <strong *ngIf="event === 'edit'">¿Está seguro que desea actualizar con esta información?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    (click)="updatePublication()"
+                    [disabled]="!editPublicationForm.valid"
+                    *ngIf="!isLoading && event === 'edit'"
+                    [ngStyle]="{'background-color': editPublicationForm.valid? '#0F7499' : 'grey', 'color': editPublicationForm.valid? 'white': ''}"
+                >Actualizar</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                    (click)="deletePublication()"
+                >Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #productTable>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Url del publicación:</strong>
+        </div>
+        <div class="col">
+            {{publication?.url}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</ng-template>
+
+<ng-template #productTableEditForm>
+    <form [formGroup]="editPublicationForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Url de la publicación</mat-label>
+                  <input matInput [value]="editPublicationForm.value.url">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>      
+</ng-template>
