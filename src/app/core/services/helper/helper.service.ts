@@ -102,7 +102,7 @@ export class HelperService {
     this.validMails.forEach(mail => {
       if (email.includes(mail)) array.push(mail);
     });
-    if (array.length > 0) return {
+    if (array.length === 0) return {
       message: 'El correo no es valido',
       verify: false
     };
