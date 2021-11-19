@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserProviderService } from '@core/providers/user/user-provider.service';
+import { HelperService } from '@core/services/helper/helper.service';
+import { NotificationService } from '@core/services/notification/notification.service';
 import { Pet } from '@models/pet.models';
 import { User } from '@models/user.models';
 
@@ -21,6 +24,9 @@ export class ModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ModalComponent>,
     private fb: FormBuilder,
+    private helper: HelperService,
+    private notifications: NotificationService,
+    private userP: UserProviderService,
     @Inject(MAT_DIALOG_DATA) data: { user: User, type: string }
   ) {
     this.animals = [];
@@ -54,15 +60,67 @@ export class ModalComponent implements OnInit {
     };
   };
 
-  public updateUser() {
+  public async updateUser() {
     this.isLoading = true;
-    this.dialogRef.close();
-    this.isLoading = false;
+    if (this.editUserForm.valid){
+      if (this.helper.verifyRut(this.editUserForm.value.rutOwner)){
+        if (this.helper.verifyName(this.editUserForm.value.nameOwner).verify){
+          let fullName: string[] = this.transform(this.editUserForm.value.nameOwner.split(' '));
+          let user: Partial<User> = {
+            firstName: fullName[0],
+            lastName: fullName[1],
+            rut: this.editUserForm.value.rutOwner,
+            address: {
+              street: this.editUserForm.value.address,
+              commune: this.user?.address?.commune!,
+              region: this.user?.address?.region!,
+            },
+            updatedAt: new Date(),
+          };
+          try {
+            const result = await this.userP.updateUser(this.user?._id!, user).toPromise();
+            if (result) this.isLoading = false;
+            this.isLoading = false;
+            this.notifications.success('Usuario actualizado correctamente!');
+            this.dialogRef.close();
+          } catch (e) {
+            console.log(e);
+            this.notifications.error('Error al actualizar el usuario');
+            this.isLoading = false;
+          }
+        } else {
+          this.isLoading = false;
+          this.notifications.error('El nombre contiene caracteres invalidos');
+        }
+      } else {
+        this.notifications.error('El rut ingresado no es válido');
+        this.isLoading = false;
+      };
+    }
   };
 
-  public deleteUser() {
+  private transform(name: string[]): string[] {
+    let nameAux: string[] = [];
+    nameAux[0] = name[0];
+    let array = [];
+    for (let i = 1; i + 1 <= name.length; i++) {
+        array.push(name[i]);
+    };
+    nameAux[1] = array.join(' ');
+    return nameAux;
+  };
+
+  public async deleteUser() {
     this.isLoading = true;
-    this.dialogRef.close();
-    this.isLoading = false;
+    try {
+      const result = await this.userP.deleteUser(this.user?._id!).toPromise();
+      if (result) this.isLoading = false;
+      this.notifications.success('Usuario eliminado correctamente!');
+      this.dialogRef.close();
+    } catch (e) {
+      console.log(e);
+      this.notifications.error('Error al eliminar el usuario');
+      this.isLoading = false;
+    }
   }
 }
