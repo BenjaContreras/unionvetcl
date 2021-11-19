@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Block, HelperService } from '@core/services/helper/helper.service';
+import { NotificationService } from '@core/services/notification/notification.service';
 import { Apointment } from '../information-modal/information-modal.component';
 
 @Component({
@@ -23,6 +24,7 @@ export class DateBookModalComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DateBookModalComponent>,
     private helper: HelperService,
+    private notifications: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: { event: string, apointment: Apointment }
   ) { 
     this.isLoading = false;
@@ -126,7 +128,24 @@ export class DateBookModalComponent implements OnInit {
     }
   };
 
-  public editApointment(): void {
-    // TRANSFORMAR EL STATE DE STRING A NUMBER!
+  public editAppointment(): void {
+    this.isLoading = true;
+    this.editDateForm.patchValue({
+      state: this.transformState(this.editDateForm.value.state, 'back'),
+    });
+    setTimeout(() => {
+      this.notifications.success('Cita editada con éxito!');
+      this.dialogRef.close();
+      this.isLoading = false;
+    }, 2000);
+  };
+
+  public deleteAppointment(): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.notifications.success('Cita eliminada con éxito!');
+      this.dialogRef.close();
+      this.isLoading = false;
+    }, 2000);
   };
 }
