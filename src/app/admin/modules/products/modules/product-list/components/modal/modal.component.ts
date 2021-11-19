@@ -35,6 +35,7 @@ export class ModalComponent implements OnInit {
       description: [this.product?.description],
       stock: [this.product?.stock ? this.product.stock : 0],
       sale: [this.product?.sale ? this.product.sale : null, Validators.required],
+      url: [this.product?.imageUrl ? this.product.imageUrl : null]
     });
     if (this.product?.sale) this.inSale = this.product.sale;
     else this.inSale = false;
