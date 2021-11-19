@@ -1,0 +1,200 @@
+<div class="container-fluid font-brand">
+    <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'delete'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡Proceso de eliminación!</button>
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 text-white p-2" 
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de edicion!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content *ngIf="event === 'delete'">
+                Usted esta apunto de eliminar un usuario con esta información:
+            </div>
+            <div mat-dialog-content *ngIf="event === 'edit'">
+                Usted esta apunto de editar un usuario con esta información:
+            </div>
+        </div>
+    </div>
+    <div class="row" [ngClass]="editUserForm.get('state')?.value === 3? '': 'mb-5'">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="dateTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="dateTableEditForm" *ngIf="event === 'edit'"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminar al usuario?</strong>
+            <strong *ngIf="event === 'edit'">¿Está seguro que desea actualizar con esta información?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                  *ngIf="event === 'edit' && !isLoading" 
+                  (click)="updateUser()"
+                  [disabled]="!editUserForm.valid"
+                  [ngStyle]="{'background-color': editUserForm.valid? '#0F7499' : 'grey', 'color': editUserForm.valid? 'white': ''}"
+                >Continuar</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                  (click)="deleteUser()"
+                >Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #dateTable>
+    <div class="row mb-3">
+        <div class="col" style="user-select: none;">
+            <strong>Nombre del dueño:</strong>
+        </div>
+        <div class="col">
+            {{user?.firstName}} {{user?.lastName}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="user-select: none;">
+            <strong>RUT del dueño:</strong>
+        </div>
+        <div class="col">
+            {{user?.rut | rut}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row" [ngClass]="!user?.address?.street && !user?.address?.commune && !user?.address?.region? 'mb-3' : ''">
+        <ng-template *ngIf="user?.address?.street && user?.address?.commune && user?.address?.region"  [ngTemplateOutlet]="addressInfo"></ng-template>
+        <ng-container *ngIf="!user?.address?.street && !user?.address?.commune && !user?.address?.region && user?.address">
+          <div class="col" style="user-select: none;">
+            <strong>Calle:</strong>
+          </div>
+          <div class="col">
+            {{user?.address}}
+          </div>
+          <mat-divider></mat-divider>
+        </ng-container>
+        <ng-container *ngIf="!user?.address">
+          <div class="col" style="user-select: none;">
+            <strong>Calle:</strong>
+          </div>
+          <div class="col">
+            Dirección no definida
+          </div>
+          <mat-divider></mat-divider>
+        </ng-container>
+    </div>
+    <div class="row">
+        <div class="col mt-2" style="user-select: none;">
+            <strong>Mascotas asociadas:</strong>
+        </div>
+        <div class="col">
+          <mat-chip-list *ngIf="animals.length > 0">
+            <mat-chip class="mt-2" [selectable]="false" [removable]="false" *ngFor="let animal of animals">
+              {{animal.name}}
+            </mat-chip>
+          </mat-chip-list>
+          <ng-container *ngIf="!animals.length">
+            Sin mascotas registradas
+          </ng-container>
+        </div>
+        <mat-divider class="mt-2"></mat-divider>
+    </div>
+</ng-template>
+
+<ng-template #dateTableEditForm>
+    <form [formGroup]="editUserForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Nombre del dueño</mat-label>
+                  <input matInput placeholder="{{editUserForm.get('nameOwner')?.value}}" formControlName="nameOwner">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>RUT del dueño</mat-label>
+                  <input matInput placeholder="{{editUserForm.get('rutOwner')?.value}}" formControlName="rutOwner">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Dirección</mat-label>
+                  <input matInput type="text" placeholder="{{editUserForm.get('address')?.value}}" formControlName="address">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <ng-container *ngIf="animals.length > 0; else dontHave">
+                    <mat-label>Animales asociados</mat-label>
+                    <mat-chip-list #chipList disabled>
+                      <mat-chip class="mt-2" [selectable]="false" [removable]="false" *ngFor="let animal of animals">
+                        {{animal.name}}
+                      </mat-chip>
+                      <input disabled
+                        [matChipInputFor]="chipList"
+                      >
+                    </mat-chip-list>
+                  </ng-container>
+                  <ng-template #dontHave>
+                    <input type="text" matInput [value]="'Sin animales asociados'" disabled>
+                  </ng-template>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>      
+</ng-template>
+
+<ng-template #addressInfo>
+  <div class="row mb-3">
+    <div class="col" style="user-select: none;">
+        <strong>Calle:</strong>
+    </div>
+    <div class="col me-0">
+        {{user?.address || user?.address | street: 'calle'}}
+    </div>
+    <mat-divider></mat-divider>
+</div>
+<div class="row mb-3">
+    <div class="col" style="user-select: none;">
+        <strong>Comuna:</strong>
+    </div>
+    <div class="col me-0">
+        {{user?.address || user?.address | street: 'comuna'}}
+    </div>
+    <mat-divider></mat-divider>
+</div>
+<div class="row mb-3">
+    <div class="col" style="user-select: none;">
+        <strong>Región:</strong>
+    </div>
+    <div class="col me-0">
+        {{user?.address || user?.address | street: 'region'}}
+    </div>
+    <mat-divider></mat-divider>
+</div>
+</ng-template>

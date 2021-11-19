@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'list-component',
@@ -10,15 +12,14 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'rut', 'address', 'animal', 'fecha'];
+  public displayedColumns: string[] = ['name', 'rut', 'address', 'animal', 'date'];
   public dataSource: MatTableDataSource<any>;
   public expandedElement: any;
   public dateSelected: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.expandedElement = null;
     this.dateSelected = null;
@@ -31,20 +32,30 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
     this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Citas a mostrar: ';
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   onKey(event: Event){
     const filterValue = (event.target as HTMLInputElement)?.value;
     this.dataSource.filter = filterValue?.trim().toLowerCase();
   };
+
+  public openModal(event: string){
+    this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        appointment: this.dateSelected,
+        type: event,
+      }
+    }).afterClosed().subscribe(result => {
+      this.dateSelected = null;
+    });
+  }
 }
 
 const ELEMENT_DATA: {name: string, rut: string, address: string, animal: string, fecha: string}[] = [

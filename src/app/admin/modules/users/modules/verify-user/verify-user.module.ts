@@ -7,6 +7,10 @@ import { VerifyComponentComponent } from './components/verify-component/verify-c
 import { MaterialModule } from '@core/material.module';
 import { VerifyHeaderComponent } from './components/verify-header/verify-header.component';
 import { VerifyModalComponent } from './components/verify-modal/verify-modal.component';
+import { RecentVerifiedModalComponent } from './components/recent-verified-modal/recent-verified-modal.component';
+import { MomentModule } from '@core/pipes/moment/moment.module';
+import { StreetModule } from '@core/pipes/street/street.module';
+import { RutModule } from '@core/pipes/rut/rut.module';
 
 
 @NgModule({
@@ -14,12 +18,16 @@ import { VerifyModalComponent } from './components/verify-modal/verify-modal.com
     VerifyScreenComponent,
     VerifyComponentComponent,
     VerifyHeaderComponent,
-    VerifyModalComponent
+    VerifyModalComponent,
+    RecentVerifiedModalComponent
   ],
   imports: [
     CommonModule,
     VerifyUserRoutingModule,
-    MaterialModule
+    MaterialModule,
+    MomentModule,
+    StreetModule,
+    RutModule
   ]
 })
 export class VerifyUserModule { }

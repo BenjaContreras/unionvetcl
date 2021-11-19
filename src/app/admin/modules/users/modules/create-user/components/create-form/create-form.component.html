@@ -14,7 +14,9 @@
                         <mat-card-content class="p-3 ps-5 m-0" style="color: white;">
                             <div class="row">
                                 <div class="col">
-                                    <app-create-form-detail></app-create-form-detail>
+                                    <app-create-form-detail
+                                        (cleanUserEmitter)="emitterReciver($event); isOutput = true;"
+                                    ></app-create-form-detail>
                                 </div>
                             </div>
                         </mat-card-content>
@@ -29,8 +31,32 @@
                 <mat-expansion-panel class="m-0 p-0">
                     <mat-expansion-panel-header class="m-0 py-5 text-white" style="color: white; background-color: #0F7499;">
                         <mat-panel-title class="font-brand">
-                            <div class="col m-3 text-white fw-bold" style="font-size: 48px;">
-                                Datos de la mascota
+                            <div class="row w-100 align-items-center">
+                                <div class="col-7 m-3 text-white fw-bold" style="font-size: 48px;">
+                                    Datos de la mascota
+                                </div>
+                                <div class="col-3 mt-2" style="font-size: 15px;">
+                                    <button mat-raised-button class="bg-white p-0 m-0 w-75" [disableRipple]="true" 
+                                        [ngStyle]="{'pointer-events': isOutput && selectedClient !== null? 'none': '', 'cursor': isOutput && selectedClient !== null? 'default': ''}"
+                                    >
+                                        <mat-form-field appearance="outline" class="w-100" *ngIf="!isOutput && !selectedClient">
+                                            <mat-select [formControl]="ownerFrmCtrl" placeholder="Dueño" #singleSelect (selectionChange)="setSelectedClient($event)">
+                                                <mat-option>
+                                                    <ngx-mat-select-search 
+                                                        [formControl]="ownerFrmFilterCtrl"
+                                                        noEntriesFoundLabel="Sin coincidencias"
+                                                        placeholderLabel="Escriba el nombre..."
+                                                    ></ngx-mat-select-search>
+                                                </mat-option>
+                                                <mat-option  
+                                                    *ngFor="let client of filteredUsers | async" 
+                                                    [value]="client"
+                                                >{{client.firstName}} {{client.lastName}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <span *ngIf="isOutput && selectedClient">{{selectedClient?.firstName}} {{selectedClient?.lastName}}</span>
+                                    </button>
+                                </div>
                             </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -38,7 +64,10 @@
                         <mat-card-content class="p-3 ps-5 m-0" style="color: white;">
                             <div class="row">
                                 <div class="col">
-                                    <app-create-pet-form-detail></app-create-pet-form-detail>
+                                    <app-create-pet-form-detail
+                                        [owner]="confirmClient()"
+                                        (cleanPetEmitter)="emitterReciver($event)"
+                                    ></app-create-pet-form-detail>
                                 </div>
                             </div>
                         </mat-card-content>

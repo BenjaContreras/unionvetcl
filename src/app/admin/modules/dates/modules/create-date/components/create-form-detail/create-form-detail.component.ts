@@ -1,9 +1,16 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
 import { DatesProviderService } from '@core/providers/dates/dates.service';
+import { PetProviderService } from '@core/providers/pet/pet-provider.service';
 import { Block, HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { DateModel } from '@models/date.models';
+import { Appointment } from '@models/date.models';
+import { Pet } from '@models/pet.models';
+import { User } from '@models/user.models';
+import * as moment from 'moment';
+import { ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-form-detail',
@@ -20,31 +27,39 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
   public regiones: string[];
   public blocks: Block[];
   public isLoading: boolean;
+  public patients: Pet[];
+  public selectedPatient: Pet | null;
+  public user: User | null;
+
+  public petFrmCtrl: FormControl = new FormControl(null);
+  public petFrmFilterCtrl: FormControl = new FormControl(null);
+  public filteredPets: ReplaySubject<Pet[]> = new ReplaySubject<Pet[]>(1);
+  protected onDestroy = new Subject<void>();
+
+  @ViewChild('singleSelect') singleSelect!: MatSelect;
 
   constructor(
     private fb: FormBuilder, 
     private helperService: HelperService,
     private notificationService: NotificationService,
     private dateProvider: DatesProviderService,
+    private petP: PetProviderService
   ) {
     this.cleanClientEmitter = new EventEmitter<any>();
     this.client = null;
+    this.user = null;
     this.isLoading = false;
+    this.patients = [];
     this.createDateForm = this.fb.group({
-      fullName: [null, Validators.required],
-      RUT: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
-      ],
-      address: [null, Validators.required],
-      region: [null, Validators.required],
-      commune: [null, Validators.required],
-      email: [null, Validators.compose([
-        Validators.required, Validators.email])
-      ],
+      pet: [null, Validators.required],
+      address: [null], region: [null], commune: [null],
       day: [null, Validators.required],
       block: [null, Validators.required],
-      phone: [null, Validators.compose([
-        Validators.required, Validators.minLength(9), Validators.maxLength(9)])
+      email: [
+        null, Validators.compose([Validators.required, Validators.email]),
+      ],
+      phone: [
+        null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
       ],
     });
     this.regionSelected = '';
@@ -52,6 +67,7 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
     this.communes = [];
     this.regiones = this.helperService.communes.map(commune => commune.name);
     if (this.client) this.cleanForm();
+    this.selectedPatient = null;
   }
 
   public setRegionSelected(region: string): void {
@@ -88,61 +104,95 @@ export class CreateFormDetailComponent implements OnInit, OnChanges, AfterViewIn
   get region(): string { return this.createDateForm.get('region')?.value };
   get commune(): string { return this.createDateForm.get('commune')?.value };
   get email(): string { return this.createDateForm.get('email')?.value };
-  get day(): string { return this.createDateForm.get('day')?.value };
-  get block(): string { return this.createDateForm.get('block')?.value };
+  get day(): Date { return this.createDateForm.get('day')?.value };
+  get block(): number { return this.createDateForm.get('block')?.value };
   get phone(): string { return this.createDateForm.get('phone')?.value };
-  get street(): string { return this.address.split(',')[0] };
-  get number(): string { return this.address.split(',')[1] };
 
   async onSubmit(): Promise<any> {
-    // if (this.createDateForm.valid){
-    //   if (this.helperService.verifyRut(this.rut)){
-    //     if (this.helperService.verifyName(this.fullName).verify){
-    //       let newDate: DateModel = {
-    //         day: this.day,
-    //         block: this.block,
-    //         user: {
-    //           fullName: this.fullName,
-    //           RUT: this.rut,
-    //           address: {
-    //             region: this.region,
-    //             commune: this.commune,
-    //             street: this.street,
-    //             number: this.number,
-    //           },
-    //           email: this.email,
-    //           phone: this.phone,
-    //         }
-    //       };
-    //       try {
-    //         this.isLoading = true;
-    //         // const result = await this.dateProvider.postDate(newDate).toPromise();
-    //         // if (result) this.isLoading = false;
-    //         this.notificationService.success(`Se ha creado la cita para el dia ${this.day} en el bloque ${this.block}`);
-    //         this.cleanForm();
-    //       } catch (e) {
-    //         console.log(e);
-    //         this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
-    //       }
-    //     } else {
-    //       return this.notificationService.error('Ingrese solo su nombre, sin caracteres especiales');
-    //     };
-    //   } else {
-    //     return this.notificationService.error('RUT invalido, intente con otro correo!');
-    //   };
-    // };
+    this.isLoading = true;
+    if (this.createDateForm.valid){
+      let newDate: Appointment = {
+        date: {
+          day: this.day.getDate(), 
+          month: this.day.getMonth() + 1, 
+          year: this.day.getFullYear()
+        },
+        block: this.block,
+        patient: this.selectedPatient?._id as string,
+        userName: this.user?.firstName,
+        userLastName: this.user?.lastName,
+        userId: this.user?._id,
+      }; 
+      try {
+        const result = await this.dateProvider.postAppointment(newDate).toPromise();
+        if (result) this.isLoading = false;
+        let blockFiltered = this.blocks.find(block => block.value === this.block);
+        this.notificationService.success(`Se ha creado la cita para el dia ${moment(this.day).format('dddd DD MMM')} en el bloque ${blockFiltered?.name}`);
+      } catch (e) {
+        console.log(e);
+        this.isLoading = false;
+        this.notificationService.error('No se pudo realizar tu solicitud, intente otra vez');
+      }
+    };
   }
 
-  ngOnInit(): void {
-    if (this.client) this.cleanForm();
+  async ngOnInit(): Promise<void> {
+    this.user = this.client.value as User;
+    this.patients = this.user?.pets as Pet[];
+    this.setFormAgain();
+    this.petFrmCtrl.setValue(null);
+    this.filteredPets.next(this.patients?.slice());
+    this.petFrmFilterCtrl.valueChanges
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(() => {
+        this.filterPets();
+      });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.client.currentValue === this.client) this.cleanForm();
-    if (this.client) this.cleanForm();
+  private setFormAgain(){
+    this.createDateForm.setValue({
+      pet: null,
+      region: this.user?.address?.region,
+      commune: this.user?.address?.commune,
+      address: this.user?.address?.street,
+      email: this.user?.email,
+      phone: this.user?.phone,
+      day: null,
+      block: null,
+    });
+  };
+
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    if (changes.client) await this.ngOnInit();
   }
 
   ngAfterViewInit(): void {
-    if (this.client) this.cleanForm();
+    this.setInitialValue();
   }
+
+  protected setInitialValue(): void {
+    this.filteredPets
+    .pipe(take(1), takeUntil(this.onDestroy)).subscribe(() => {
+      this.singleSelect.compareWith = (a: any, b: any) => a && b && a === b;
+    });
+  };
+
+  protected filterPets(): void {
+    if (!this.patients) return;
+    let search = this.petFrmFilterCtrl.value;
+    if (!search) {
+      this.filteredPets.next(this.patients.slice());
+      return;
+    } else search = search.toLowerCase();
+    this.filteredPets.next(
+      this.patients.filter(patient => patient.name.toLowerCase().includes(search))
+    );
+  };
+
+  public setSelectedPet(client: any): void {
+    this.selectedPatient = client.value;
+    this.createDateForm.patchValue({
+      pet: this.selectedPatient
+    });
+  };
 }

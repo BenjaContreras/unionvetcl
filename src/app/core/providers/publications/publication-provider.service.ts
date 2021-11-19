@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Publication } from '@core/models/publication.model';
+import { Publication } from '@models/publication.models';
 import { HttpService } from '@core/services/http/http.service';
 import { Observable } from 'rxjs';
 
@@ -18,12 +18,12 @@ export class PublicationProviderService {
     return this.httpService.get<Publication>(`/publication/${publicationId}`);
   };
 
-  public updatePublication(appoinmentId: string, body: any): Observable<Partial<Publication>>{
-    return this.httpService.put<Publication>(`/publication/${appoinmentId}`, body);
+  public updatePublication(publicationId: string, body: any): Observable<Partial<Publication>>{
+    return this.httpService.put<Publication>(`/publication/${publicationId}`, body);
   };
 
-  public deletePublication(appoinmentId: string): Observable<Publication>{
-    return this.httpService.delete<Publication>(`/publication/${appoinmentId}`);
+  public deletePublication(publicationId: string): Observable<Publication>{
+    return this.httpService.delete<Publication>(`/publication/${publicationId}`);
   };
 
   public postPublication(body: any): Observable<Publication>{

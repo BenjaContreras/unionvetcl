@@ -1,1 +1,93 @@
-<p>create-tip works!</p>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col ms-5 px-5 pb-0 pt-5">
+        <div class="container-fluid mb-2">
+          <div class="row align-items-center justify-content-center">
+              <div class="col">
+                  <h1 class="fw-bold" style="color: #0f7499">Crear tip</h1>
+              </div>
+          </div>
+        </div>
+          <mat-divider></mat-divider>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col ms-5 px-5 pb-5 pt-5">
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col p-0">
+                  <mat-card class="w-100 font-brand p-0">
+                      <mat-card-title class="p-3 ps-5 m-0" style="color: white; background-color: #0F7499;">
+                          <div class="row align-items-center">
+                              <div class="col" style="font-size: 48px;">
+                                  Información del tip
+                              </div>
+                              <div class="col-1"></div>
+                          </div>
+                      </mat-card-title>
+                      <mat-card-content class="p-3 ps-5 m-0">
+                          <div class="row">
+                              <div class="col">
+                                <form [formGroup]="createTipForm" novalidate >
+                                  <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+                                    <mat-card-content>
+                                      <div class="row">
+                                        <div class="col">
+                                          <mat-form-field class="full-width">
+                                            <input matInput placeholder="Titulo" formControlName="title">
+                                            <mat-error *ngIf="createTipForm.controls['title'].hasError('required')">
+                                              <strong>Título requerido!</strong>
+                                            </mat-error>
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                          <mat-form-field class="full-width">
+                                              <mat-label>URL imagen</mat-label>
+                                            <input matInput type="text" placeholder="Ingrese el link aquí..." formControlName="imageUrl">
+                                            <mat-error *ngIf="createTipForm.controls['imageUrl'].hasError('required')">
+                                              <strong>El url también es necesario!</strong>
+                                            </mat-error>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col">
+                                          <mat-form-field class="full-width" appearance="outline">
+                                            <mat-label>Contenido</mat-label>
+                                            <textarea matInput cols="50" rows="10" placeholder="Escriba el contenido aquí..." type="text" formControlName="content"></textarea>
+                                            <mat-error *ngIf="createTipForm.controls['content'].hasError('required')">
+                                              <strong>El contenido también!</strong>
+                                            </mat-error>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    </mat-card-content>
+                                    <mat-card-actions class="m-0 p-0 text-end">
+                                      <div class="row align-items-center">
+                                        <div class="col">
+                                          <button mat-raised-button class="btn-lg btn-secundary me-3" type="reset">Limpiar formulario</button>
+                                          <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createTipForm.valid"
+                                              [ngClass]="createTipForm.valid? 'text-white': ''"
+                                              [ngStyle]="{'background-color': createTipForm.valid? '#0F7499' : ''}"
+                                              *ngIf="!isLoading" 
+                                              (click)="onSubmit()"
+                                          >Crear tip</button>
+                                          <button mat-button class="btn-lg" disabled *ngIf="isLoading">
+                                            <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+                                          </button>
+                                        </div>
+                                      </div>
+                                  </mat-card-actions>
+                                  </mat-card>
+                                </form>
+                              </div>
+                          </div>
+                      </mat-card-content>
+                  </mat-card>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+

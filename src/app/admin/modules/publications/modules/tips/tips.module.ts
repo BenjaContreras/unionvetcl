@@ -8,6 +8,7 @@ import { CreateTipComponent } from './components/create-tip/create-tip.component
 import { UpdateTipComponent } from './components/update-tip/update-tip.component';
 import { TipListComponent } from './components/tip-list/tip-list.component';
 import { MaterialModule } from '@core/material.module';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 
@@ -18,7 +19,8 @@ import { MaterialModule } from '@core/material.module';
     TipScreenComponent,
     CreateTipComponent,
     UpdateTipComponent,
-    TipListComponent
+    TipListComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,47 @@
+<div class="container-fluid font-brand">
+    <div class="row" mat-dialog-title>
+        <div class="col text-center">
+            <h2>
+                Solicitudes recientemente editadas
+            </h2>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row" *ngIf="contacts?.length">
+        <div class="col">
+            <mat-accordion class="font-brand">
+                <mat-expansion-panel *ngFor="let contact of contacts" class="my-2">
+                  <mat-expansion-panel-header style="color: white !important; background-color: #0f7499 !important;">
+                    <mat-panel-title style="color: white !important;">
+                      <span class="me-2">Solicitud de:</span><span style="font-weight: 500;">{{contact.fullName}}</span>
+                    </mat-panel-title>
+                    <mat-panel-description style="color: white !important;">
+                      <span class="me-2">Realizada el:</span><span style="font-weight: 500;">{{contact.createdAt | moment}}</span>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <ng-template matExpansionPanelContent>
+                      <div class="row pt-3 py-2">
+                          <div class="col">
+                            <mat-label class="ms-2" style="color: #0f7499; font-size: 16px; font-weight: 500;">Mensaje</mat-label>
+                            <textarea matInput class="p-2" style="border: 1px solid gray; border-radius: 10px;" cols="50" rows="10" value="{{contact?.message}}" type="text" disabled></textarea>
+                          </div>
+                          <div class="col">
+                            <mat-label class="ms-2" style="color: #0f7499; font-size: 16px; font-weight: 500;">Respuesta</mat-label>
+                            <textarea matInput class="p-2" style="border: 1px solid gray; border-radius: 10px;" cols="50" rows="10" value="{{contact?.response}}" type="text" disabled></textarea>
+                          </div>
+                      </div>
+                  </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+    <div class="row" *ngIf="!contacts?.length">
+        <div class="col text-center">
+            <h4>No ha editado nada aún en esta sesión</h4>
+        </div>
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close class="btn-lg">Cerrar</button>
+        <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" cdkFocusInitial (click)="cleanAll()">Limpiar bandeja</button>
+    </mat-dialog-actions>
+</div>

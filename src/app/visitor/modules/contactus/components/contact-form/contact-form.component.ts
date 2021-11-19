@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ContactProviderService } from '@core/providers/contacts/contact-provider.service';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 
 @Component({
   selector: 'visitor-contact-form',
@@ -58,10 +58,10 @@ export class ContactFormComponent {
         if (this.helperService.verifyMail(this.email).verify){
           if (this.helperService.verifyName(this.fullName).verify){
             let contact: Contact = {
-              fullName: this.fullName,
-              phone: this.phone,
-              email: this.email,
-              message: this.message
+              fullName: this.fullName.trim(),
+              phone: this.phone.trim(),
+              email: this.email.trim(),
+              message: this.message.trim()
             };
             try {
               this.isLoading = true;

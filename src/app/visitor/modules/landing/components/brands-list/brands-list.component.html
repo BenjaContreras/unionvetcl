@@ -1,20 +1,10 @@
 <div class="container-fluid my-5 py-5">
     <div class="row align-items-center">
-        <div class="col fw-bold" style="color: #0F7499; font-size: 40px">¡Ellos también son parte de nuestro equipo!</div>
-        <div class="col">
-            <div class="row my-2">
-                <div class="col">
-                    <img src="../../../../../../assets/shared/delipetLogo.svg" height="200px" width="300px">
-                </div>
-                <div class="col">
-                    <img src="../../../../../../assets/shared/drogueriaLogo.svg" height="200px" width="300px">
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <img src="../../../../../../assets/shared/happyCatLogo.png" height="200px" width="500px">
-                </div>
-            </div>
+        <div [ngClass]="getScreenSize() >= 1350? 'col': 'col-12 mb-3'" class="fw-bold" style="color: #0F7499; font-size: 40px">¡Ellos también son parte de nuestro equipo!</div>
+        <div [ngClass]="getScreenSize() >= 1350? 'col': 'col-12'">
+            <img *ngIf="getScreenSize() >= 1350" src="../../../../../../assets/brands/Group 139.png">
+            <img *ngIf="getScreenSize() < 1350 && getScreenSize() >= 540" src="../../../../../../assets/brands/Group 139.png" width="90%">
+            <img *ngIf="getScreenSize() < 540" src="../../../../../../assets/brands/Group 139.png" width="95%">
         </div>
     </div>
 </div>

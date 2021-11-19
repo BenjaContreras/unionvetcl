@@ -1,0 +1,61 @@
+<div class="container-fluid font-brand">
+    <div class="row" mat-dialog-title>
+        <div class="col text-center">
+            <h2>
+                Usuarios recientemente verificados
+            </h2>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row" *ngIf="users?.length">
+        <div class="col">
+            <mat-accordion class="font-brand">
+                <mat-expansion-panel *ngFor="let user of users" class="my-2">
+                  <mat-expansion-panel-header style="color: white !important; background-color: #0f7499 !important;">
+                    <mat-panel-title style="color: white !important;">
+                      <span class="me-2">Usuario verificado:</span><span style="font-weight: 500;">{{user.firstName}} {{user.lastName}}</span>
+                    </mat-panel-title>
+                    <mat-panel-description style="color: white !important;">
+                      <span class="me-2">Fecha de verificación</span><span style="font-weight: 500;">{{user.updatedAt | moment}}</span>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <ng-template matExpansionPanelContent>
+                      <div class="row pt-3 py-2">
+                          <div class="col">
+                              Correo:
+                          </div>
+                          <div class="col">
+                              {{user.email}}
+                          </div>
+                      </div>
+                      <div class="row pt-3 py-2">
+                          <div class="col">
+                              Teléfono:
+                          </div>
+                          <div class="col">
+                              {{user.phone}}
+                          </div>
+                      </div>
+                      <div class="row pt-3 py-2">
+                          <div class="col">
+                              Dirección:
+                          </div>
+                          <div class="col">
+                              {{user.address.street}}, {{user.address.commune}}. {{user.address.region}}
+                          </div>
+                      </div>
+                  </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+    <div class="row" *ngIf="!users?.length">
+        <div class="col text-center">
+            <h4>No ha editado nada aún en esta sesión</h4>
+        </div>
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close class="btn-lg">Cerrar</button>
+        <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" cdkFocusInitial (click)="cleanAll()">Limpiar bandeja</button>
+    </mat-dialog-actions>
+</div>

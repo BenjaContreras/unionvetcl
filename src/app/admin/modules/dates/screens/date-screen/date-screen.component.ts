@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Injectable, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY} from '@angular/material/datepicker';
@@ -62,6 +62,9 @@ export class DateScreenComponent implements OnInit {
   public dateTopSelected: any;
   public dateBottomSelected: any;
   public isAdmin: boolean;
+  public weekInit: number;
+  public weekEnd: number;
+  public isAfter: boolean;
 
   constructor(
     private router: Router,
@@ -74,6 +77,10 @@ export class DateScreenComponent implements OnInit {
       start: new FormControl(),
       end: new FormControl()
     });
+    this.weekInit = moment().startOf('week').toDate().getDate();
+    this.weekEnd = moment().startOf('week').toDate().getDate() + 4;
+    if (new Date().getDay() > 5) this.isAfter = true;
+    else this.isAfter = false;
     const month: number = new Date().getMonth() + 1;
     switch (month) {
       case 1: this.mes = 'Enero';

@@ -7,7 +7,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class ProductsListComponent implements OnInit {
 
-  constructor() { }
+  public today: Date;
+
+  constructor() { 
+    this.today = new Date();
+  }
 
   ngOnInit(): void {
   }

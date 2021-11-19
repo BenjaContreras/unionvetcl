@@ -9,13 +9,13 @@
                 [loop]="true"
                 [autoplay]="{delay: 3000, disableOnInteraction: false}"
                 [grabCursor]="true"
-                [centeredSlides]="center"
+                [lazy]="true"
                 [loopFillGroupWithBlank]="true"
                 #swiper
             >
-                <ng-template swiperSlide *ngFor="let tip of tipsAux" >
+                <ng-template swiperSlide *ngFor="let tip of tips">
                     <tip-detail
-                        [url]="tip.img"
+                        [url]="tip.imageUrl"
                         [title]="tip.title"
                         [content]="tip.content"
                     ></tip-detail>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '@core/services/http/http.service';
+import { Appointment } from '@models/date.models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,15 +10,23 @@ export class DatesProviderService {
 
   constructor(private httpService: HttpService) { }
 
-  // public getAllDates(): Observable<Date[]> {
-  //   return this.httpService.get<Date[]>('/dates');
-  // };
+  public getAllAppointments(): Observable<Appointment[]> {
+    return this.httpService.get<Appointment[]>('/appointment');
+  }
 
-  // public getDateById(id: string): Observable<Date> {
-  //   return this.httpService.get<Date>(`/dates/${id}`);
-  // };
+  public getAppointmentById(appointmentId: string): Observable<Appointment>{
+    return this.httpService.get<Appointment>(`/appointment/${appointmentId}`);
+  };
 
-  // public postDate(date: any): Observable<Date> {
-  //   return this.httpService.post<Date>('/dates', date);
-  // };
+  public updateAppointment(appointmentId: string, body: any): Observable<Partial<Appointment>>{
+    return this.httpService.put<Appointment>(`/appointment/${appointmentId}`, body);
+  };
+
+  public deleteAppointment(appointmentId: string): Observable<Appointment>{
+    return this.httpService.delete<Appointment>(`/appointment/${appointmentId}`);
+  };
+
+  public postAppointment(body: any): Observable<Appointment>{
+    return this.httpService.post<Appointment>(`/appointment`, body);
+  };
 }

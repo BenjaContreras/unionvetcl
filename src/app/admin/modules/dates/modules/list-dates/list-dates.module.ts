@@ -5,10 +5,13 @@ import { ListDatesRoutingModule } from './list-dates-routing.module';
 import { ListScreenComponent } from './screens/list-screen/list-screen.component';
 import { ListComponentComponent } from './components/list-component/list-component.component';
 import { MaterialModule } from '@core/material.module';
+import { ModalComponent } from './components/modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const components: any = [
   ListScreenComponent,
-  ListComponentComponent
+  ListComponentComponent, 
+  ModalComponent
 ];
 
 @NgModule({
@@ -16,7 +19,8 @@ const components: any = [
   imports: [
     CommonModule,
     ListDatesRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgbModule
   ]
 })
 export class ListDatesModule { }

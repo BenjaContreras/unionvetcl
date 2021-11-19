@@ -7,6 +7,7 @@ import { RedirectComponentComponent } from './components/redirect-component/redi
 import { MaterialModule } from '@core/material.module';
 import { UploadPublicationComponent } from './components/upload-publication/upload-publication.component';
 import { PublicationListComponent } from './components/publication-list/publication-list.component';
+import { ModalComponentComponent } from './components/modal-component/modal-component.component';
 
 
 
@@ -16,7 +17,8 @@ import { PublicationListComponent } from './components/publication-list/publicat
     SocialMediaScreenComponent,
     RedirectComponentComponent,
     UploadPublicationComponent,
-    PublicationListComponent
+    PublicationListComponent,
+    ModalComponentComponent
   ],
   imports: [
     CommonModule,

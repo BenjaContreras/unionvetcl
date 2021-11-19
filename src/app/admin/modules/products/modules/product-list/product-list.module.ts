@@ -5,7 +5,9 @@ import { ProductListRoutingModule } from './product-list-routing.module';
 import { ListScreenComponent } from './screens/list-screen/list-screen.component';
 import { ListComponentComponent } from './components/list-component/list-component.component';
 import { MaterialModule } from '@core/material.module';
-import { SalePipe } from '@core/pipes/sale.pipe';
+import { ModalComponent } from './components/modal/modal.component';
+import { SaleModule } from '@core/pipes/sale/sale.module';
+import { StockModule } from '@core/pipes/stock/stock.module';
 
 
 
@@ -13,12 +15,14 @@ import { SalePipe } from '@core/pipes/sale.pipe';
   declarations: [
     ListScreenComponent,
     ListComponentComponent,
-    SalePipe
+    ModalComponent,
   ],
   imports: [
     CommonModule,
     ProductListRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SaleModule,
+    StockModule
   ]
 })
 export class ProductListModule { }

@@ -7,25 +7,50 @@
             <img *ngIf="getScreenSize() < 430" src="../../../../../../assets/shared/backgroundTitles/productsTitle.svg" width="300">
         </div>
     </div>
-    <div class="row justify-content-center h-100 mt-3" *ngIf="getScreenSize() < 1100">
+    <div class="row my-3 align-items-center">
+        <div class="col">
+            <app-filters-inline
+                [number]="products.length"
+                [categories]="categories"
+                [brands]="brands"
+                (brandsSelected)="brandsReciver($event)"
+                (categoriesSelected)="categoriesReciver($event)"
+                (cleanData)="cleanReciver($event)"
+                [brandSelected]="eventBrands"
+                [categorySelected]="eventCategories"
+            ></app-filters-inline>
+        </div>
+    </div>
+    <div class="row" *ngIf="showAlertCategories || showAlertBrands">
+        <div class="col">
+            <button disabled mat-button class="btn-lg w-100 bg-danger text-white">
+                No se encontraron coincidencias
+            </button>
+        </div>
+    </div>
+    <!-- <div class="row justify-content-center h-100 mt-3" *ngIf="getScreenSize() < 1100">
         <div class="col">
             <ng-template [ngTemplateOutlet]="filtersInLine"></ng-template>
         </div>
-    </div>
+    </div> -->
     <div class="row justify-content-center h-100">
-        <div class="col-2" *ngIf="getScreenSize() >= 1100">
+        <!-- <div class="col-2" *ngIf="getScreenSize() >= 1100">
             <products-side-filters
                 [length]="length"
                 [categories]="lengthOfCategories"
                 [brands]="lengthOfBrands"
             ></products-side-filters>
-        </div>
-        <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']">
+        </div> -->
+        <!-- <div [ngClass]="[getScreenSize() >= 1100 ? 'col-10' : 'col-12']"> -->
+        <div class="col-12">
             <product-card 
-                (lengthOfProducts)="lengthReciver($event)"
-                (lengthOfCategories)="lengthOfCategoriesReciver($event)"
-                (lengthOfBrands)="lengthOfBrandsReciver($event)"
+                [products]="products"
             ></product-card>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <ng-template [ngTemplateOutlet]="pagination"></ng-template>
         </div>
     </div>
 </div>
@@ -33,7 +58,7 @@
 <scroll-top-button></scroll-top-button>
 
 <ng-template #filtersInLine>
-    <div class="row">
+    <!-- <div class="row">
         <div class="my-1"
             [ngClass]="[getScreenSize() >= 485 ? 'col' : 'col-12']"
         >
@@ -53,7 +78,6 @@
                             class="example-section font-brand ms-3"
                             *ngFor="let category of lengthOfCategories"
                             [multiple]="true" 
-                            (selectionChange)="changeValue($event)"
                         >
                             <mat-list-option 
                                 class="example-margin text-white p-0 m-0" 
@@ -83,7 +107,6 @@
                             class="example-section font-brand ms-3"
                             *ngFor="let brand of lengthOfBrands"
                             [multiple]="true" 
-                            (selectionChange)="changeValue($event)"
                         >
                             <mat-list-option 
                                 class="example-margin text-white p-0 m-0" 
@@ -136,5 +159,35 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
-    </div>
+    </div> -->
+</ng-template>
+
+<ng-template #pagination>
+    <nav aria-label="Page navigation example" *ngIf="getScreenSize() >= 520; else showSmall">
+        <ul class="pagination justify-content-center" [ngClass]="getScreenSize() <= 855? '' : 'pagination-lg'">
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" [ngClass]="pageSelected === page? 'active': ''" *ngFor="let page of totalPages" aria-current="page" style="cursor: pointer;">
+                <a class="page-link" (click)="goToPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ng-template #showSmall>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Página</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let page of totalPages" [value]="page" (click)="goToPage(page)">
+                {{page}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </ng-template>
 </ng-template>

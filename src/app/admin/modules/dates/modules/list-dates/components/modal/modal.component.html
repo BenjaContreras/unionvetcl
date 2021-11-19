@@ -1,0 +1,210 @@
+<div class="container-fluid font-brand">
+    <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'delete'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 24px;"
+            >¡Proceso de eliminación!</button>
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 text-white p-2" 
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de edicion!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content *ngIf="event === 'delete'">
+                Usted esta apunto de eliminar una cita con esta información:
+            </div>
+            <div mat-dialog-content *ngIf="event === 'edit'">
+                Usted esta apunto de editar una cita con esta información:
+            </div>
+        </div>
+    </div>
+    <div class="row" [ngClass]="editDateForm.get('state')?.value === 3? '': 'mb-5'">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="dateTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="dateTableEditForm" *ngIf="event === 'edit'"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" style="user-select: none;" *ngIf="(editDateForm.get('state')?.value === 3 && !editDateForm.get('motion')?.value) ||(editDateForm.get('state')?.value === 3 && !editDateForm.get('cancelationResponsable')?.value)">
+        <div class="col">
+            <button 
+                mat-flat-button 
+                *ngIf="event === 'edit'" 
+                class="btn-lg w-100 bg-danger text-white p-2" 
+                style="pointer-events: none; font-size: 18px;"
+            >
+              <div class="row" *ngIf="!editDateForm.get('motion')?.value">
+                <div class="col">
+                  ¡El motivo debe contener información!
+                </div>
+              </div>
+              <div class="row" *ngIf="!editDateForm.get('cancelationResponsable')?.value">
+                <div class="col">
+                  ¡Debe existir un responsable!
+                </div>
+              </div>
+            </button>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminarla?</strong>
+            <strong *ngIf="event === 'edit'">¿Está seguro que desea actualizar con esta información?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    *ngIf="event === 'edit' && editDateForm.get('state')?.value !== 3 && !isLoading" 
+                    (click)="updateApointment(false)"
+                    [disabled]="!editDateForm.valid"
+                    [ngStyle]="{'background-color': editDateForm.valid? '#0F7499' : 'grey', 'color': editDateForm.valid? 'white': ''}"
+                >Continuar</button>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    *ngIf="event === 'edit' && editDateForm.get('state')?.value === 3 && !isLoading" 
+                    (click)="updateApointment(true)"
+                    [disabled]="(editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value)? false : true"
+                    [ngStyle]="{'background-color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? 'white': ''}"
+                >Continuar</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                  (click)="deleteAppointment()"
+                >Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #dateTable>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Nombre del dueño:</strong>
+        </div>
+        <div class="col">
+            {{date?.userName}} {{date?.userLastName}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>RUT del dueño:</strong>
+        </div>
+        <div class="col">
+            {{asociatedUser?.rut}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Dirección:</strong>
+        </div>
+        <div class="col">
+            {{address?.street}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row">
+        <div class="col mt-2">
+            <strong>Nombre de la mascota:</strong>
+        </div>
+        <div class="col">
+          <mat-chip-list>
+            <mat-chip>
+              {{patient?.name}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <mat-divider class="mt-2"></mat-divider>
+    </div>
+</ng-template>
+
+<ng-template #dateTableEditForm>
+    <form [formGroup]="editDateForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Nombre del dueño</mat-label>
+                  <input matInput value="{{editDateForm.get('nameOwner')?.value}}" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>RUT del dueño</mat-label>
+                  <input matInput value="{{editDateForm.get('rutOwner')?.value}}" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Dirección</mat-label>
+                  <input matInput type="text" placeholder="{{editDateForm.get('address')?.value}}" formControlName="address">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Nombre del animal</mat-label>
+                  <input matInput type="text" value="{{editDateForm.get('petName')?.value}}" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Estado de la cita</mat-label>
+                  <input matInput [matAutocomplete]="auto" placeholder="{{editDateForm.get('state')?.value}}" formControlName="state">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of stateOptions" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="editDateForm.controls['state'].hasError('required')">
+                    <strong>Estado requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="editDateForm.get('state')?.value === 'Rechazada'">
+                <div class="col">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Motivo de cancelación</mat-label>
+                    <textarea matInput #postalCode cols="50" rows="10" placeholder="Escriba el motivo aquí" type="text" formControlName="motion"></textarea>
+                    <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
+                  </mat-form-field>
+                </div>
+            </div>
+            <div class="row" *ngIf="editDateForm.get('state')?.value === 3">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <mat-label>Responsable de cancelación</mat-label>
+                    <input 
+                      placement="top" 
+                      ngbTooltip="Si administración canceló la cita, digite 'Administración'."
+                      matInput 
+                      type="text" 
+                      placeholder="Escriba el nombre de quien cancelo la cita" 
+                      formControlName="cancelationResponsable"
+                    >
+                  </mat-form-field>
+                </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>      
+</ng-template>

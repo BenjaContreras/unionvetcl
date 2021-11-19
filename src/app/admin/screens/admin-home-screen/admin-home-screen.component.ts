@@ -7,7 +7,7 @@ import { ContactProviderService } from '@core/providers/contacts/contact-provide
 import { DatesProviderService } from '@core/providers/dates/dates.service';
 import { HelperService } from '@core/services/helper/helper.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { Contact } from '@models/contact.model';
+import { Contact } from '@models/contact.models';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -148,13 +148,15 @@ export class AdminHomeScreenComponent implements OnInit {
 
   public async getLengthOfContacts(): Promise<number> {
     let length = 0;
-    const resutl = await this.contactProvider.getAllContacts().toPromise();
-    if (resutl) length = resutl.length;
+    const resutl: Contact[] = await this.contactProvider.getAllContacts().toPromise();
+    if (resutl) length = resutl.filter(contact => !contact.isReaded).length;
     return length;
   };
 
   public logOut(): void {
     this.authProvider.logout();
+    this.helperService.refreshEditedContacts();
+    this.helperService.refreshVerifiedUsers();
   };
 
   public goTo(route: string | null, subcategory?: string): any {

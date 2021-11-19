@@ -7,6 +7,8 @@ import { CreateHeaderComponent } from './components/create-header/create-header.
 import { CreateFormComponent } from './components/create-form/create-form.component';
 import { MaterialModule } from '@core/material.module';
 import { CreateFormDetailComponent } from './components/create-form-detail/create-form-detail.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MomentModule } from '@core/pipes/moment/moment.module';
 
 const components: any = [
   CreateScreenComponent, CreateHeaderComponent,
@@ -18,7 +20,9 @@ const components: any = [
   imports: [
     CommonModule,
     CreateDateRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgxMatSelectSearchModule,
+    MomentModule
   ]
 })
 export class CreateDateModule { }

@@ -48,7 +48,6 @@ export class AuthProviderService {
   }
 
   login(emailRecived: string, passwordRecived: string, opcion: string): Observable<any> {
-    console.log(emailRecived, passwordRecived, opcion);
     if (opcion === 'user') {
       return this.httpService.post('/auth/login/user', {
         email: emailRecived,

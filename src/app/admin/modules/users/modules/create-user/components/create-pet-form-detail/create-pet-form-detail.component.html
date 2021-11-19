@@ -1,5 +1,5 @@
 <form [formGroup]="createPetForm" novalidate>
-  <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+  <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;" *ngIf="owner; else dontHaveOwner">
     <mat-card-content>
       <div class="row">
         <div class="col">
@@ -23,7 +23,7 @@
           <div class="col">
             <mat-form-field class="full-width">
                 <mat-label>Especie</mat-label>
-              <input matInput placeholder="Especie" formControlName="species">
+              <input matInput formControlName="species">
               <mat-error *ngIf="createPetForm.controls['species'].hasError('required')">
                 <strong>Especie requerida!</strong>
               </mat-error>
@@ -32,7 +32,10 @@
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>Sexo</mat-label>
-              <input matInput placeholder="Sexo" formControlName="gender">
+              <mat-select [formControl]="genderControl">
+                <mat-option [value]="'Macho'">Macho</mat-option>
+                <mat-option [value]="'Hembra'">Hembra</mat-option>
+              </mat-select>
               <mat-error *ngIf="createPetForm.controls['gender'].hasError('required')">
                 <strong>Sexo requerido!</strong>
               </mat-error>
@@ -43,7 +46,7 @@
         <div class="col">
           <mat-form-field class="full-width">
               <mat-label>Raza</mat-label>
-            <input matInput placeholder="Raza" formControlName="breed">
+            <input matInput formControlName="breed">
             <mat-error *ngIf="createPetForm.controls['breed'].hasError('required')">
               <strong>Raza requerida!</strong>
             </mat-error>
@@ -52,7 +55,7 @@
         <div class="col">
           <mat-form-field class="full-width">
               <mat-label>Color</mat-label>
-            <input matInput placeholder="Color" formControlName="color">
+            <input matInput formControlName="color">
             <mat-error *ngIf="createPetForm.controls['color'].hasError('required')">
               <strong>Color requerido!</strong>
             </mat-error>
@@ -69,8 +72,8 @@
             </div>
             <div class="col">
               <mat-radio-group>
-                <mat-radio-button class="me-4" [value]="'si'" (click)="optionSelected = 'si'" [checked]="optionSelected === 'si'? true : false">Si</mat-radio-button>
-                <mat-radio-button [value]="'no'" (click)="optionSelected = 'no'" [checked]="optionSelected === 'no'? true : false">No</mat-radio-button>
+                <mat-radio-button class="me-4" [value]="'si'" (click)="optionSelected = 'si'; setValidator(true)" [checked]="optionSelected === 'si'? true : false">Si</mat-radio-button>
+                <mat-radio-button [value]="'no'" (click)="optionSelected = 'no'; setValidator(false)" [checked]="optionSelected === 'no'? true : false">No</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
@@ -92,7 +95,7 @@
           <div class="col m-0">
             <mat-form-field class="full-width">
               <mat-label>Edad</mat-label>
-              <input type="tel" matInput placeholder="Edad" formControlName="age">
+              <input type="tel" matInput type="number" formControlName="age">
               <mat-error *ngIf="createPetForm.controls['age'].hasError('required')">
                 <strong>Edad requerido!</strong>
               </mat-error>
@@ -102,8 +105,25 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="m-0 p-0 text-end">
-      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanForm()">Limpiar formulario</button>
-      <button mat-raised-button class="btn-lg" style="color: white; background-color: #0f7499;" (click)="onSubmit()">Agregar</button>
+      <button mat-raised-button class="btn-lg btn-secundary me-3" (click)="cleanOwner()">Cancelar</button>
+      <button mat-raised-button class="btn-lg btn-secundary me-3" type="reset">Limpiar formulario</button>
+      <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createPetForm.valid"
+          [ngClass]="createPetForm.valid? 'text-white': ''"
+          [ngStyle]="{'background-color': createPetForm.valid? '#0F7499' : ''}"
+          *ngIf="!isLoading" 
+          (click)="onSubmit()"
+      >Asociar mascota</button>
+      <button mat-button class="btn-lg" disabled *ngIf="isLoading">
+        <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+      </button>
   </mat-card-actions>
   </mat-card>
+  <ng-template #dontHaveOwner>
+    <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;">
+      <mat-card-content style="font-size: 22px; text-align: center;">
+        <p class="mb-4">Es necesario que seleccione un cliente, para asociarlo a la mascota a crear.</p>
+        Si el usuario no se encuentra, entonces creelo en la sección superior y luego cree la mascota.
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
 </form>

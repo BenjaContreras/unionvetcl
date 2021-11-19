@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { TipProviderService } from '@core/providers/tips/tip-provider.service';
+import { Tip } from '@models/tip.models';
 
 @Component({
   selector: 'app-landing-screen',
@@ -7,9 +9,14 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class LandingScreenComponent implements OnInit {
 
-  constructor() { }
+  public tips: Tip[];
 
-  ngOnInit(): void {
+  constructor(private tipP: TipProviderService) { 
+    this.tips = [];
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.tips = await this.tipP.getAllTips().toPromise();
   }
 
   @HostListener('window:resize', ['$event'])

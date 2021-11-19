@@ -1,0 +1,159 @@
+<div class="container-fluid font-brand">
+    <div class="row" [ngClass]="event === 'edit'? 'mb-5': 'mb-3'" style="user-select: none;">
+        <div class="col">
+            <button
+                mat-flat-button
+                *ngIf="event === 'delete'"
+                class="btn-lg w-100 bg-danger text-white p-2"
+                style="pointer-events: none; font-size: 24px;"
+            >¡Proceso de eliminación!</button>
+            <button
+                mat-flat-button
+                *ngIf="event === 'edit'"
+                class="btn-lg w-100 text-white p-2"
+                style="pointer-events: none; font-size: 24px; background-color: #0f7499;"
+            >¡Proceso de edicion!</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col" style="font-weight: 500;">
+            <div mat-dialog-content *ngIf="event === 'delete'">
+                Usted esta apunto de eliminar una solicitud de contacto con esta información:
+            </div>
+            <div mat-dialog-content *ngIf="event === 'edit'">
+                Usted esta apunto de editar una solicitud de contacto con esta información:
+            </div>
+        </div>
+    </div>
+    <div class="row" [ngClass]="editContactForm.get('state')?.value === 3? '': 'mb-5'">
+        <div class="col">
+            <div mat-dialog-content>
+                <ng-template [ngTemplateOutlet]="dateTable" *ngIf="event === 'delete'"></ng-template>
+                <ng-template [ngTemplateOutlet]="dateTableEditForm" *ngIf="event === 'edit'"></ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" style="user-select: none;" *ngIf="editContactForm.get('state')?.value === 3 && !editContactForm.get('motion')?.value">
+        <div class="col">
+            <button
+                mat-flat-button
+                *ngIf="event === 'edit'"
+                class="btn-lg w-100 bg-danger text-white p-2"
+                style="pointer-events: none; font-size: 24px;"
+            >¡El motivo debe contener información!</button>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col text-center">
+            <strong *ngIf="event === 'delete'">¿Está seguro que desea eliminarla?</strong>
+            <strong *ngIf="event === 'edit'">¿Está seguro que desea actualizar con esta información?</strong>
+        </div>
+    </div>
+    <div class="row" style="user-select: none;">
+        <div class="col">
+            <div mat-dialog-actions [align]="'end'">
+                <button class="btn-lg" mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+                <mat-spinner color="accent" class="ms-4" *ngIf="isLoading" [diameter]="40"></mat-spinner>
+                <button class="btn-lg" mat-raised-button style="background-color: #0F7499; color: white"
+                    *ngIf="event === 'edit' && editContactForm.get('state')?.value !== 3 && !isLoading"
+                    (click)="updateContact()"
+                    [disabled]="!editContactForm.valid"
+                    [ngStyle]="{'background-color': editContactForm.valid? '#0F7499' : 'grey', 'color': editContactForm.valid? 'white': ''}"
+                >Continuar</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                    (click)="deleteContact()"
+                >Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #dateTable>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Nombre del solicitante:</strong>
+        </div>
+        <div class="col">
+            {{contact?.fullName}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Teléfono:</strong>
+        </div>
+        <div class="col">
+            {{contact?.phone}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <strong>Correo:</strong>
+        </div>
+        <div class="col">
+            {{contact?.email}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row">
+        <div class="col">
+            <strong>Mensaje:</strong>
+        </div>
+        <div class="col">
+            {{contact?.message}}
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</ng-template>
+
+<ng-template #dateTableEditForm>
+    <form [formGroup]="editContactForm" novalidate style="user-select: none;">
+        <mat-card class="shipping-card">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Nombre del solicitante</mat-label>
+                  <input matInput placeholder="{{editContactForm.get('name')?.value}}" formControlName="name">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" disabled>
+                  <mat-label>Teléfono</mat-label>
+                  <input matInput type="tel" placeholder="{{editContactForm.get('phone')?.value}}" formControlName="phone">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-label>Correo electrónico</mat-label>
+                  <input matInput type="email" placeholder="{{editContactForm.get('email')?.value}}" formControlName="email">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Mensaje</mat-label>
+                    <textarea matInput #postalCode cols="50" rows="10" placeholder="{{editContactForm.get('message')?.value}}" type="text" formControlName="message"></textarea>
+                    <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            <div class="row" *ngIf="contact?.response">
+                <div class="col">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Respuesta</mat-label>
+                    <textarea matInput #postalCode cols="50" rows="10" placeholder="{{editContactForm.get('response')?.value}}" type="text" formControlName="response"></textarea>
+                    <mat-hint align="end">{{postalCode.value.length}} / 400</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+</ng-template>

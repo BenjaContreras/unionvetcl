@@ -10,48 +10,74 @@
                   </mat-form-field>
               </div>
               <div class="col-4 pt-3 text-center ps-0" *ngIf="productSelected">
-                <button mat-raised-button class="btn-lg me-2">Editar producto</button>
-                <button mat-raised-button color="warn" class="btn-lg">Eliminar producto</button>
+                <button mat-raised-button class="me-2" (click)="openModal('edit')">Editar producto</button>
+                <button mat-raised-button color="warn" (click)="openModal('delete')">Eliminar producto</button>
               </div>
           </div>
           <div class="row">
               <div class="col mat-elevation-z8 p-0">
-                  <table mat-table [dataSource]="dataSource" matSort class="w-100">
-                      <!-- NAME Column -->
-                      <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                      </ng-container>
-                      <!-- RUT Column -->
-                      <ng-container matColumnDef="brand">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
-                        <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
-                      </ng-container>
-                      <!-- ADDRESS Column -->
-                      <ng-container matColumnDef="description">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-                        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-                      </ng-container>
-                      <!-- ANIMAL Column -->
-                      <ng-container matColumnDef="stock">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
-                        <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
-                      </ng-container>
-                      <!-- OFERTA Column -->
-                      <ng-container matColumnDef="sale">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Oferta </th>
-                        <td mat-cell *matCellDef="let element"> {{element.sale | sale}} </td>
-                      </ng-container>
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr 
-                          mat-row 
-                          *matRowDef="let element; columns: displayedColumns;" 
-                          [ngClass]="element === productSelected? 'clickedClass' : ''"
-                          (click)="productSelected = element"
-                          style="cursor: pointer;"
-                      ></tr>
-                  </table>
-                  <mat-paginator [pageSizeOptions]="[10, 15, 25, 35]" showFirstLastButtons></mat-paginator>
+                <mat-table *ngIf="dataSource.data.length; else loading" [dataSource]="dataSource" class="w-100">
+                  <!-- NAME Column -->
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef> Nombre del producto </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                  </ng-container>
+                  <!-- RUT Column -->
+                  <ng-container matColumnDef="brand">
+                    <mat-header-cell *matHeaderCellDef> Marca del producto </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.brand}} </mat-cell>
+                  </ng-container>
+                  <!-- ADDRESS Column -->
+                  <ng-container matColumnDef="category">
+                    <mat-header-cell *matHeaderCellDef> Categoría </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+                  </ng-container>
+                  <!-- ANIMAL Column -->
+                  <ng-container matColumnDef="stock">
+                    <mat-header-cell *matHeaderCellDef> Stock disponible </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.stock | stock}} </mat-cell>
+                  </ng-container>
+                  <!-- FECHA Column -->
+                  <ng-container matColumnDef="sale">
+                    <mat-header-cell *matHeaderCellDef> ¿En oferta? </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.sale | sale}} </mat-cell>
+                  </ng-container>
+                  <!-- FECHA Column -->
+                  <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row
+                      *matRowDef="let element; columns: displayedColumns;" 
+                      [ngClass]="element === productSelected? 'clickedClass' : ''"
+                      (click)="productSelected = element"
+                      style="cursor: pointer;"
+                  ></mat-row>
+                </mat-table>
+                <mat-paginator *ngIf="dataSource.data" [pageSizeOptions]="[10, 15, 25, 35]" showFirstLastButtons></mat-paginator>
+                <ng-template #loading>
+                  <div class="row w-100 justify-content-center text-center">
+                    <div class="col-4"></div>
+                    <div class="col-4 text-center">
+                      <div class="row">
+                        <div class="row mt-3">
+                          <div class="col">
+                            <h2>Cargando información...</h2>
+                          </div>
+                        </div>
+                        <div class="row my-2">
+                          <div class="col-4"></div>
+                          <div class="col-4 pe-0">
+                            <mat-spinner color="accent" class="w-100" [diameter]="40"></mat-spinner>
+                          </div>
+                          <div class="col-4 ps-0"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4"></div>
+                  </div>
+                </ng-template>
               </div>
           </div>
       </div>

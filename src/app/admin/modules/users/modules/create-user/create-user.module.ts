@@ -8,6 +8,7 @@ import { MaterialModule } from '@core/material.module';
 import { CreateHeaderComponent } from './components/create-header/create-header.component';
 import { CreateFormComponent } from './components/create-form/create-form.component';
 import { CreatePetFormDetailComponent } from './components/create-pet-form-detail/create-pet-form-detail.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CreatePetFormDetailComponent } from './components/create-pet-form-detai
   imports: [
     CommonModule,
     CreateUserRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class CreateUserModule { }
