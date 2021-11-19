@@ -57,6 +57,7 @@ export class ModalComponent implements OnInit {
       try {
         let product: Partial<Product> = {
           name: (this.editProductForm.value.name as string).trim(),
+          imageUrl: this.editProductForm.value.url,
           brand: (this.editProductForm.value.brand as string).trim(),
           description: (this.editProductForm.value.description as string).trim(),
           stock: this.editProductForm.value.stock,
