@@ -36,9 +36,6 @@
                         <mat-cell *matCellDef="let element"> 
                             <div class="row">
                                 <div class="col">
-                                    <button mat-raised-button (click)="openModal('edit', element)">Editar</button>
-                                </div>
-                                <div class="col">
                                     <a class="m-0 p-0" target="_blank" [href]="cleanUrl(element.url)" style="text-decoration: none; outline: none">
                                         <button mat-mini-fab 
                                             matTooltip="Presione y vaya a la publicación!" 
@@ -49,6 +46,9 @@
                                             <mat-icon class="text-white">outbound</mat-icon>
                                         </button>
                                     </a>
+                                </div>
+                                <div class="col">
+                                    <button mat-raised-button (click)="openModal('edit', element)">Editar</button>
                                 </div>
                                 <div class="col">
                                     <button mat-raised-button class="bg-danger text-white" (click)="openModal('delete', element)">Eliminar</button>
