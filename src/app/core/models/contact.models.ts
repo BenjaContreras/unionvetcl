@@ -1,10 +1,10 @@
 export interface Contact {
   _id?: string,
-  isReaded?: boolean,
   fullName: string,
   phone: string,
   email: string,
   message: string,
+  isReaded?: boolean,
   response?: string,
   createdAt?: Date,
   updatedAt?: Date

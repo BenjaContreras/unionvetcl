@@ -1,5 +1,5 @@
 import { Contact } from "./contact.models";
-import { DateModel } from "./date.models";
+import { Appointment } from "./date.models";
 import { Pet } from "./pet.models";
 import { Product } from "./product.models";
 import { Tip } from "./tip.models";
@@ -10,7 +10,7 @@ export interface APIResponse {
     user?: User,
     contact?: Contact,
     product?: Product
-    date?: DateModel,
+    date?: Appointment,
     tip?: Tip,
     pet?: Pet
 };

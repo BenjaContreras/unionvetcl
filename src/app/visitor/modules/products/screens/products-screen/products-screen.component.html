@@ -8,18 +8,9 @@
         </div>
     </div>
     <div class="row my-3 align-items-center">
-        <div class="col-2 ms-5">
-            <button disabled
-                mat-raised-button 
-                matTooltip="Presione sobre el botón obtener más o menos productos" 
-                matTooltipPosition="above"
-                matTooltipClass="tooltip-red"
-                class="btn-lg py-2 px-5 mt-0" 
-                style="color: white; background-color: #0f7499"
-            >Total de productos: {{products.length}}</button>
-        </div>
         <div class="col">
             <app-filters-inline
+                [number]="products.length"
                 [categories]="categories"
                 [brands]="brands"
                 (brandsSelected)="brandsReciver($event)"
@@ -172,8 +163,8 @@
 </ng-template>
 
 <ng-template #pagination>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center pagination-lg">
+    <nav aria-label="Page navigation example" *ngIf="getScreenSize() >= 520; else showSmall">
+        <ul class="pagination justify-content-center" [ngClass]="getScreenSize() <= 855? '' : 'pagination-lg'">
             <li class="page-item disabled">
                 <a class="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -189,4 +180,14 @@
             </li>
         </ul>
     </nav>
+    <ng-template #showSmall>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Página</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let page of totalPages" [value]="page" (click)="goToPage(page)">
+                {{page}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </ng-template>
 </ng-template>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -13,12 +13,14 @@ import { take, takeUntil } from 'rxjs/operators';
 export class FiltersInlineComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() categories: string[];
-  @Input() brands: string[];
+  @Input() brands: string[]
   @Input() brandSelected: string | null;
   @Input() categorySelected: string | null;
+  @Input() number: number;
   @Output() categoriesSelected: EventEmitter<string>;
   @Output() brandsSelected: EventEmitter<string>;
   @Output() cleanData: EventEmitter<any>;
+
   public loadingCategories: boolean;
   public loadingBrands: boolean;
 
@@ -43,6 +45,7 @@ export class FiltersInlineComponent implements OnInit, AfterViewInit, OnDestroy 
     this.cleanData = new EventEmitter<any>();
     this.brandSelected = null;
     this.categorySelected = null;
+    this.number = 0;
   }
 
   async ngOnInit(): Promise<void> {
@@ -136,4 +139,9 @@ export class FiltersInlineComponent implements OnInit, AfterViewInit, OnDestroy 
     this.brandsFrmCtrl.setValue(null);
     this.cleanData.emit('clean');
   }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: any) {
+    return window.innerWidth;
+  };
 }

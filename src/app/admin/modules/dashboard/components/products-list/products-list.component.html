@@ -9,7 +9,7 @@
         <div class="col ps-5 text-end"
             [ngStyle]="{'font-size': getScreenSize() > 1440 ? '20px' : '14px'}"
         >
-            <strong style="font-family: 'Roboto'; user-select: none;">Ultima actualización: <span style="font-family: 'Roboto'; font-style: italic; font-weight: 200">15 de Marzo, 2021</span></strong>
+            <strong style="font-family: 'Roboto'; user-select: none;">Fecha de hoy <span style="font-family: 'Roboto'; font-style: italic; font-weight: 200">[{{today | moment}}]</span></strong>
         </div>
     </div>
     <div class="row justify-content-center mx-3" style="background-color: #0F7499; border-radius: 20px; color: white">

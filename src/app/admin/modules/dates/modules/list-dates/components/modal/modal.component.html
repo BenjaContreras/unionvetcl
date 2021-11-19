@@ -77,7 +77,9 @@
                     [disabled]="(editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value)? false : true"
                     [ngStyle]="{'background-color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? '#0F7499' : 'grey', 'color': editDateForm.get('motion')?.value && editDateForm.get('cancelationResponsable')?.value? 'white': ''}"
                 >Continuar</button>
-                <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                  (click)="deleteAppointment()"
+                >Eliminar</button>
             </div>
         </div>
     </div>
@@ -89,7 +91,7 @@
             <strong>Nombre del dueño:</strong>
         </div>
         <div class="col">
-            {{date.name}}
+            {{date?.userName}} {{date?.userLastName}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -98,7 +100,7 @@
             <strong>RUT del dueño:</strong>
         </div>
         <div class="col">
-            {{date.rut}}
+            {{asociatedUser?.rut}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -107,7 +109,7 @@
             <strong>Dirección:</strong>
         </div>
         <div class="col">
-            {{date.address}}
+            {{address?.street}}
         </div>
         <mat-divider></mat-divider>
     </div>
@@ -118,7 +120,7 @@
         <div class="col">
           <mat-chip-list>
             <mat-chip>
-              {{date.animal}}
+              {{patient?.name}}
             </mat-chip>
           </mat-chip-list>
         </div>

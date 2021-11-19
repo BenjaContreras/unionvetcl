@@ -69,6 +69,7 @@ export class ListComponentComponent implements OnInit {
       }
     }).afterClosed().subscribe(result => {
       this.userSelected = null;
+      this.setMatTable();
     });
   }
 

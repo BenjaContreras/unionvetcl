@@ -70,12 +70,24 @@ export class ModalComponent implements OnInit {
         console.log(e);
         this.notifications.error('No pudimos actualizar la solicitud, intente otra vez');
         this.isLoading = false;
-        this.cleanForm();
       }
     } else {
       this.notifications.error('Algo ocurrió con el formulario, pruebe otra vez');
       this.isLoading = false;
-      this.cleanForm();
+    }
+  };
+
+  public async deleteContact() {
+    this.isLoading = true;
+    try {
+      const result = await this.contactP.deleteContact(this.contact?._id!).toPromise();
+      if (result) this.isLoading = false;
+      this.notifications.success('Solicitud eliminada con éxito!');
+      this.dialogRef.close();
+    } catch (e) {
+      console.log(e);
+      this.notifications.error('No pudimos eliminar la solicitud, intente otra vez');
+      this.isLoading = false;
     }
   };
 }

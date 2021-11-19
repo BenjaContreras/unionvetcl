@@ -1,4 +1,4 @@
-<table class="table table-responsive text-white my-5" style="font-weight: 300; font-family: 'Roboto'; user-select: none;">
+<table class="table table-responsive text-white my-5" style="font-weight: 300; font-family: 'Roboto'; user-select: none;" *ngIf="products.length > 0">
     <thead class="pb-5">
         <tr>
             <th scope="col">#</th>
@@ -11,8 +11,19 @@
         <tr *ngFor="let product of products; let i = index">
             <td>{{i + 1}}</td>
             <td class="text-start">{{product.name}}</td>
-            <td>{{product.cantidad}}</td>
-            <td>{{product.updated}}</td>
+            <td>{{product.stock}}</td>
+            <td>{{product.updatedAt | moment}}</td>
         </tr>
     </tbody>
 </table>
+
+<div class="container-fluid font-brand" *ngIf="!products.length">
+    <div class="row my-5 w-100 justify-content-center text-center">
+        <div class="col-2 uploader-status">
+            <mat-spinner class="w-100" color="warn" [diameter]="40"></mat-spinner>
+        </div>
+        <div class="col">
+            <h4>Cargando información...</h4>
+        </div>
+    </div>
+</div>

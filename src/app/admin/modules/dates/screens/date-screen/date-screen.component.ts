@@ -79,7 +79,7 @@ export class DateScreenComponent implements OnInit {
     });
     this.weekInit = moment().startOf('week').toDate().getDate();
     this.weekEnd = moment().startOf('week').toDate().getDate() + 4;
-    if (new Date().getDay() > 4) this.isAfter = true;
+    if (new Date().getDay() > 5) this.isAfter = true;
     else this.isAfter = false;
     const month: number = new Date().getMonth() + 1;
     switch (month) {

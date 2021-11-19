@@ -79,4 +79,18 @@ export class ModalComponent implements OnInit {
       this.isLoading = false;
     }
   };
+
+  public async deleteProduct() {
+    this.isLoading = true;
+    try {
+      const result = await this.productP.deleteProduct(this.product?._id!).toPromise();
+      if (result) this.isLoading = false;
+      this.notificationS.success('Producto eliminado con éxito!');
+      this.dialogRef.close();
+    } catch (e) {
+      console.log(e);
+      this.notificationS.error('No pudimos eliminar el producto, intente otra vez');
+      this.isLoading = false;
+    };
+  };
 }

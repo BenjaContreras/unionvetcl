@@ -46,27 +46,15 @@ export class ListComponentComponent implements OnInit, OnChanges, AfterViewInit 
   };
 
   public openModal(event: string){
-    if (event === 'edit') {
-      this.dialog.open(ModalComponent, {
-        width: '700px',
-        data: {
-          appointment: this.dateSelected,
-          type: 'edit',
-        }
-      }).afterClosed().subscribe(result => {
-        this.dateSelected = null;
-      });
-    } else {
-      this.dialog.open(ModalComponent, {
-        width: '700px',
-        data: {
-          appointment: this.dateSelected,
-          type: 'delete',
-        }
-      }).afterClosed().subscribe(result => {
-        this.dateSelected = null;
-      });
-    };
+    this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {
+        appointment: this.dateSelected,
+        type: event,
+      }
+    }).afterClosed().subscribe(result => {
+      this.dateSelected = null;
+    });
   }
 }
 

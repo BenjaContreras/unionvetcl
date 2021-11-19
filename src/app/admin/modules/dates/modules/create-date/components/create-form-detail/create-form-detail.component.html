@@ -1,9 +1,9 @@
-<form [formGroup]="createDateForm" novalidate >
+<form [formGroup]="createDateForm" novalidate>
     <mat-card class="shipping-card mb-0" style="background: none; border: none; box-shadow: none;" *ngIf="client; else dontHaveClient">
       <mat-card-content>
         <div class="row">
           <div class="col" [ngClass]="selectedPatient? 'mb-2': 'mb-3'">
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100" *ngIf="(filteredPets | async)?.length; else showAlert">
               <mat-select [formControl]="petFrmCtrl" placeholder="Paciente" #singleSelect (selectionChange)="setSelectedPet($event)">
                   <mat-option>
                       <ngx-mat-select-search 
@@ -16,7 +16,12 @@
                       {{pet.name}}
                   </mat-option>
               </mat-select>
-          </mat-form-field>
+            </mat-form-field>
+            <ng-template #showAlert>
+              <button mat-button disables class="btn-lg w-100 bg-danger text-white py-2" style="pointer-events: none;">
+                <span style="font-size: 22px;">El dueño no posee mascotas registradas, busque otro</span>
+              </button>
+            </ng-template>
           </div>
         </div>
         <ng-container *ngIf="selectedPatient; else showMessage">
@@ -41,7 +46,7 @@
             <div class="col">
               <mat-form-field class="full-width">
                 <ng-container *ngIf="!createDateForm.value.commune; else weHaveInfoC">
-                  <mat-select placeholder="Comuna" formControlName="commune">
+                  <mat-select placeholder="Comuna" formControlName="commune" [disabled]="regionSelected!== '' ? false : true">
                       <mat-option *ngFor="let commune of communes" [value]="commune">
                       {{ commune }}
                       </mat-option>
@@ -135,7 +140,7 @@
           </div>
         </ng-container>
         <ng-template #showMessage>
-          <button mat-button disables class="btn-lg w-100 bg-danger text-white py-2">
+          <button mat-button disables class="btn-lg w-100 bg-danger text-white py-2" style="pointer-events: none;">
             <span style="font-size: 22px;">Debe seleccionar un paciente para poder asociarle la cita</span>
           </button>
         </ng-template>
@@ -146,7 +151,8 @@
         <button mat-raised-button type="submit" class="btn-lg" [disabled]="!createDateForm.valid"
             [ngClass]="createDateForm.valid? 'text-white': ''"
             [ngStyle]="{'background-color': createDateForm.valid? '#0F7499' : ''}"
-            *ngIf="!isLoading" 
+            *ngIf="!isLoading"
+            (click)="onSubmit()"
         >Agendar</button>
         <button mat-button class="btn-lg" disabled *ngIf="isLoading">
           <mat-spinner color="accent" [diameter]="40"></mat-spinner>

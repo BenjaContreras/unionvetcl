@@ -1,7 +1,17 @@
 <div class="container-fluid font-brand">
-    <div class="row align-items-center">
-        <div class="col-1 p-0 m-0"></div>
-        <div class="col" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'pe-0 me-0': ''">
+    <div class="row align-items-center justify-content-center">
+        <div class="col text-center justify-content-center me-0 pe-0">
+            <button disabled
+                mat-raised-button 
+                matTooltip="Presione sobre el botón obtener más o menos productos" 
+                matTooltipPosition="above"
+                matTooltipClass="tooltip-red"
+                class="py-2" 
+                [ngClass]="getScreenSize() <= 875? '': 'btn-lg'"
+                style="color: white; background-color: #0f7499"
+            >Total de productos: {{number}}</button>
+        </div>
+        <div class="col pt-4 ms-0 ps-0" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'pe-0 me-0': ''">
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Marcas asociadas</mat-label>
                 <mat-select [formControl]="brandsFrmCtrl" #multiplSelect (selectionChange)="selectionChangeBrands($event)" [disabled]="loadingBrands || categoryFrmCtrl.value">
@@ -18,8 +28,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-1" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'px-0 mx-0': ''"></div>
-        <div class="col" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'ps-0 ms-0': ''">
+        <div class="col pt-4" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'ps-0 ms-0': ''">
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Categoías</mat-label>
                 <mat-select [formControl]="categoryFrmCtrl" #multipleSelect (selectionChange)="selectionChange($event)" [disabled]="loadingCategories || brandsFrmCtrl.value">
@@ -36,14 +45,13 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-1" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'pb-3 pe-0 me-0 ms-2': ''">
+        <div class="col-1" *ngIf="categoryFrmCtrl.value || brandsFrmCtrl.value" [ngClass]="categoryFrmCtrl.value || brandsFrmCtrl.value ? 'pb-3 pe-0 me-0 ms-2': ''">
             <mat-icon 
                 style="color: #0f7499; cursor: pointer; font-size: 40px;" 
                 matTooltip="Presione sobre el botón para limpiar los filtros" 
                 matTooltipPosition="above"
                 matTooltipClass="tooltip-red"
                 (click)="cleanFilters()" 
-                *ngIf="categoryFrmCtrl.value || brandsFrmCtrl.value"
             >
                 <span class="material-icons-sharp">
                     delete

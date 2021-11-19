@@ -60,7 +60,9 @@
                     [disabled]="!editContactForm.valid"
                     [ngStyle]="{'background-color': editContactForm.valid? '#0F7499' : 'grey', 'color': editContactForm.valid? 'white': ''}"
                 >Continuar</button>
-                <button *ngIf="event === 'delete'"  class="btn-lg bg-danger text-white" mat-raised-button>Eliminar</button>
+                <button *ngIf="event === 'delete' && !isLoading"  class="btn-lg bg-danger text-white" mat-raised-button
+                    (click)="deleteContact()"
+                >Eliminar</button>
             </div>
         </div>
     </div>

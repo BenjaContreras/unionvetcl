@@ -1,3 +1,4 @@
+import { Observation } from "./observation.models";
 import { Pet } from "./pet.models";
 
 export interface Time {
@@ -5,11 +6,18 @@ export interface Time {
     month: number;
     year: number;
 };
-export interface DateModel {
+export interface Appointment {
     _id?: string,
-    date: Time,
-    block: number,
     patient: Pet | string,
+    userName?: string,
+    userLastName?: string,
+    userId?: string,
+    state?: number,
+    block: number,
+    date: Time,
+    observations?: string[] | Observation[],
+    responsableCancellation?: string,
+    motiveCancellation?: string,
     createdAt?: Date,
     updatedAt?: Date
 };
