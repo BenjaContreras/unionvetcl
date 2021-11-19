@@ -16,7 +16,6 @@
                 matTooltipClass="tooltip-red"
                 class="btn-lg py-2 px-5 mt-0" 
                 style="color: white; background-color: #0f7499"
-                [matMenuTriggerFor]="menu" 
             >Total de productos: {{products.length}}</button>
         </div>
         <div class="col">
@@ -172,18 +171,11 @@
     </div> -->
 </ng-template>
 
-<mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="getProducts(15)">Traer 15 productos</button>
-    <button mat-menu-item (click)="getProducts(20)">Traer 20 productos</button>
-    <button mat-menu-item (click)="getProducts(40)">Traer 40 productos</button>
-    <button mat-menu-item (click)="getProducts('all')">Ver todos los productos</button>
-</mat-menu>
-
 <ng-template #pagination>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center pagination-lg">
             <li class="page-item disabled">
-                <a class="page-link" aria-label="Previous" (click)="previousPage()">
+                <a class="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -191,7 +183,7 @@
                 <a class="page-link" (click)="goToPage(page)">{{page}}</a>
             </li>
             <li class="page-item disabled">
-                <a class="page-link" aria-label="Next" (click)="nextPage()">
+                <a class="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
