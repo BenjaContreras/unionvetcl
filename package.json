@@ -27,7 +27,7 @@
     "bootstrap": "^5.1.1",
     "chart.js": "^2.9.4",
     "crypto-js": "^4.1.1",
-    "mdb-ui-kit": "^3.9.0",
+    "mdb-ui-kit": "^3.10.2",
     "moment": "^2.29.1",
     "ng2-charts": "^2.4.3",
     "ng2-file-upload": "^1.4.0",
